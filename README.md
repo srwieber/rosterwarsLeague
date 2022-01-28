@@ -1,6 +1,6 @@
 # rosterwars
 
-Introduction
+## Introduction
 Codes for Roster Wars stored here. 
 CSS for each site. 
 Dom manipulation for forumotion and myfantasyleague using Javascript and Jquery. 
