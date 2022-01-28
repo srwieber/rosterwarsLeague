@@ -1,9 +1,10 @@
-# rosterwars
+# Roster Wars
+The most active fantasy football league in the World <br />
 
 ## Introduction
-Codes for Roster Wars stored here.  <br />
-CSS for each site.  <br />
-Dom manipulation for forumotion and myfantasyleague using Javascript and Jquery.  <br />
+Codes for Roster Wars stored here. <br />
+CSS for each site. <br />
+Dom manipulation for forumotion and myfantasyleague using Javascript and Jquery. <br />
 
 ## Sites
 Landing: https://www.rosterwars.com/ <br />
