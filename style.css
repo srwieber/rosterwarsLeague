@@ -69,6 +69,15 @@ body{
 .three-col .forumline th div{
   width:100%!important
 }
+/* left and right columns */
+#left td.row1,
+#right td.row1 {
+  padding:0;
+}
+#left td td.row1,
+#right td td.row1 {
+  padding: 2px 3px;
+}
 
 .forumline {
   background:transparent;
@@ -531,9 +540,6 @@ form input.mainoption:hover {
 }
 
 /* reports */
-.forumline .report a {
-  color:#444;
-}
 .forumline .report caption {
   display:none;
 }
@@ -565,32 +571,33 @@ caption.withfranchiseicon .franchiseicon{
   height:60px;
 }
 
-.three-col .mobile-wrap {
-  width:200px;
+#left .mobile-wrap, 
+#right .mobile-wrap {
   height:300px;
   overflow-x:hidden!important;
-  border:1px solid #000;
+  border:2px solid #986;
 }
-.three-col .mobile-wrap .franchiseicon {
+#left .mobile-wrap .franchiseicon, 
+#right .mobile-wrap .franchiseicon {
   width:170px;
   height:auto;
 }
 
-.three-col .mobile-wrap #transactions {
+.mobile-wrap #transactions {
   background:transparent;
   margin:0;
 }
-.three-col .mobile-wrap #transactions th,
-.three-col .mobile-wrap #transactions td:nth-of-type(1),
-.three-col .mobile-wrap #transactions td:nth-of-type(2),
-.three-col .mobile-wrap #transactions td:nth-of-type(3),
-.three-col .mobile-wrap #transactions td:nth-of-type(5) {
+.mobile-wrap #transactions th,
+.mobile-wrap #transactions td:nth-of-type(1),
+.mobile-wrap #transactions td:nth-of-type(2),
+.mobile-wrap #transactions td:nth-of-type(3),
+.mobile-wrap #transactions td:nth-of-type(5) {
   display:none;
 }
-.three-col .mobile-wrap #transactions td {
+.mobile-wrap #transactions td {
   border-bottom:1px solid #000;
 }
-.three-col .mobile-wrap #transactions ul {
+.mobile-wrap #transactions ul {
   margin:1px;
 }
 
