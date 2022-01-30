@@ -303,6 +303,14 @@ form input.mainoption:hover {
   border:1px solid #fff;
   border-radius:10px!important;
 }
+.postcontainer .post .row1:first-of-type {
+  width:0!important;
+}
+.postcontainer .name strong {
+  display:inline-block;
+  width:100%;
+  text-align:center;
+}
 
 .topic_table {
   width:987px;
