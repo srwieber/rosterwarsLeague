@@ -115,6 +115,12 @@ th.thCornerR {
   background: url(https://i.servimg.com/u/f39/15/70/85/29/mbcatb12.png);
 }
 
+#left .forumline,
+#right .forumline {
+  background:#886!important;
+  border-width:0;
+  border-spacing:0;
+}
 #page-footer {
   display:none;
 }
