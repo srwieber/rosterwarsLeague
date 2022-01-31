@@ -56,19 +56,6 @@ body{
   margin: 0;
 }
 
-.mainsection td.row1.over{
-  padding:0;
-  width:0
-}
-.three-col .forumline td.row1.over br{
-  display:none
-}
-.three-col .forumline .cat,.three-col .forumline th{
-  width:auto
-}
-.three-col .forumline th div{
-  width:100%!important
-}
 /* left and right columns */
 #left td.row1,
 #right td.row1 {
@@ -238,6 +225,19 @@ form input.mainoption:hover {
   display:none;
 }
 
+.mainsection td.row1.over{
+  padding:0;
+  width:0
+}
+.mainsection  td.row1.over br{
+  display:none
+}
+.mainsection .cat, .mainsection  th{
+  width:auto
+}
+.mainsection  th div{
+  width:100%!important
+}
 .three-col td:nth-of-type(2) .mainsection {
   border:0;
   border-collapse: separate;
