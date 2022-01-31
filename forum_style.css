@@ -69,7 +69,10 @@ body{
 .forumline {
   background:transparent;
 }
-
+.forumline th {
+  background-repeat:repeat-x;
+  background-color: #181818;
+}
 .forumline th.thHead, 
 .forumline th.thLeft, 
 .forumline th.thRight, 
