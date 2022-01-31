@@ -306,9 +306,9 @@ form input.mainoption:hover {
 .postcontainer > td > table {
   margin-top:15px;
   padding:7px;
-  background:#777;
-  border:1px solid #fff;
-  border-radius:10px!important;
+  background:#333;
+  border:1px solid #777;
+  border-radius:10px;
 }
 .postcontainer .post .row1:first-of-type {
   width:0!important;
