@@ -82,9 +82,7 @@ body{
 .forumline {
   background:transparent;
 }
-.forumline th, .forumline th a {
-  color:#aaa;
-}
+
 .forumline th.thHead, 
 .forumline th.thLeft, 
 .forumline th.thRight, 
