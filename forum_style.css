@@ -132,8 +132,9 @@ th.thCornerR {
 #quick_reply .row2 {
   width:100%!important;
 }
+.secondarytitle img,
 a.nav span img {
-  height:25px;
+  height:34px;
 }
 
 .pagination {
