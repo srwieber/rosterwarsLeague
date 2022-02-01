@@ -1,4 +1,19 @@
-  /* ads */
+/* ======================= Colors ============ */
+:root {
+  overflow-y: scroll !important;
+  --main-bg: #1E1E1E url('https://i.servimg.com/u/f39/15/70/85/29/backgr11.jpg') fixed top center;
+  --th-bg: url('https://i.servimg.com/u/f39/15/70/85/29/mbcatb12.png');
+  --main-color: #000;
+  --third-color: #aaa;
+  --main-bgcolor: #f00;
+  --secondary-bgcolor: rgba(120, 120, 120, 0.5);
+  --team-one-primary-color: #dac684;
+  --team-one-secondary-color: #00000d;
+  --team-two-primary-color: #005200;
+  --team-two-secondary-color: #080;
+}
+
+/* ads */
 .three-col td > .forumline:first-of-type {
   position:absolute;
   top:-200px;
@@ -19,20 +34,6 @@
   left:0;
 }
 
-/* ======================= Colors ============ */
-:root {
-  overflow-y: scroll !important;
-  --main-color: #000;
-  --third-color: #aaa;
-  --main-bgcolor: #f00;
-  --secondary-bgcolor: rgba(120, 120, 120, 0.5);
-  --team-one-primary-color: #dac684;
-  --team-one-secondary-color: #00000d;
-  --team-two-primary-color: #005200;
-  --team-two-secondary-color: #080;
-}
-
-
 /* ======================= General Layout ============ */
 
 /* for smoother loading */
@@ -45,7 +46,8 @@
 
 /* global */
 body{
-  background:#1E1E1E url(https://i.servimg.com/u/f39/15/70/85/29/backgr11.jpg) fixed top center;
+  margin:0;
+  background: var(--main-bg);
 }
 .bodylinewidth {
   width:100%;
@@ -93,7 +95,7 @@ th.thCornerR {
 .forumline td.catBottom, 
 .forumline td.catLeft {
   border:0;
-  background: url(https://i.servimg.com/u/f39/15/70/85/29/mbcatb12.png);
+  background: var(--th-bg);
 }
 .forumline th.thHead td, 
 .forumline td.catBottom td {
@@ -111,10 +113,6 @@ th.thCornerR {
 }
 .forumline td .forumline .row1, .forumline td .forumline .row2 {
   border:1px solid #444;
-}
-.forumline td.catHead {
-  border:0;
-  background: url(https://i.servimg.com/u/f39/15/70/85/29/mbcatb12.png);
 }
 
 #left .forumline,
