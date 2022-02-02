@@ -1,6 +1,5 @@
 /* ======================= Colors ============ */
 :root {
-/*  --main-bg: #1E1E1E url('https://i.servimg.com/u/f39/15/70/85/29/backgr11.jpg') fixed top center;*/
   --th-bg: url('https://i.servimg.com/u/f39/15/70/85/29/mbcatb12.png');
   --main-color: #000;
   --third-color: #aaa;
@@ -13,32 +12,16 @@
   overflow-y: scroll !important;
 }
 
-/* ads 
-.three-col td > .forumline:first-of-type {
-  position:absolute;
-  top:-200px;
-  left:0;
-}
-.three-col td:nth-of-type(2) .mainsection:first-of-type {
-  position:absolute;
-  top:-200px;
-  left:0;
-}
-.three-col td:nth-of-type(2) .mainsection:first-of-type table, 
-.three-col td:nth-of-type(2) .mainsection:first-of-type td:first-of-type {
-  background:transparent!important;
-}
-.three-col td:nth-of-type(2) > .forumline:first-of-type {
-  position:absolute;
-  top:-200px;
-  left:0;
-}
-*/
+/* ads */
 .topad {
   position:absolute;
   top:-200px;
   left:0;
-
+}
+.topadtable,
+.topadtable table, 
+.topadtable td {
+  background: transparent!important;
 }
 
 /* ======================= General Layout ============ */
@@ -47,9 +30,11 @@
 #left, #right {
   display:none;
 }
+/*
 #content-container {
   display:none;
 } 
+*/
 
 /* global */
 body{
