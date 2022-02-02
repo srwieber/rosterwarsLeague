@@ -1,7 +1,6 @@
 /* ======================= Colors ============ */
 :root {
-  overflow-y: scroll !important;
-  --main-bg: #1E1E1E url('https://i.servimg.com/u/f39/15/70/85/29/backgr11.jpg') fixed top center;
+/*  --main-bg: #1E1E1E url('https://i.servimg.com/u/f39/15/70/85/29/backgr11.jpg') fixed top center;*/
   --th-bg: url('https://i.servimg.com/u/f39/15/70/85/29/mbcatb12.png');
   --main-color: #000;
   --third-color: #aaa;
@@ -11,9 +10,10 @@
   --team-one-secondary-color: #00000d;
   --team-two-primary-color: #005200;
   --team-two-secondary-color: #080;
+  overflow-y: scroll !important;
 }
 
-/* ads */
+/* ads 
 .three-col td > .forumline:first-of-type {
   position:absolute;
   top:-200px;
@@ -28,10 +28,17 @@
 .three-col td:nth-of-type(2) .mainsection:first-of-type td:first-of-type {
   background:transparent!important;
 }
+.three-col td:nth-of-type(2) > .forumline:first-of-type {
+  position:absolute;
+  top:-200px;
+  left:0;
+}
+*/
 .topad {
   position:absolute;
   top:-200px;
   left:0;
+
 }
 
 /* ======================= General Layout ============ */
@@ -47,7 +54,10 @@
 /* global */
 body{
   margin:0;
-  background: var(--main-bg);
+/*  background: var(--main-bg);*/
+  background-position: center; 
+  background-repeat: repeat-y;
+/*  background-color: #1b1b1b; */
 }
 .bodylinewidth {
   width:100%;
@@ -166,7 +176,7 @@ a.nav span img {
   border-left: 4px solid #444;
 }
 .postbody dd.quote, .postbody dd.quote a {
-  color:#000;
+/*  color:#000;*/
 }
 .postbody dd.quote img {
   max-width:500px;
