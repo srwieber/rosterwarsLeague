@@ -1,6 +1,11 @@
 $( document ).ready(function() {
 
+// ads
   $('.forumline tr:first-of-type td:first-of-type table div div').has('iframe').closest('.forumline').addClass('topad');
+  const myTimeout = setTimeout(topad, 1000);
+  function topad() {
+    $('.forumline tr:first-of-type td:first-of-type table div div').has('iframe').closest('.forumline').addClass('topad');
+  }
 
 // MFL league info. not in use. 
   var league_id = '38933';
