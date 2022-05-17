@@ -5,7 +5,7 @@ $(document).ready(function () {
 // who is online
 //  $('.forumline a.cattitle:contains("Who is online")').closest('table').addClass('whosonline');
   $('.whosonline').insertAfter('#content-container table.three-col');
-  $('.whosonline tr:last-of-type td:last-of-type a:first-of-type').before('<span id="show_online">Show List</span><span id="hide_online">Hide List</span> <br />');
+  $('.whosonline tr:nth-of-type(6) td:last-of-type a:first-of-type').before('<span id="show_online">Show List</span><span id="hide_online">Hide List</span> <br />');
   
 // what is this for? 
   $('#board_nav').hide();
