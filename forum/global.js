@@ -35,11 +35,14 @@ $( document ).ready(function() {
     $('#page-footer').show();
   }
 
-  // emoticon icon on text editor 
+// emoticon icon on text editor 
   setTimeout(function() { 
     $('#parent_editor_simple .sceditor-group:first-of-type').before('<div class="sceditor-group"><a class="sceditor-button emojis" title="Emoticons"><img src="https://2img.net/i/fa/i/smiles/icon_biggrin.png"></a></div>');
   }, 20);
 
+// change second table header row
+  $('.topics_list tr').not(':first').find('th:contains("Topics")').attr('colspan', 1).before('<th></th>');
+  
 });
 
 $(document).on('click','#hamburger i',function() {
