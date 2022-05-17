@@ -1,21 +1,25 @@
+let rwAdBanner = 'https://i.servimg.com/u/f39/15/70/85/29/top_ba10.jpg';
+
 $( document ).ready(function() {
 
-  let rwAdBanner = 'https://i.servimg.com/u/f39/15/70/85/29/banner13.jpg';
-  
+// ad banner
   const myTimeout = setTimeout(topad, 10);
   let adloop = 0;
   function topad() {
     $('.forumline tr:first-of-type td:first-of-type table div div').has('iframe').closest('div').wrap('<span class="topad"></span>');
-    $('.topad').closest('td div').prepend('<center><img width="770" height="90" src="' + rwAdBanner + '" /></center>');
+    $('.topad').closest('td div').prepend('<div><img class="responsive" src="' + rwAdBanner + '" /></div>');
     $('.topad').closest('.forumline').addClass('topadtable');
     adloop++;
-    topadlength = $('.topad').length;
+    topadlength = $('.topadtable').length;
     if (adloop < 3 && topadlength < 1) {setTimeout(topad, 1000);}
   }
+  
+// for smoother loading
+  $('.mainlist, .topics_list').show();
 
 // MFL league info. not in use. 
   var league_id = '38933';
-  var year = 2021;
+  var year = 2022;
   var baseURLDynamic = 'https://www65.myfantasyleague.com';
 
 // memberlist
@@ -31,4 +35,17 @@ $( document ).ready(function() {
     $('#page-footer').show();
   }
 
+  // emoticon icon on text editor 
+  setTimeout(function() { 
+    $('#parent_editor_simple .sceditor-group:first-of-type').before('<div class="sceditor-group"><a class="sceditor-button emojis" title="Emoticons"><img src="https://2img.net/i/fa/i/smiles/icon_biggrin.png"></a></div>');
+  }, 20);
+
+});
+
+$(document).on('click','#hamburger i',function() {
+  $('#hamburger').toggleClass('active');
+  $('#menu').toggle('slide');
+});
+$(document).on('click','.emojis',function() {
+  $('#smileyContainer').toggle();
 });
