@@ -1165,6 +1165,9 @@
       max-width:200px;
       height:auto!important;
     }
+    body:not(.desktop_view) .postdetails{
+      font-size:50%!important;
+    }
     body:not(.desktop_view) .post-options{
       width:75px;
     }
