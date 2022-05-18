@@ -955,7 +955,7 @@
       display:none;
     }
     body:not(.desktop_view) .bodyline {
-      overflow-x:auto;
+      /*overflow-x:auto;*/
     }
     body:not(.desktop_view) #i_whosonline {
       max-width:210px;
