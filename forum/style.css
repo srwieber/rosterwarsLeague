@@ -608,7 +608,7 @@
   .whosonline a {
     text-decoration:none;
   }
-  .whosonline tr:last-of-type td:last-of-type a {
+  .whosonline tr:nth-of-type(6) td:last-of-type a {
     display:none;
   }
   #show_online, #hide_online {
