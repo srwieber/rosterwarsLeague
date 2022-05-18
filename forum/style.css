@@ -235,6 +235,8 @@
 
   /* ======================= Global: mobile view toggle ============ */
   #desktop_view {
+    display:block;
+    margin-top:15px;
     cursor:pointer;
     color:var(--third-color);
   }
