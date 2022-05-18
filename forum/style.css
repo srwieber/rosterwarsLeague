@@ -9,7 +9,7 @@
     --team-one-secondary-color: #00000d;
     --team-two-primary-color: #005200;
     --team-two-secondary-color: #080;
-    overflow-y: scroll !important;
+/*    overflow-y: scroll !important;*/
   }
   
   /* ======================= textarea emojis ============ */
@@ -233,6 +233,15 @@
     padding:3px;
   }
 
+  /* ======================= Global: mobile view toggle ============ */
+  #desktop_view {
+    cursor:pointer;
+    color:var(--third-color);
+  }
+  #desktop_view:hover {
+    color:var(--main-bg-color);
+    text-decoration:underline;
+  }
   /* ======================= Global: Top user menu ============ */
   #fa_menu ul, #notif_list li {
     background:#444;
@@ -387,6 +396,9 @@
   #quick_reply .row2 {
     width:100%!important;
     overflow:hidden;
+  }
+  #quick_reply .row2 textarea{
+    min-height:200px;
   }
   #smileyContainer iframe{
 /*    padding:0;
@@ -882,6 +894,9 @@
     .mobile {
       display:none;
     }
+    #desktop_view {
+      display:none;
+    }
   
     .bodylinewidth {
       max-width:1200px;
@@ -905,22 +920,22 @@
 
   /* ======================= mobile design ============ */
   @media only screen and (max-width:1200px){
-    .mobile {
+    body:not(.desktop_view) .mobile {
       display:block;
     }
-    tr.mobile {
+    body:not(.desktop_view) tr.mobile {
       display:table-row;
     }
-    .desktop {
+    body:not(.desktop_view) .desktop {
       display:none;
     }
   
-    #mobile_menu,
-    #hamburger {
+    body:not(.desktop_view) #mobile_menu,
+    body:not(.desktop_view) #hamburger {
       display:flex;
       z-index: 999;
     }
-    #menu {
+    body:not(.desktop_view) #menu {
       display:none;
       position:fixed;
       z-index: 998;
@@ -931,128 +946,132 @@
       background:rgba(0,0,0,.9);
       box-shadow: 2px 2px 2px #000;
     }
-    #menu a {
+    body:not(.desktop_view) #menu a {
       display:block;
       margin:10px;
       width:120px;
     }
-    #i_icon_mini_search {
+    body:not(.desktop_view) #i_icon_mini_search {
       display:none;
     }
-    .bodyline {
+    body:not(.desktop_view) .bodyline {
       overflow-x:auto;
     }
-    #i_whosonline {
+    body:not(.desktop_view) #i_whosonline {
       max-width:210px;
     }
-    .topictitle a {
+    body:not(.desktop_view) .topictitle a {
       font-size:100%;
       line-height:inherit;
     }
+    body:not(.desktop_view) .toprow .topictitle a img {
+      display:none;
+    }
+
     /* table layout */
-    .forumline {
+    body:not(.desktop_view) .forumline {
       table-layout: fixed;
     }
-    .forumline th,
+    body:not(.desktop_view) .forumline th,
     .forumline td {
       overflow-x:auto;
       overflow-y:hidden;
     }
-    .mainlist {
+    body:not(.desktop_view) .mainlist {
       border-spacing: 1px;
     }
-    .mainlist td:last-of-type {
+    body:not(.desktop_view) .mainlist td:last-of-type {
       overflow-x:auto!important;
     } 
-    .mainlist th:nth-of-type(1){
+    body:not(.desktop_view) .mainlist th:nth-of-type(1){
       width:50px;
     }
-    .mainlist th:nth-of-type(2){
+    body:not(.desktop_view) .mainlist th:nth-of-type(2){
       width:371px;
     }
-    .mainlist th:nth-of-type(3){
+    body:not(.desktop_view) .mainlist th:nth-of-type(3){
       width:auto;
     }
-    .mainlist .toprow td:last-of-type {
+    body:not(.desktop_view) .mainlist .toprow td:last-of-type {
       border-radius: 0 10px 0 0;
     }
-    .mainlist .bottomrow td:last-of-type {
+    body:not(.desktop_view) .mainlist .bottomrow td:last-of-type {
       border-radius: 0 0 10px 0;
     }
-    .mainlist .bottomrow td:first-of-type {
+    body:not(.desktop_view) .mainlist .bottomrow td:first-of-type {
       border-radius: 0;
     }
-    .topics_list th:nth-of-type(1),
-    .topics_list th:nth-of-type(3){
+    body:not(.desktop_view) .topics_list th:nth-of-type(1),
+    body:not(.desktop_view) .topics_list th:nth-of-type(3){
       width:55px;
     }
-    .topics_list th:nth-of-type(2){
+    body:not(.desktop_view) .topics_list th:nth-of-type(2){
       width:70%;
     }
-    .topics_list th:nth-of-type(4){
+    body:not(.desktop_view) .topics_list th:nth-of-type(4){
       width:30%;
     }
-    .topics_list td:nth-of-type(2){
+    body:not(.desktop_view) .topics_list td:nth-of-type(2){
       white-space:nowrap;
     }
-    .topics_list .bottomrow td:nth-of-type(2){
+    body:not(.desktop_view) .topics_list .bottomrow td:nth-of-type(2){
       text-align:right;
       padding-right:5px;
     }
-    .topics_list td:nth-of-type(4){
+    body:not(.desktop_view) .topics_list td:nth-of-type(4){
       text-align:center;
       padding-right:0;
     }
-    .topics_list .toprow td:first-of-type{
+    body:not(.desktop_view) .topics_list .toprow td:first-of-type{
       border-radius: 10px 0 0 10px;
     }
-    .topics_list .toprow td:last-of-type{
+    body:not(.desktop_view) .topics_list .toprow td:last-of-type{
       border-radius: 0 10px 10px 0;
     }
-    .postcontainer td {
+    body:not(.desktop_view) .postcontainer td {
       overflow:hidden;
     }
-    .postcontainer table {
+    body:not(.desktop_view) .postcontainer table {
       table-layout: fixed;      
     }
   
     /* hiding mobile stuff. fix this later */
-    .whosonline tr:first-of-type td,
-    .whosonline tr:nth-of-type(2) td:first-of-type {
+    body:not(.desktop_view) .whosonline tr:first-of-type td,
+    body:not(.desktop_view) .whosonline tr:nth-of-type(2) td:first-of-type {
       display:none;
     }
   
     /* font size */  
-    .postbody,
-    .postdetails,
-    .name, 
-    .topictitle {
+    body:not(.desktop_view) .postbody,
+    body:not(.desktop_view) .postdetails,
+    body:not(.desktop_view) .name, 
+    body:not(.desktop_view) .topictitle {
       font-size:100%;
       line-height:inherit;
     }
-    .topic_table .genmed, 
-    .gensmall, 
-    .nav a, 
-    .topic_table span.postdetails, 
-    .topic_table .quote,
-    .topic_table .name  {
+    body:not(.desktop_view) .topic_table .genmed, 
+    body:not(.desktop_view) .gensmall, 
+    body:not(.desktop_view) .nav a, 
+    body:not(.desktop_view) .topic_table span.postdetails, 
+    body:not(.desktop_view) .topic_table .quote,
+    body:not(.desktop_view) .topic_table .name  {
       font-size:100%;
       line-height:inherit;
     }
-    .unanswered_table td:first-of-type{
+    body:not(.desktop_view) .unanswered_table td:first-of-type{
       font-size:50%;
     } 
-    .unanswered_table td:last-of-type,
-    .bottomrow .gensmall, 
-    .topics_list span.postdetails{
+    body:not(.desktop_view) .unanswered_table td:last-of-type,
+    body:not(.desktop_view) .bottomrow .gensmall, 
+    body:not(.desktop_view) .topics_list span.postdetails{
       font-size:80%;
     }
   
     /* fix username overflow on posts */
-    .postcontainer > td > table {
+    body:not(.desktop_view) .postcontainer > td > table {
       padding-top:38px;
     }
-    .postcontainer span.name {
+    body:not(.desktop_view) .postcontainer span.name {
       position:absolute;
       width:calc(100% - 32px);
       margin-top:-33px;
@@ -1061,85 +1080,130 @@
       background:#d9d9d9;
       border-bottom:2px solid;
     }
-    .postcontainer span.name strong {
+    body:not(.desktop_view) .postcontainer span.name strong {
       text-align:left!important;
       font-size:16px;
     }
   
     /* other */
-    .unanswered_table td:last-of-type {
+    body:not(.desktop_view) .unanswered_table td:last-of-type {
       white-space:nowrap;
     }
-    .topictitle img, 
+    body:not(.desktop_view) .topictitle img, 
     .postdetails a img {
       width:30px;
       padding-right:5px;
     }
-    .topic_table .postdetails {
+    body:not(.desktop_view) .topic_table .postdetails {
       width:0;
     }
-    .topic_table .postdetails a img {
+    body:not(.desktop_view) .topic_table .postdetails a img {
       width:auto;
       padding-right:0px;
     }
-    .mainlist .row3.over {
+    body:not(.desktop_view) .mainlist .row3.over {
       white-space:nowrap;
       max-width:209px;
       overflow:hidden;
     }
-    #smileyContainer {
+    body:not(.desktop_view) #smileyContainer {
       display:none;
       position:absolute;
       z-index:9;
       margin-top:33px;
       margin-left:7px;
     }
+  
+    /* desktop view option */
+    .desktop_view {
+      width:1200px;
+    }
+    .desktop_view .bodylinewidth {
+      overflow:auto;
+    }
+    .desktop_view.homepage #left,
+    .desktop_view.homepage #right{
+      display:block!important;
+    }
+    .desktop_view #column_toggle,
+    .desktop_view #wide_column_toggle{
+      display:none!important;
+    }
+    .desktop_view .desktop {
+      display:block;
+    }
+    .desktop_view tr.desktop {
+      display:table-row;
+    }
+    .desktop_view .mobile {
+      display:none;
+    }
+  
+    .desktop_view .bodylinewidth {
+      max-width:1200px;
+    }
+    .desktop_view .bodyline {
+      max-width:1200px!important;
+    }
+    .desktop_view .mainlist td:nth-of-type(2){
+      width:0;
+    }
+    .desktop_view .postbody img{
+      max-width:960px;
+    }
+    .desktop_view .postbody dd.quote img {
+      max-width:500px;
+    }
+    .desktop_view .postbody dd.quote span span {
+      max-width:500px;
+    }
+  
   }
 
   @media only screen and (max-width:800px){
-    .nav img{
+    body:not(.desktop_view) .nav img{
       max-width:200px;
       height:auto!important;
     }
-    .post-options img{
+    body:not(.desktop_view) .post-options img{
       max-width:75px;
       max-height:75px;
     }
 /*    .nav a::after, */
-    .post-options a::after {
+    body:not(.desktop_view) .post-options a::after {
       content: "\A";
       white-space: pre;
     }
-    input.post {
+    body:not(.desktop_view) input.post {
       max-width:96%!important;
     }
   }
   @media only screen and (max-width:450px){
     /* table layout */
-    .mainlist th:nth-of-type(2){
+    body:not(.desktop_view) .mainlist th:nth-of-type(2){
       width:auto;
     }
-    .mainlist th:nth-of-type(3){
+    body:not(.desktop_view) .mainlist th:nth-of-type(3){
       width:75px;
     }
-    .forumlink img{
+    body:not(.desktop_view) .forumlink img{
       max-width:100%;
     }
-    .last-post-icon {
+    body:not(.desktop_view) .last-post-icon {
 /*      float:left;*/
     }
-    .topics_list th:last-of-type{
+    body:not(.desktop_view) .topics_list th:last-of-type{
       display:none;
     }
-    .topics_list .toprow td:nth-of-type(3){
+    body:not(.desktop_view) .topics_list .toprow td:nth-of-type(3){
       border-radius: 0 10px 0 0;
     }
-    .topics_list .bottomrow td:last-of-type{
+    body:not(.desktop_view) .topics_list .bottomrow td:last-of-type{
       border-radius: 0 0 10px 0;
     }
   
     /* hiding mobile stuff. fix this later */
-    .nav img{
+    body:not(.desktop_view) .nav img{
       max-width:100px;
       height:auto!important;
     }
@@ -1147,8 +1211,8 @@
   @media only screen and (max-width:325px){
     /* hiding mobile stuff. fix this later */
     /* table layout */
-    .mainlist th:nth-of-type(3),
-    .mainlist td:last-of-type{
+    body:not(.desktop_view) .mainlist th:nth-of-type(3),
+    body:not(.desktop_view) .mainlist td:last-of-type{
       display:none;
     }
   }
@@ -1156,18 +1220,18 @@
 
   #column_toggle {display:none;}
   @media only screen and (min-width:990.01px){
-    .homepage #left, .homepage #right {display:block;}
-    .homepage #column_toggle {display:none;}
+    body:not(.desktop_view).homepage #left, body:not(.desktop_view).homepage #right {display:block;}
+    body:not(.desktop_view).homepage #column_toggle {display:none;}
   }
   @media only screen and (max-width:990px){
-    body {padding-bottom:62px;}
-    .homepage #left {display:none;}
-    .homepage #right {display:block;}
-    .homepage #wide_column_toggle {display:flex;}
-    .homepage #column_toggle {display:none;}
+    body:not(.desktop_view) {padding-bottom:62px;}
+    body:not(.desktop_view).homepage #left {display:none;}
+    body:not(.desktop_view).homepage #right {display:block;}
+    body:not(.desktop_view).homepage #wide_column_toggle {display:flex;}
+    body:not(.desktop_view).homepage #column_toggle {display:none;}
   }
   @media only screen and (max-width:760px){
-    .homepage #left, .homepage #right {display:none;}
-    .homepage #wide_column_toggle {display:none;}
-    .homepage #column_toggle {display:flex;}
+    body:not(.desktop_view).homepage #left, body:not(.desktop_view).homepage #right {display:none;}
+    body:not(.desktop_view).homepage #wide_column_toggle {display:none;}
+    body:not(.desktop_view).homepage #column_toggle {display:flex;}
   }
