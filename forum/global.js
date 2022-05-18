@@ -1,5 +1,32 @@
 let rwAdBanner = 'https://i.servimg.com/u/f39/15/70/85/29/top_ba10.jpg';
 
+let rwMobileVar;
+// mobile layout
+function mobileView() {
+  $( document ).ready(function() {
+	if(rwMobileVar === 'true') {
+          $('body').removeClass('desktop_view');
+          $('#desktop_view span').html('Desktop');
+	}else{
+          $('body').addClass('desktop_view');
+          $('#desktop_view span').html('Mobile');
+        }
+  });
+}
+
+function getCache() {
+	// store which roster was clicked
+	if(!localStorage.getItem('rwMobile')) {
+		localStorage.setItem('rwMobile', true);
+		rwMobileVar = localStorage.getItem('rwMobile');
+	} else {
+		rwMobileVar = localStorage.getItem('rwMobile');
+	}
+	mobileView();
+}
+getCache();
+
+
 $( document ).ready(function() {
 
 // ad banner
@@ -17,6 +44,13 @@ $( document ).ready(function() {
 // for smoother loading
   $('.mainlist, .topics_list').show();
 
+// mobile layout
+  if (rwMobileVar === 'true') {
+     $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1"/>');
+  }
+	$('.mark_read_table td:first-of-type span').after('<br /><span id="desktop_view"><span></span> view</span>');
+	mobileView();
+  
 // MFL league info. not in use. 
   var league_id = '38933';
   var year = 2022;
@@ -41,10 +75,18 @@ $( document ).ready(function() {
   }, 20);
 
 // change second table header row
-  $('.topics_list tr').not(':first').find('th:contains("Topics")').attr('colspan', 1).before('<th></th>');
+  $('.topics_list tr').not(':first, :lt(2)').find('th:contains("Topics")').attr('colspan', 1).before('<th></th>');
   
 });
 
+$(document).on('click','#desktop_view',function() {
+	if(rwMobileVar === 'true') {
+		localStorage.setItem('rwMobile', 'false');
+        }else{
+		localStorage.setItem('rwMobile', 'true');
+        }
+	getCache();
+});
 $(document).on('click','#hamburger i',function() {
   $('#hamburger').toggleClass('active');
   $('#menu').toggle('slide');
