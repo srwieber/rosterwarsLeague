@@ -23,12 +23,12 @@ $(document).ready(function () {
 });
 
 $(document).on('click','#show_online',function() {
-  $('.whosonline tr:last-of-type td:last-of-type a').show();
+  $('.whosonline tr:nth-of-type(6) td:last-of-type a').show();
   $('#hide_online').show();
   $(this).hide();
 });
 $(document).on('click','#hide_online',function() {
-  $('.whosonline tr:last-of-type td:last-of-type a').hide();
+  $('.whosonline tr:nth-of-type(6) td:last-of-type a').hide();
   $('#show_online').show();
   $(this).hide();
 });
