@@ -76,6 +76,8 @@ $( document ).ready(function() {
 
 // change second table header row
   $('.topics_list tr').not(':first, :lt(2)').find('th:contains("Topics")').attr('colspan', 1).before('<th></th>');
+  $('.topics_list tr').not(':first, :lt(2)').find('th:nth-of-type(4)').html('Views');
+  $('.topics_list tr').not(':first, :lt(2)').find('th:nth-of-type(5)').html('Author');
   
 });
 
