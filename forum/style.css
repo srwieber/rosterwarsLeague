@@ -617,7 +617,6 @@
     text-decoration:underline;
     cursor:pointer;
   }
-  #hide_online {display:none;}
   
   /* ======================= Module: forumotion chat ============ */
   .custom_chatform #visitor_list {
