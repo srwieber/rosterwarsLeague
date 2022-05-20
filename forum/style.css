@@ -1092,7 +1092,7 @@
       white-space:nowrap;
     }
     body:not(.desktop_view) .topictitle img, 
-    .postdetails a img {
+    body:not(.desktop_view) .postdetails a img {
       width:30px;
       padding-right:5px;
     }
