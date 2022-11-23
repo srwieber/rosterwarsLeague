@@ -1,0 +1,200 @@
+<style>
+#rfa h2 {
+  margin:5px;
+  padding:5px;
+  background:#000;
+  border:1px solid #333;
+  border-radius:5px;
+}
+#rfa h2 img{
+  vertical-align:bottom;
+}
+#rfa h3 span, #rfa h3 img {
+  cursor:pointer;
+}
+#rfa h3 span {
+  text-decoration: underline;
+}
+#rfa h3 span:hover {
+  text-decoration: none;
+}
+#rfa h3 img{
+  vertical-align:middle;
+}
+#rfa h3 img.franchiseicon {
+  width:190px;
+  min-width:190px;
+}
+#rfa h3 img:hover{
+  opacity:0.5;
+}
+#rfa .report {
+  margin:auto;
+}
+#rfa .franchiseicon {
+  width:100px;
+}
+#rfa #franchiseicon_0000 {height:20px;width:auto;}
+#rfa .report {
+  min-width:356px;
+}
+#rfa .report td:first-child {
+  width:0;
+}
+#rfa .report .activate {display:table-row;}
+#rfa .report .deactivate {display:none;}
+#rfa .report tr:nth-child(odd) td {
+  background-color:#d9d9d9;
+  color:#000;
+}
+#rfa .report tr:nth-child(even) td {
+  background-color:#ccc;
+  color:#000;
+}
+</style>
+
+<div id="rfa" class="mobile-wrap">
+<h3 id="team_select"></h3>
+<h3>Position: 
+<span class="position_all">ALL</span> | 
+<span class="position_qb">QB</span> | 
+<span class="position_rb">RB</span> | 
+<span class="position_wr">WR</span> | 
+<span class="position_te">TE</span> | 
+<span class="position_pk">PK</span> | 
+<span class="position_dt">DT</span> | 
+<span class="position_de">DE</span> | 
+<span class="position_dt">LB</span> | 
+<span class="position_cb">CB</span> | 
+<span class="position_s">S</span>
+</h3>
+<h2>Selected Team: <span id="teamcaption"></span> Position: <span id="positioncaption"></span></h2>
+<table class="homepagemodule report"><caption><span>RFA List</span></caption></table>
+</div>
+<div id="roster_left">
+</div>
+
+<script>
+let clickedPos = 'position_all';
+let clickedTeam = 'franchiseicon_0000';
+let teamCaption;
+let positionCaption = 'All';
+let sortCol = 'td.points a';
+
+function getRosters() {
+	url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=07&PRINTER=1";
+	$.ajax({
+		url: url,
+		type: "GET",
+		dataType: "html",
+		async: false,
+		success: function (data) {
+			roster = $(data).find('table .report');
+			$(roster).prependTo('#roster_left');
+			createRosters();
+		}
+	});
+}
+getRosters();
+
+function createRosters() {
+	$('#roster_left a').attr('href', function (i, href) {
+		return href.replace('&PRINTER=1', '');
+	});
+	$('#roster_left a').attr('target','_blank');
+
+	$('#roster_left .report td.week, #roster_left .report td.drafted').remove();
+	$('#roster_left .report caption a img').each(function( i ) {
+		let teamselect = $(this).clone();
+		$(teamselect).appendTo('#team_select');
+	});
+	$('#team_select').prepend('<img id="franchiseicon_0000" title="All Teams" src="https://i39.servimg.com/u/f39/15/70/85/29/1rwdoc10.png">');
+	teamCaption = $('<img title="All Teams" id="franchiseicon_0000" src="https://i39.servimg.com/u/f39/15/70/85/29/1rwdoc10.png">');
+	$('#roster_left .report tr').each(function( i ) {
+		let contyear = $(this).find('td.contractyear').html();
+		let conyear = parseInt(contyear);
+		if (conyear !== 1){
+			$(this).remove();
+		}else {
+			let teamicon = $(this).closest('table').find('caption a').clone();
+			$(this).find('td.player').before('<td class="team">team icon</td>');
+			$(this).find('td.team').html(teamicon);
+			$(this).removeClass('newposition oddtablerow eventablerow');
+			$(this).addClass( $(this).find('td.player a').attr('class') );
+			$(this).addClass( $(this).find('td.team img').attr('id') );
+			$(this).addClass('activate');
+			if($(this).find('td.points a').length < 1) {
+				$(this).find('td.points').html('<a href="#" target="_blank">0.00</a>');
+			}
+			$(this).appendTo('#rfa .report');
+			$(this).find('td.contractyear').remove();
+		};
+	});
+	$('<tr><th>Team</th><th>Player</th><th>Points</th></tr>').prependTo('#rfa .report');
+	$('<tr class="deactivate"><td colspan="3">No Players Available</td></tr>').appendTo('#rfa .report');
+	$('#roster_left').remove();
+	sortRows();
+}
+
+function sortRows() {
+	var table, rows, switching, i, x, y, shouldSwitch;
+	$("#rfa .report").each( function(){
+		switching = true;
+		while (switching) {
+			switching = false;
+			rows = $(this).find('tr');
+			for (i = 1; i < (rows.length - 1); i++) {
+				shouldSwitch = false;
+				x = $(rows[i]).find(sortCol).text();
+				y = $(rows[i + 1]).find(sortCol).text();
+				if (parseInt(x) < parseInt(y)) {
+					shouldSwitch = true;
+					break;
+				}
+			}
+			if (shouldSwitch) {
+				rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+				switching = true;
+			}
+		}
+	});
+	posChange();
+}
+
+function posChange(){
+	$('#rfa .report tr').removeClass('activate').addClass('deactivate');
+	if (clickedPos === 'position_all') {
+		$('#rfa .report tr').addClass('position_all');
+	}else if (clickedPos !== 'position_all') {
+		$('#rfa .report tr').removeClass('position_all');
+	}
+
+	if (clickedTeam === 'franchiseicon_0000') {
+		$('#rfa .report tr').addClass('franchiseicon_0000');
+	}else if (clickedTeam !== 'franchiseicon_0000') {
+		$('#rfa .report tr').removeClass('franchiseicon_0000');
+	}
+	$('#rfa .report tr.' + clickedPos + '.' + clickedTeam).addClass('activate').removeClass('deactivate');
+	$('#rfa .report tr:nth-of-type(1)').removeClass('deactivate').addClass('activate');
+	let visibleRows = $('#rfa .report tr:visible').length;
+	if (visibleRows === 1){
+		$('#rfa .report tr:last-of-type').addClass('activate').removeClass('deactivate');
+	}else{
+		$('#rfa .report tr:last-of-type').removeClass('activate').addClass('deactivate');
+	}
+	$('#positioncaption').html(positionCaption);
+	$('#teamcaption').html(teamCaption);
+}
+
+$(document).on('click', '#rfa h3 span', function (index) {
+	clickedPos = $(this).attr('class');
+	positionCaption = $(this).text();
+	posChange();
+});
+$(document).on('click', '#rfa #team_select img', function (index) {
+	clickedTeam = $(this).attr('id');
+	teamCaption = $(this).clone();
+	posChange();
+});
+
+</script>
