@@ -28,15 +28,16 @@
 #rfa h3 img:hover{
   opacity:0.5;
 }
-#rfa .report {
-  margin:auto;
-}
 #rfa .franchiseicon {
   width:100px;
 }
 #rfa #franchiseicon_0000 {height:20px;width:auto;}
 #rfa .report {
+  margin:auto;
   min-width:356px;
+}
+#rfa .report a {
+  color:#000!important;
 }
 #rfa .report td:first-child {
   width:0;
