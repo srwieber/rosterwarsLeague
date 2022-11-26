@@ -1,0 +1,91 @@
+<style>
+#standingsmodule {
+}
+#standingsmodule .report {
+width:100%;
+}
+.note {
+  margin:5px;
+  padding:5px;
+  border:1px solid #aaa;
+  background:#888;
+  color:#000;
+}
+</style>
+
+<table style="width:100%;">
+</table>
+
+<div id="getstandings"></div>
+
+<div id="standingsmodule">
+
+<div id="ddconference">
+<!--
+<module name="STANDINGS" UNIT="CONFERENCE00"/>
+-->
+</div>
+<div id="ttconference">
+<!--
+<module name="STANDINGS" UNIT="CONFERENCE01"/>
+-->
+</div>
+
+<div class="note">1. All teams are ranked from 1-12 in overall record from past season. (Tiebreakers are total points, alternative power ranking, H2H record, All-Play Record, and Power Rank in that order). The team with the best record is Ranked 1, the team with the worst is Ranked 12.<br>
+2. All teams are ranked from 1-12 in total points. (Tiebreakers are alternative power ranking, Win/Loss Record, and Power Rank in that order.) The team with the most points is Ranked 1, the team with the lowest is Ranked 12.<br>
+3. These two numbers are added together to get a ""Draft rating"".<br>
+4. This system will be used for these teams with the higher draft ranking drafting first and so forth, with tiebreakers being lowest alternative power ranking and PowerRank in that order.<br>
+<br>
+***Note:  All Points/PowerRank/Record are calculated as of the conclusion of Week 12.<br>
+***Note2: Conference Champ and runner-up are the 11th and 12th picks respectively.
+</div>
+
+</div>
+
+<script>
+function getStandings() {
+//	url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=07&PRINTER=1";
+//	url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=07&PRINTER=1";
+//	url = baseURLDynamic + "/" + year + "/standings?L=" + league_id + "&W=12&PRINTER=1";
+	url = "https://www65.myfantasyleague.com/2022/standings?L=38933&W=12&PRINTER=1";
+console.log(url);
+	$.ajax({
+		url: url,
+		type: "GET",
+		dataType: "html",
+		async: false,
+		success: function (data) {
+			roster = $(data).find('.report');
+			$(roster).prependTo('#getstandings');
+			createRosters();
+		}
+	});
+}
+getStandings();
+
+function createRosters(){
+console.log('done');
+}
+
+/*
+$('#ddconference .report caption span').html('DD Draft Projections');
+$('#ttconference .report caption span').html('TT Draft Projections');
+$('#standingsmodule .report th').closest('tr').remove();
+$('#standingsmodule .report .standingslogo').closest('tr').remove();
+$('#standingsmodule .report td:nth-of-type(4), #standingsmodule .report td:nth-of-type(5), #standingsmodule .report td:nth-of-type(6), #standingsmodule .report td:nth-of-type(7), #standingsmodule .report td:nth-of-type(9), #standingsmodule .report td:nth-of-type(10), #standingsmodule .report td:nth-of-type(11), #standingsmodule .report td:nth-of-type(14)').remove();
+
+$('#ddconference .report tr').each(function( i ) {
+  pick = i + 1;
+  prepick = '';
+  if (pick < 10){prepick = 0;};
+  $(this).find('td:first-of-type').before('<td>1.' + prepick + pick + '</td>');
+});
+$('#ttconference .report tr').each(function( i ) {
+  pick = i + 1;
+  prepick = '';
+  if (pick < 9){prepick = 0;};
+  $(this).find('td:first-of-type').before('<td>1.' + prepick + pick + '</td>');
+});
+$('#standingsmodule .report tr:first-of-type').before('<tr><th>Pick</th><th>Franchise</th><th title="Overall Wins, Losses and Ties">W‑L‑T</th><th class="pf" title="Points For (Total Year-to-Date Point Scored)">PF</th><th class="altpwr" title="Alternative Power Rank">Alt PWR</th><th class="pwr" title="Power Rank">PWR</th><th class="all_play_wlt" title="All-Play Wins, Losses and Ties">All-Play W‑L‑T</th></tr>');
+*/
+</script>
