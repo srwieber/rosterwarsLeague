@@ -1,0 +1,669 @@
+<style>
+
+#rosters input[type=checkbox] {
+  display:none;
+}
+
+
+/* loader */
+#roster_loader {
+  position:fixed;
+  z-index:9999;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width:200px;
+  height:200px;
+  text-align:center;
+  background: rgb(0, 0, 0, .8);
+  border-radius:8px;
+}
+#loadingbar {
+  display:none;
+  width:100%;
+  height:30px;
+  margin: 4px auto;
+  padding:5px;
+  color: var(--second-color);
+  font-weight:bold;
+  background:#222;
+  border:1px solid #777;
+  border-radius:8px;
+}
+
+/* Basic formatting */
+#noroster {
+  display:none;
+}
+#roster_left, 
+#roster_right, 
+#roster_left .roster {
+  display:none;
+}
+
+/* roster settings */
+#roster_teams, 
+#roster_settings {
+  margin:5px;
+  padding: 20px 10px 5px 10px;
+  background:#000;
+  border:1px solid #444;
+  border-radius:5px;
+  user-select: none;
+}
+#team_select span, 
+#team_select i {
+  cursor:pointer
+}
+#team_select img {
+  max-width:250px;
+  margin-top:-20px;
+}
+#team_select i {
+  margin: 5px;
+  font-size:16px;
+  color: #aaa;
+}
+
+/* roster icons */
+#roster_icons {
+  display:none;
+  position:absolute;
+  z-index:1;
+  padding:10px;
+  max-width:350px;
+  text-align:center;
+  background:#555;
+  border:1px solid #000;
+  border-radius:5px;
+  box-shadow: 2px 2px 2px #000
+}
+#roster_icons img {
+  min-width:100px;
+  max-width:100%;
+  height:auto;
+  cursor:pointer;
+  margin-left:-5px;
+  padding:5px;
+  border-bottom:1px solid #aaa;
+}
+#roster_icons img:hover {
+  opacity:0.3;
+}
+#roster_icons img.selected {
+  opacity:0.3;
+  background:#aa0;
+}
+
+/* rosters container */
+#rosters_wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#rosters #roster_left, #rosters #roster_right {
+  vertical-align:top;
+}
+#rosters_wrapper div {
+  padding:1px;
+}
+
+/* rosters */
+.roster {
+  min-width:365px;
+}
+#rosters_wrapper .report{
+  width:100%;
+}
+#email_message .report {
+  width:99%;
+}
+#rosters .report th {
+  white-space:nowrap;
+  background:#555;
+  color:#ddd;
+}
+#rosters .report .s_adjust_row th {
+  border-bottom:1px solid var(--main-bg);
+}
+#rosters .report .total_salary_row th, 
+#rosters .report .salary_cap_row th, 
+#rosters .report .cap_room_available_row th {
+  padding-right: 10px;
+  text-align:right;
+}
+#rosters .report td {
+  white-space:nowrap;
+}
+#rosters .report td.tradebox {
+  text-align:center;
+  cursor:pointer;
+}
+#rosters .report td.tradebox .fa {
+  font-size:16px;
+}
+#rosters .report i.fa-toggle-on {
+  color: var(--first-color);
+}
+#rosters .report .oddtablerow td:first-of-type, 
+#rosters .report .eventablerow td:first-of-type{
+  width:0;
+  padding: 1px;
+}
+.bbid input {
+  width:30px;
+  padding:5px;
+}
+#rosters .report tr.selected td, 
+#rosters .report tr.selected td a {
+  background: var(--fourth-bg)!important;
+  color: var(--first-color)!important
+}
+#rosters .oddtablerow.addedrow td, 
+#rosters .eventablerow.addedrow td {
+  color: var(--main-bg)!important;
+  background:var(--main-bg)!important;
+}
+#rosters .report .oddtablerow td, 
+#rosters .report .eventablerow td {
+  padding:5px;
+}
+#rosters .addedrow {
+  font-size: 19px;
+}
+#rosters td.long_th {
+  padding:5px;
+}
+#rosters .warning {
+  font-size: 12px;
+}
+#rosters .newposition td, #rosters .newposition th {
+    border-top: 0px solid #000;
+}
+
+/* trade buttons */
+/*#rosters #propose_trade_buttons {display:none;}*/
+#rosters #email_message {margin-top:20px;}
+#rosters textarea {
+  margin:0;
+  width: calc(100% - 5px);
+}
+</style>
+
+
+<h3>Display: Side By Side Format  <a href="/%YEAR%/options?L=%LEAGUEID%&O=07">Full Format</a>  <a href="/%YEAR%/options?L=%LEAGUEID%&O=105">Grid Format</a>  <a href="/%YEAR%/options?L=%LEAGUEID%&O=138">With Stats Format</a></h3>
+
+<div id="loadingbar">Loading Rosters</div>
+
+<div id="roster_teams" class="mobile-wrap">
+  <span id="team_select">Team: <i class="fa-solid fa-circle-arrow-left"></i><span></span><i class="fa-solid fa-circle-arrow-right"></i></span>
+  <div id="roster_icons" class="mobile-wrap"></div>
+</div>
+
+<div id="roster_settings" class="mobile-wrap">
+  <label for="column_select">Columns:</label>
+    <select id="column_select" disabled>
+      <option value="1">All</option>
+      <option value="2">Trade</option>
+      <option value="3">Name</option>
+      <option value="4">Points</option>
+      <option value="5">Bye</option>
+      <option value="6">Year</option>
+      <option value="7">Acquired</option>
+    </select>
+  <label for="column_sort">Sort:</label>
+    <select id="column_sort" disabled>
+      <option value="1">Points</option>
+      <option value="2">Name</option>
+      <option value="3">Bye</option>
+      <option value="4">Contract</option>
+    </select>
+  <label for="filter_select">Filter:</label>
+    <select id="filter_select" disabled>
+      <option value="1">All</option>
+      <option value="2">Hide Zero</option>
+    </select>
+</div>
+
+<div id="rosters">
+
+ <div id="roster_loader">Loading Rosters . . .<br><br><div class="MFLPlayerPopupLoader" style="margin:0 auto"></div></div>
+
+ <form method="post" id="proposeTradeForm">
+  <input type="hidden" id="LEAGUE_ID" name="LEAGUE_ID" value="" /> 
+  <input type="hidden" id="TRADE_EXPIRES_MONTH" name="TRADE_EXPIRES_MONTH" value="" />
+  <input type="hidden" id="TRADE_EXPIRES_DAY" name="TRADE_EXPIRES_DAY" value="" />
+  <input type="hidden" id="TRADE_EXPIRES_TIME" name="TRADE_EXPIRES_TIME" value="01" /> 
+  <input type="hidden" id="TRADE_EXPIRES_YEAR" name="TRADE_EXPIRES_YEAR" value="" />
+  <input type="hidden" id="FRANCHISE_ID" name="FRANCHISE_ID" value="" />
+
+  <div id="rosters_wrapper" class="mobile-wrap">
+   <div id="roster_left">
+   </div>
+   <div id="roster_right">
+    <div id="noroster"><module name="WELCOME"></div>
+  </div>
+  </div>
+  <div id="roster_hidden"></div>
+
+  <div id="email_message" class="mobile-wrap"></div>
+  <div id="propose_trade_buttons">
+   <p class="form_buttons">
+    <input type="submit" value="Propose Trade" name="Propose" onclick="javascript:tradeAction(); return false;" />
+   </p>
+  </div>
+ </form>
+
+</div>
+
+
+<script>
+
+let pos = ['QB', 'RB', 'WR', 'TE', 'PK', 'DT', 'DE', 'LB', 'CB', 'S'];
+let sortCol; if (completedWeek >= 1) { sortCol = "td:nth-child(3) a"; }else { sortCol = "td:nth-child(3) a"; }
+
+// local storage variables 
+let rclicked;
+let cachetime;
+let assets;
+
+function getCache() {
+	// store which roster was clicked
+	if(!localStorage.getItem('clickedRoster_'+year+'_'+league_id)) {
+		if (franchise_id === '0001'){
+			localStorage.setItem('clickedRoster_'+year+'_'+league_id, 'franchise_0002');
+		}else{
+			localStorage.setItem('clickedRoster_'+year+'_'+league_id, 'franchise_0001');
+		}
+		rclicked = localStorage.getItem('clickedRoster_'+year+'_'+league_id);
+	} else {
+		rclicked = localStorage.getItem('clickedRoster_'+year+'_'+league_id);
+	}
+	// set a cache timer. get rosters and store assets from api
+	if(!localStorage.getItem('cachetime_'+year+'_'+league_id)) { 
+		console.log('New Cache Stored');
+		localStorage.setItem('cachetime_'+year+'_'+league_id, currentServerTime);
+		cachetime = localStorage.getItem('cachetime_'+year+'_'+league_id);
+		getRosters();
+		getAssets();
+	} else { // declare 15 min update. update and or declare api
+		fetchtime = parseInt(localStorage.getItem('cachetime_'+year+'_'+league_id));
+		let cache15 = fetchtime + 515 * 60;
+		if (currentServerTime > cache15){ // update assets api and declare var
+			console.log('Cache 15 min. Override');
+			localStorage.setItem('cachetime_'+year+'_'+league_id, currentServerTime);
+			cachetime = localStorage.getItem('cachetime_'+year+'_'+league_id);
+			getRosters();
+			getAssets();
+		}else{ // declare var
+			console.log('Cache Fetched from local storage');
+			cachetime = localStorage.getItem('cachetime_'+year+'_'+league_id);
+			getRosters();
+			showAssets();
+		}
+	}
+}
+getCache();
+
+
+function getRosters() {
+	url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=07&PRINTER=1";
+	$.ajax({
+		url: url,
+		type: "GET",
+		dataType: "html",
+		async: false,
+		success: function (data) {
+			roster = $(data).find('table .report');
+			$(roster).prependTo('#roster_left');
+			createRosters();
+		}
+	});
+}
+
+
+function createRosters() {
+	$('#roster_left a').attr('href', function (i, href) {
+		return href.replace('&PRINTER=1', '');
+	});
+	$('#roster_left a').attr('target','_blank');
+
+	// wrap each roster
+	let teamid;
+	$('#roster_left .report').each(function(index){
+		teamid = $(this).find('.withfranchiseicon a').attr('class').replace(/myfranchise /g, '');
+//remove myfranchise from id
+                tid = $.trim(teamid)
+		let num =  index + 1;
+		$(this).wrapAll('<div id="'+ tid + '" class="roster"></div>');
+		$(this).find('tr:last-child').after('<tr class="dft_header"><th>Draft Picks</th></tr>');
+		$(this).find('tr:last-child').after('<tr class="dft_footer draftpicks"><th><span>0</span> Total Draft Picks</th></tr>');
+	});
+
+	// Move user roster
+	if (franchise_id == '0000' || typeof franchise_id == 'undefined') {
+		$('#noroster').show();
+	}else{
+		$('#roster_left .myfranchise').closest('.roster').prependTo('#roster_right');
+	}
+
+	// move team icons to tabs
+	$('#roster_left .report caption img').clone().prependTo('#roster_icons');
+	let iconselect = rclicked.replace(/franchise/g, 'franchiseicon');
+	$('#roster_icons img#' + iconselect).addClass('selected');
+	$('#roster_icons img#' + iconselect).clone().prependTo('#team_select span');
+
+	// display hidden items
+	$('#roster_left, #roster_right').show();
+	$('#roster_left #' + rclicked).show();
+	$('#roster_loader').hide();
+adjustRosters();
+}
+
+
+function adjustRosters() {
+	roster = '#rosters .roster .report';
+	// adjust scores
+	$(roster).find('td.points:contains(" ‐ ")').html('<a>0.0</a>');
+	// add classes
+	$(roster + ' tr:first-of-type').addClass('roster_header');
+	$('.roster_header .player').html('QB');
+	$('.roster_header .points').html('Points');
+	$(roster + ' th:contains("Injured Reserve")').closest('tr').addClass('ir_header');
+	$(roster + ' th:contains("Players on IR")').closest('tr').addClass('ir_footer');
+	$(roster + ' th:contains("Taxi Squad")').not(":contains(on)").closest('tr').addClass('ts_header');
+	$(roster + ' th:contains("Players on Taxi Squad")').closest('tr').addClass('ts_footer');
+	$(roster + ' .total_salary_row th:first-of-type, ' + roster + ' .salary_cap_row th:first-of-type, ' + roster + ' .cap_room_available_row th:first-of-type').addClass('medium_th');
+	// add trade checkbox
+	$(roster + ' tr:first-of-type th:first-of-type').before('<th>Trade</th>');
+	$(roster + ' .oddtablerow, ' + roster + ' .eventablerow').not('.draftpick').prepend('<td class="tradebox"><i class="fa fa-toggle-off" aria-hidden="true"></i><input type="checkbox"></td>');
+	// add trade text box
+	$('#email_message').html('<table class="report" align="center"><caption><span>Message</span></caption><tbody><tr><th>Optional Message to Include With Trade Offer Email:</th></tr><tr><td><' + 'textarea cols="70" rows="5" name="msg"></' + 'textarea' + '></td></tr></tbody></table>');
+	// attach player id to trade checkbox
+	$(roster + ' tr').each(function(){
+		//get player id and attach to checkbox 
+		let playernum;
+		$(this).find('.player a').attr('href', function (i, href) {
+			playernum = href.replace('player?L=' + league_id + '&P=', '');
+		});
+		let team = $(this).closest('.roster').attr('id').replace('franchise_', '');
+		$(this).find('.tradebox input').val(playernum).attr('name', 'drop' + team);
+		//add class to long colspan
+		if ( $(this).find('th').length == 1 ){ 
+			$(this).find('th').addClass('long_th'); 
+		};
+		//add ir & taxi classes
+		$('.ir_header').nextUntil('.ir_footer').addBack().addClass('ir_player');
+		$('.ts_header').nextUntil('.ts_footer').addBack().addClass('ts_player');
+		$('.ir_header').removeClass('ir_player');
+		$('.ts_header').removeClass('ts_player');
+	});
+}
+
+
+function sortRows() {
+	var table, rows, switching, i, x, y, shouldSwitch;
+	$("#rosters_wrapper .report").each( function(){
+		switching = true;
+		while (switching) {
+			switching = false;
+			rows = $(this).find('tr');
+			for (i = 1; i < (rows.length - 1); i++) {
+				shouldSwitch = false;
+				x = $(rows[i]).find(sortCol).text();
+				y = $(rows[i + 1]).find(sortCol).text();
+				if (sortCol === 'td:nth-child(6)') {
+					if (parseInt(x) > parseInt(y)) {
+						shouldSwitch = true;
+						break;
+					}
+				}else{
+					if (parseInt(x) < parseInt(y)) {
+						shouldSwitch = true;
+						break;
+					}
+				}
+			}
+			if (shouldSwitch) {
+				rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+				switching = true;
+			}
+		}
+		$(this).find('tr:nth-child(even).oddtablerow').addClass('eventablerow').removeClass('oddtablerow');
+		$(this).find('tr:nth-child(odd).eventablerow').addClass('oddtablerow').removeClass('eventablerow');
+	});
+}
+
+
+function getAssets() {
+console.log('Loading Assets from API')
+	$.get(baseURLDynamic + "/" + year + "/export?TYPE=assets&L=" + league_id + "&JSON=1", function(data, status){
+console.log(baseURLDynamic + "/" + year + "/export?TYPE=assets&L=" + league_id + "&JSON=1");
+		if(!localStorage.getItem('assets_'+year+'_'+league_id)) {// declare assets if doesn't exist
+			localStorage.setItem('assets_'+year+'_'+league_id, JSON.stringify(data));
+		}
+	}).done(function() {
+		showAssets();
+	});
+}
+
+
+function showAssets() {
+	assetsJson = localStorage.getItem('assets_'+year+'_'+league_id);
+	assets = JSON.parse(assetsJson);
+	let numberOfPicks = 0;
+	let futureNumberOfPicks = 0;
+	for (let i = 0; i < assets.assets.franchise.length; ++i) {
+		let team = assets.assets.franchise[i].id; // result = 0001...
+		// current year draft picks
+		if (typeof assets.assets.franchise[i].currentYearDraftPicks.draftPick !== 'undefined') {
+			numberOfPicks = assets.assets.franchise[i].currentYearDraftPicks.draftPick.length;
+		}else{
+			numberOfPicks = 0;
+		}
+		for (let j = 0; j < numberOfPicks; ++j) {
+		let pickcode;let description;
+		if (typeof assets.assets.franchise[i].currentYearDraftPicks.draftPick !== 'undefined') {
+			pickcode = assets.assets.franchise[i].currentYearDraftPicks.draftPick[j].pick;
+			description = assets.assets.franchise[i].currentYearDraftPicks.draftPick[j].description;
+		}
+			let pickrows = '<tr class="oddtablerow draftpick"><td class="tradebox"><i class="fa fa-toggle-off" aria-hidden="true"></i></td><td colspan="5"><input type="checkbox" name="drop' + team + '" value="' + pickcode + '">' + description + '</td></tr>';
+			$('#rosters div#franchise_' + team + ' .report .draftpicks').before(pickrows);
+		}
+
+		// future draft picks
+		if (typeof assets.assets.franchise[i].futureYearDraftPicks.draftPick !== 'undefined') {
+			futureNumberOfPicks = assets.assets.franchise[i].futureYearDraftPicks.draftPick.length;
+		}else{
+			futureNumberOfPicks = 0;
+		}
+		for (let j = 0; j < futureNumberOfPicks; ++j) {
+			let futurepickcode = assets.assets.franchise[i].futureYearDraftPicks.draftPick[j].pick;
+			let futuredescription = assets.assets.franchise[i].futureYearDraftPicks.draftPick[j].description;
+			let futurepickrows = '<tr class="oddtablerow draftpick"><td class="tradebox"><i class="fa fa-toggle-off" aria-hidden="true"></i></td><td colspan="5"><input type="checkbox" name="drop' + team + '" value="' + futurepickcode + '">' + futuredescription + '</td></tr>';
+			$('#rosters div#franchise_' + team + ' .report .draftpicks').before(futurepickrows);
+		}
+		$('#rosters div#franchise_' + team + ' .report .draftpicks span').html(numberOfPicks + futureNumberOfPicks);
+
+		// blind bidding dollars
+		blindBiddingDollars = assets.assets.franchise[i].blindBiddingDollars.amount;
+		bbidDollars = blindBiddingDollars.replace('.00', '');
+		let blindBiddingrow = '<tr><th class="long_th">War Bucks</th></tr><tr class="oddtablerow bbid"><td><input type="text" name="bbid' + team + '" size="5" maxlength="10" value=""></td><td colspan="5">' + bbidDollars + ' War Bucks available</td></tr>';
+		$('#rosters div#franchise_' + team + ' .report tr:last-of-type').after(blindBiddingrow);
+
+	}
+settingsChange();
+}
+
+
+function settingsChange() {
+columnToggle();
+positionHeaders();
+posFill();
+sortRows();
+}
+
+
+function columnToggle() {
+	let mediumThSize = 4;
+	let LongThSize = 6;
+	$('#rosters .report .medium_th').attr('colspan',mediumThSize);
+	$('#rosters .report .long_th').attr('colspan',LongThSize);
+}
+
+
+function loadTradeModule() {
+	var oneWeek = currentServerTime * 1000 + 60 * 60 * 24 * 7 * 1000;
+	var d = new Date(oneWeek);
+	jQuery('#proposeTradeForm').attr('action', baseURLDynamic + '/' + year + '/trade_offer');
+	jQuery('#LEAGUE_ID').val(league_id);
+	jQuery('#TRADE_EXPIRES_MONTH').val(d.getMonth());
+	jQuery('#TRADE_EXPIRES_DAY').val(d.getDate());
+	jQuery('#TRADE_EXPIRES_YEAR').val(d.getFullYear());
+}
+loadTradeModule();
+
+
+function tradeAction() {
+	let left = rclicked.replace('franchise_', '');
+	$('#roster_left div:not(:visible) input:checkbox').prop('checked', false);
+	$('#FRANCHISE_ID').val(franchise_id + ',' + left);
+	$('#proposeTradeForm').submit();
+}
+
+
+function positionHeaders() {
+	$('.roster .newposition').each(function(){
+		let pos = $(this).find('.player a').attr('class').replace('position_', '').toUpperCase();
+		let header = '<tr><td class="long_th"></td></tr><tr class="roster_header section' + pos + '"><th>Trade</th><th class="player">' + pos + '</th><th class="points">Points</th><th class="week">Bye</th><th class="contractyear">Year</th><th class="drafted">Acquired</th></tr>';
+		$(this).before(header);
+	});
+}
+
+
+function posFill() {
+	$('#rosters_wrapper .addedrow').remove();
+	let leftpos = [];	let rightpos = [];	let left = [];  	let right = [];
+	leftpos.length = 0;	rightpos.length = 0;	left.length = 0;	right.length = 0;
+	for (let i = 0; i < pos.length; ++i) {
+		let posn = pos[i].toLowerCase();
+		leftpos[i]  =  $('#roster_left #' + rclicked).find('a.position_' + posn).closest('tr').not('.ir_player,.ts_player').length;
+		rightpos[i]  =  $('#roster_right').find('a.position_' + posn).closest('tr').not('.ir_player,.ts_player').length;
+		left[i] = rightpos[i] - leftpos[i];
+		right[i] = leftpos[i] - rightpos[i];
+		let newrow = '<tr class="eventablerow addedrow"><td colspan="6"> - </td></tr>';
+		let newrowr;
+		let newrowl;
+		if ( right[i] > 0 ) {newrowr = newrow.repeat(right[i]);}else{newrowr = newrow;}
+		if ( left[i] > 0 ) {newrowl = newrow.repeat(left[i]);}else{newrowl = newrow;}
+
+		if (leftpos[i] > rightpos[i]) {
+			let rowpos = rightpos[i] - 1;
+//removed  #' + rclicked + '
+			if ( $('#roster_right tr').not('.ir_player,.ts_player').find('a.position_' + posn).length < 1 ) {
+//section doesn't exist
+				$('#roster_right .section' + pos[i]).after(newrowr);
+			} else {
+//removed  #' + rclicked + '
+				$('#roster_right tr').not('.ir_player,.ts_player').find('a.position_' + posn).closest('tr').eq(rowpos).after(newrowr);
+			}
+		}else if (rightpos[i] > leftpos[i]) {
+			let rowpos = leftpos[i] - 1;
+//added  #' + rclicked + '
+			if ( $('#roster_left #' + rclicked + ' tr').not('.ir_player,.ts_player').find('a.position_' + posn).length < 1 ) {
+//section doesn't exist
+				$('#roster_left .section' + pos[i]).after(newrowl);
+			} else {
+//added  #' + rclicked + '
+				$('#roster_left #' + rclicked + ' tr').not('.ir_player,.ts_player').find('a.position_' + posn).closest('tr').eq(rowpos).after(newrowl);
+			}
+		}
+		}
+	// ir logic
+	let leftir  =  $('#roster_left #' + rclicked).find('.ir_player').length;
+	let rightir  =  $('#roster_right').find('.ir_player').length;
+	let leftirt = rightir - leftir;
+	let rightirt = leftir - rightir;
+	let irnewrow = '<tr class="eventablerow addedrow ir_player"><td colspan="6"> - </td></tr>';
+	let newirrow;
+	if ( rightirt > 0 ) {newirrow = irnewrow.repeat(rightirt);$('#roster_right .ir_footer').before(newirrow);}
+	if ( leftirt > 0 ) {newirrow = irnewrow.repeat(leftirt);$('#roster_left .ir_footer').before(newirrow);}
+
+	// ts logic
+	let leftts  =  $('#roster_left #' + rclicked).find('.ts_player').length;
+	let rightts  =  $('#roster_right').find('.ts_player').length;
+	let lefttst = rightts - leftts;
+	let righttst = leftts - rightts;
+	let tsnewrow = '<tr class="eventablerow addedrow ts_player"><td colspan="6"> - </td></tr>';
+	let newtsrow;
+	if ( righttst > 0 ) {newtsrow = tsnewrow.repeat(righttst);$('#roster_right .ts_footer').before(newtsrow);}
+	if ( lefttst > 0 ) {newtsrow = tsnewrow.repeat(lefttst);$('#roster_left .ts_footer').before(newtsrow);}
+
+	// draft pick logic
+	let leftdp  =  $('#roster_left #' + rclicked).find('.draftpick').length;
+	let rightdp  =  $('#roster_right').find('.draftpick').length;
+	let leftdpt = rightdp - leftdp;
+	let rightdpt = leftdp - rightdp;
+	let dpnewrow = '<tr class="eventablerow addedrow draftpick"><td colspan="6"> - </td></tr>';
+	let newdprow;
+	if ( rightdpt > 0 ) {newdprow = dpnewrow.repeat(rightdpt);$('#roster_right .dft_footer').before(newdprow);}
+	if ( leftdpt > 0 ) {newdprow = dpnewrow.repeat(leftdpt);$('#roster_left .dft_footer').before(newdprow);}
+
+	$('#rosters_wrapper .report tr:odd.eventablerow').addClass('oddtablerow').removeClass('eventablerow');
+	$('#rosters_wrapper .report tr:even.oddtablerow').addClass('eventablerow').removeClass('oddtablerow');
+
+
+	setTimeout(function (){
+		$('#roster_left #' + rclicked).show();
+		$('#roster_loader').hide();
+	}, 10);
+	columnToggle();
+}
+
+
+let clickedIcon;
+function teamChange() {
+	$('#roster_icons img').removeClass('selected');
+	$(clickedIcon).addClass('selected');
+	$('#team_select span').html($(clickedIcon).clone());
+	let teamid = $(clickedIcon).attr('id').replace(/icon/g, '');
+        let teamidtrimmed = $.trim(teamid)
+        localStorage.setItem('clickedRoster_'+year+'_'+league_id, teamidtrimmed);
+        rclicked = localStorage.getItem('clickedRoster_'+year+'_'+league_id);
+	$('#roster_left .roster').hide();
+	$('#roster_left #' + rclicked).show();
+	$('#roster_icons').hide();
+posFill();
+}
+
+$(document).on('click', '#roster_icons img', function (index) {
+	clickedIcon = $(this);
+	teamChange();
+});
+$(document).on('click', '#team_select i:first-of-type', function (index) {
+	if ( $('#roster_icons img.selected').is(':first-child') ){
+		clickedIcon = $('#roster_icons img:last-of-type');
+	}else{
+		clickedIcon = $('#roster_icons img.selected').prev();
+	}
+	teamChange();
+});
+$(document).on('click', '#team_select i:last-of-type', function (index) {
+	if ( $('#roster_icons img.selected').is(':last-child') ){
+		clickedIcon = $('#roster_icons img:first-of-type');
+	}else{
+		clickedIcon = $('#roster_icons img.selected').next();
+	}
+	teamChange();
+});
+$(document).on('click', '#team_select span', function (index) {
+	$('#roster_icons').toggle();
+});
+$(document).on('click', '#rosters .report td.tradebox', function (index) {
+	$(this).find('i').toggleClass('fa-toggle-on fa-toggle-off');
+	$(this).closest('tr').toggleClass('selected');
+	$(this).closest('tr').find('input[type=checkbox]').each(function(){
+		this.checked = !this.checked;
+	});
+});
+
+
+</script>
