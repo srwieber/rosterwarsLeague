@@ -1,4 +1,16 @@
 <style>
+#loading {
+  margin:auto;
+  text-align:center;
+  font-size:32px;
+}
+#rfaLayout {
+  display:flex;  
+  justify-content: center;
+}
+#rfaLayout .col1 {
+  max-width:215px;
+}
 #rfa h2 {
   margin:5px;
   padding:5px;
@@ -44,45 +56,68 @@
 }
 #rfa .report .activate {display:table-row;}
 #rfa .report .deactivate {display:none;}
-#rfa .report tr:nth-child(odd) td {
+#rfa .report tr td {
   background-color:#d9d9d9;
   color:#000;
+  border-bottom:1px solid #999;
 }
-#rfa .report tr:nth-child(even) td {
+#rfa .report tr:hover td {
   background-color:#ccc;
-  color:#000;
 }
+#rfa, #rosterRFA, #rfaSorting {display:none;}
 </style>
 
+<div id="loading">Loading...</div>
 <div id="rfa" class="mobile-wrap">
-<h3 id="team_select"></h3>
-<h3>Position: 
-<span class="position_all">ALL</span> | 
-<span class="position_qb">QB</span> | 
-<span class="position_rb">RB</span> | 
-<span class="position_wr">WR</span> | 
-<span class="position_te">TE</span> | 
-<span class="position_pk">PK</span> | 
-<span class="position_dt">DT</span> | 
-<span class="position_de">DE</span> | 
-<span class="position_dt">LB</span> | 
-<span class="position_cb">CB</span> | 
-<span class="position_s">S</span>
-</h3>
-<h2>Selected Team: <span id="teamcaption"></span> Position: <span id="positioncaption"></span></h2>
-<table class="homepagemodule report"><caption><span>RFA List</span></caption></table>
+  <h2>Selected Team: <span id="teamcaption"></span> Position: <span id="positioncaption"></span></h2>
+  <div id="rfaLayout" class="mobile-wrap">
+    <div class="col1">
+      <h3 id="team_select">Team: <br /></h3>
+    </div>
+    <div class="col2">
+      <h3>Position: <br />
+        <span class="position_all">ALL</span><br />
+        <span class="position_qb">QB</span><br />
+        <span class="position_rb">RB</span><br />
+        <span class="position_wr">WR</span><br />
+        <span class="position_te">TE</span><br />
+        <span class="position_pk">PK</span><br />
+        <span class="position_dt">DT</span><br />
+        <span class="position_de">DE</span><br />
+        <span class="position_dt">LB</span><br />
+        <span class="position_cb">CB</span><br />
+        <span class="position_s">S</span>
+      </h3>
+    </div>
+    <div class="col3">
+      <table class="homepagemodule report"><caption><span>RFA List</span></caption></table>
+    </div>
+  </div>
 </div>
-<div id="roster_left">
+
+<div id="rosterRFA"></div>
+
+<div id="rfaSorting">
+<table id="p200"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p150"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p100"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p75"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p50"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p25"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p10"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p0"><tr class="emptyheader"><th>empty header</th></tr></table>
 </div>
 
 <script>
+let contractYear = 1;
+let allTeams = 'https://i39.servimg.com/u/f39/15/70/85/29/1rwdoc10.png';
 let clickedPos = 'position_all';
 let clickedTeam = 'franchiseicon_0000';
 let teamCaption;
 let positionCaption = 'All';
 let sortCol = 'td.points a';
 
-function getRosters() {
+function getMyRosters() {
 	url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=07&PRINTER=1";
 	$.ajax({
 		url: url,
@@ -91,30 +126,30 @@ function getRosters() {
 		async: false,
 		success: function (data) {
 			roster = $(data).find('table .report');
-			$(roster).prependTo('#roster_left');
-			createRosters();
+			$(roster).prependTo('#rosterRFA');
+			createMyRosters();
 		}
 	});
 }
-getRosters();
+getMyRosters();
 
-function createRosters() {
-	$('#roster_left a').attr('href', function (i, href) {
+function createMyRosters() {
+	$('#rosterRFA a').attr('href', function (i, href) {
 		return href.replace('&PRINTER=1', '');
 	});
-	$('#roster_left a').attr('target','_blank');
+	$('#rosterRFA a').attr('target','_blank');
 
-	$('#roster_left .report td.week, #roster_left .report td.drafted').remove();
-	$('#roster_left .report caption a img').each(function( i ) {
+	$('#rosterRFA .report td.week, #rosterRFA .report td.drafted').remove();
+	$('#team_select').append('<img id="franchiseicon_0000" title="All Teams" src="' + allTeams + '">');
+	$('#rosterRFA .report caption a img').each(function( i ) {
 		let teamselect = $(this).clone();
 		$(teamselect).appendTo('#team_select');
 	});
-	$('#team_select').prepend('<img id="franchiseicon_0000" title="All Teams" src="https://i39.servimg.com/u/f39/15/70/85/29/1rwdoc10.png">');
-	teamCaption = $('<img title="All Teams" id="franchiseicon_0000" src="https://i39.servimg.com/u/f39/15/70/85/29/1rwdoc10.png">');
-	$('#roster_left .report tr').each(function( i ) {
+	teamCaption = $('<img title="All Teams" id="franchiseicon_0000" src="' + allTeams + '">');
+	$('#rosterRFA .report tr').each(function( i ) {
 		let contyear = $(this).find('td.contractyear').html();
 		let conyear = parseInt(contyear);
-		if (conyear !== 1){
+		if (conyear !== contractYear){
 			$(this).remove();
 		}else {
 			let teamicon = $(this).closest('table').find('caption a').clone();
@@ -125,21 +160,37 @@ function createRosters() {
 			$(this).addClass( $(this).find('td.team img').attr('id') );
 			$(this).addClass('activate');
 			if($(this).find('td.points a').length < 1) {
-				$(this).find('td.points').html('<a href="#" target="_blank">0.00</a>');
+				$(this).find('td.points').html('<a href="#" target="_blank">0.0</a>');
 			}
-			$(this).appendTo('#rfa .report');
+			let x= $(this).find('.points a').text();
+			if(parseInt(x) > 200){
+				$(this).appendTo($('#rfaSorting #p200'));
+			}else if(parseInt(x) > 150 && parseInt(x) <= 200){
+				$(this).appendTo($('#rfaSorting #p150'));
+			}else if(parseInt(x) > 100 && parseInt(x) <= 150){
+				$(this).appendTo($('#rfaSorting #p100'));
+			}else if(parseInt(x) > 75 && parseInt(x) <= 100){
+				$(this).appendTo($('#rfaSorting #p75'));
+			}else if(parseInt(x) > 50 && parseInt(x) <= 75){
+				$(this).appendTo($('#rfaSorting #p50'));
+			}else if(parseInt(x) > 25 && parseInt(x) <= 50){
+				$(this).appendTo($('#rfaSorting #p25'));
+			}else if(parseInt(x) > 10 && parseInt(x) <= 25){
+				$(this).appendTo($('#rfaSorting #p10'));
+			}else if(parseInt(x) <= 10){
+				$(this).appendTo($('#rfaSorting #p0'));
+			}
 			$(this).find('td.contractyear').remove();
 		};
 	});
-	$('<tr><th>Team</th><th>Player</th><th>Points</th></tr>').prependTo('#rfa .report');
-	$('<tr class="deactivate"><td colspan="3">No Players Available</td></tr>').appendTo('#rfa .report');
-	$('#roster_left').remove();
-	sortRows();
+	setTimeout(function() { 
+		sortRowsRFA();
+	}, 100);
 }
 
-function sortRows() {
+function sortRowsRFA() {
 	var table, rows, switching, i, x, y, shouldSwitch;
-	$("#rfa .report").each( function(){
+	$("#rfaSorting table").each( function(){
 		switching = true;
 		while (switching) {
 			switching = false;
@@ -148,7 +199,7 @@ function sortRows() {
 				shouldSwitch = false;
 				x = $(rows[i]).find(sortCol).text();
 				y = $(rows[i + 1]).find(sortCol).text();
-				if (parseInt(x) < parseInt(y)) {
+				if ( Math.round(x * 100) < Math.round(y * 100) ) {
 					shouldSwitch = true;
 					break;
 				}
@@ -159,10 +210,27 @@ function sortRows() {
 			}
 		}
 	});
-	posChange();
+	$("#rfaSorting table tr").not('.emptyheader').appendTo('#rfa .report');
+	$("#rosterRFA table").each( function(){
+		let x = $(this).find('tr').length;
+		if (x < 1){
+			$(this).remove();
+		}
+	});
+	$("#rfaSorting table").each( function(){
+		let x = $(this).find('tr').length;
+		if (x < 2){
+			$(this).remove();
+		}
+	});
+	$('#rfa .report tr:first-of-type').before('<tr><th>Team</th><th>Player</th><th>Points</th></tr>');
+	$('#rfa .report tr:last-of-type').after('<tr class="deactivate"><td colspan="3">No Players Available</td></tr>');
+	$('#rfa, #rosterRFA, #rfaSorting').show();
+	$('#loading').hide();
+	posChangeRFA();
 }
 
-function posChange(){
+function posChangeRFA(){
 	$('#rfa .report tr').removeClass('activate').addClass('deactivate');
 	if (clickedPos === 'position_all') {
 		$('#rfa .report tr').addClass('position_all');
@@ -190,12 +258,12 @@ function posChange(){
 $(document).on('click', '#rfa h3 span', function (index) {
 	clickedPos = $(this).attr('class');
 	positionCaption = $(this).text();
-	posChange();
+	posChangeRFA();
 });
 $(document).on('click', '#rfa #team_select img', function (index) {
 	clickedTeam = $(this).attr('id');
 	teamCaption = $(this).clone();
-	posChange();
+	posChangeRFA();
 });
 
 </script>
