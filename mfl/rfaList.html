@@ -100,11 +100,21 @@
 <div id="rfaSorting">
 <table id="p200"><tr class="emptyheader"><th>empty header</th></tr></table>
 <table id="p150"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p140"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p130"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p120"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p110"><tr class="emptyheader"><th>empty header</th></tr></table>
 <table id="p100"><tr class="emptyheader"><th>empty header</th></tr></table>
-<table id="p75"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p90"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p80"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p70"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p60"><tr class="emptyheader"><th>empty header</th></tr></table>
 <table id="p50"><tr class="emptyheader"><th>empty header</th></tr></table>
-<table id="p25"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p40"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p30"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p20"><tr class="emptyheader"><th>empty header</th></tr></table>
 <table id="p10"><tr class="emptyheader"><th>empty header</th></tr></table>
+<table id="p5"><tr class="emptyheader"><th>empty header</th></tr></table>
 <table id="p0"><tr class="emptyheader"><th>empty header</th></tr></table>
 </div>
 
@@ -167,17 +177,37 @@ function createMyRosters() {
 				$(this).appendTo($('#rfaSorting #p200'));
 			}else if(parseInt(x) > 150 && parseInt(x) <= 200){
 				$(this).appendTo($('#rfaSorting #p150'));
-			}else if(parseInt(x) > 100 && parseInt(x) <= 150){
+			}else if(parseInt(x) > 140 && parseInt(x) <= 150){
+				$(this).appendTo($('#rfaSorting #p140'));
+			}else if(parseInt(x) > 130 && parseInt(x) <= 140){
+				$(this).appendTo($('#rfaSorting #p130'));
+			}else if(parseInt(x) > 120 && parseInt(x) <= 130){
+				$(this).appendTo($('#rfaSorting #p120'));
+			}else if(parseInt(x) > 110 && parseInt(x) <= 120){
+				$(this).appendTo($('#rfaSorting #p110'));
+			}else if(parseInt(x) > 100 && parseInt(x) <= 110){
 				$(this).appendTo($('#rfaSorting #p100'));
-			}else if(parseInt(x) > 75 && parseInt(x) <= 100){
-				$(this).appendTo($('#rfaSorting #p75'));
-			}else if(parseInt(x) > 50 && parseInt(x) <= 75){
+			}else if(parseInt(x) > 90 && parseInt(x) <= 100){
+				$(this).appendTo($('#rfaSorting #p90'));
+			}else if(parseInt(x) > 80 && parseInt(x) <= 90){
+				$(this).appendTo($('#rfaSorting #p80'));
+			}else if(parseInt(x) > 70 && parseInt(x) <= 80){
+				$(this).appendTo($('#rfaSorting #p70'));
+			}else if(parseInt(x) > 60 && parseInt(x) <= 70){
+				$(this).appendTo($('#rfaSorting #p60'));
+			}else if(parseInt(x) > 50 && parseInt(x) <= 60){
 				$(this).appendTo($('#rfaSorting #p50'));
-			}else if(parseInt(x) > 25 && parseInt(x) <= 50){
-				$(this).appendTo($('#rfaSorting #p25'));
-			}else if(parseInt(x) > 10 && parseInt(x) <= 25){
+			}else if(parseInt(x) > 40 && parseInt(x) <= 50){
+				$(this).appendTo($('#rfaSorting #p40'));
+			}else if(parseInt(x) > 30 && parseInt(x) <= 40){
+				$(this).appendTo($('#rfaSorting #p30'));
+			}else if(parseInt(x) > 20 && parseInt(x) <= 30){
+				$(this).appendTo($('#rfaSorting #p20'));
+			}else if(parseInt(x) > 10 && parseInt(x) <= 20){
 				$(this).appendTo($('#rfaSorting #p10'));
-			}else if(parseInt(x) <= 10){
+			}else if(parseInt(x) > 5 && parseInt(x) <= 10){
+				$(this).appendTo($('#rfaSorting #p5'));
+			}else if(parseInt(x) <= 5){
 				$(this).appendTo($('#rfaSorting #p0'));
 			}
 			$(this).find('td.contractyear').remove();
