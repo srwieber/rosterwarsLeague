@@ -3,32 +3,56 @@
   margin:auto;
   text-align:center;
   font-size:32px;
+  color:#a49c6c;
 }
 #rfaLayout {
   display:flex;  
   justify-content: center;
 }
-#rfaLayout .col1 {
-  max-width:215px;
+#rfaLayout .col1, #rfaLayout .col2 {
+  margin-top:47px;
+  background:#222;
+  border:1px solid #3c312f;
+}
+#rfaLayout .col1 h3, #rfaLayout .col2 h3{
+    color:#a49c6c;
+}
+#rfaLayout .col2 {
+  width:200px;
+  margin-right:10px;
+  border-left:0;
+}
+#rfaLayout .col2 span {
+  display:inline-block;
+  margin:5px;
+  padding:5px;
+  width:60px;
+  background: #a49c6c;
+  border:1px solid #3c312f;
+  color:#000;
+  text-decoration: underline;
+  cursor:pointer;
+}
+#rfaLayout .col2 span:hover {
+  background:#444;
+  color:#a49c6c;
+  border:1px solid #3c312f;
+  text-decoration: none;
 }
 #rfa h2 {
   margin:5px;
   padding:5px;
-  background:#000;
-  border:1px solid #333;
+  color:#a49c6c;
+  background:#222!important;
+  border:1px solid #3c312f!important;
   border-radius:5px;
 }
 #rfa h2 img{
   vertical-align:bottom;
+  margin-right:25px;
 }
 #rfa h3 span, #rfa h3 img {
   cursor:pointer;
-}
-#rfa h3 span {
-  text-decoration: underline;
-}
-#rfa h3 span:hover {
-  text-decoration: none;
 }
 #rfa h3 img{
   vertical-align:middle;
@@ -40,13 +64,17 @@
 #rfa h3 img:hover{
   opacity:0.5;
 }
+#rfa #positioncaption {
+  margin-left:5px;
+  font-size:22px;
+  color:#fff;
+}
 #rfa .franchiseicon {
   width:100px;
 }
-#rfa #franchiseicon_0000 {height:20px;width:auto;}
 #rfa .report {
   margin:auto;
-  min-width:356px;
+  min-width:360px;
 }
 #rfa .report a {
   color:#000!important;
@@ -65,6 +93,35 @@
   background-color:#ccc;
 }
 #rfa, #rosterRFA, #rfaSorting {display:none;}
+
+@media (max-width: 690px) {
+  #rfaLayout {
+    flex-direction: column;
+  }
+  #rfaLayout .col1, #rfaLayout .col2 {
+    margin-top:0;
+    margin:auto;
+    min-width:99%;
+    width:99%;
+  }
+  #rfaLayout .col1 {
+    border-radius: 5px 5px 0 0;
+  }
+  #rfaLayout .col2 {
+    margin-bottom:10px;
+    border-top:0;
+    border-left:1px solid #3c312f;
+    border-radius: 0 0 5px 5px;
+  }
+  #rfaLayout .col2 br {
+    display:none;
+  }
+  #rfaLayout .col2 span {
+    width:auto;
+    padding:5px;
+    margin: 2px 0px;
+  }
+}
 </style>
 
 <div id="loading">Loading...</div>
@@ -150,7 +207,7 @@ function createMyRosters() {
 	$('#rosterRFA a').attr('target','_blank');
 
 	$('#rosterRFA .report td.week, #rosterRFA .report td.drafted').remove();
-	$('#team_select').append('<img id="franchiseicon_0000" title="All Teams" src="' + allTeams + '">');
+	$('#team_select').append('<img id="franchiseicon_0000" class="franchiseicon" title="All Teams" src="' + allTeams + '">');
 	$('#rosterRFA .report caption a img').each(function( i ) {
 		let teamselect = $(this).clone();
 		$(teamselect).appendTo('#team_select');
