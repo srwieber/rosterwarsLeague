@@ -227,7 +227,7 @@ function createMyRosters() {
 			$(this).addClass( $(this).find('td.team img').attr('id') );
 			$(this).addClass('activate');
 			if($(this).find('td.points a').length < 1) {
-				$(this).find('td.points').html('<a href="#" target="_blank">0.0</a>');
+				$(this).find('td.points').html('<a href="#" target="_blank">0.00</a>');
 			}
 			let x= $(this).find('.points a').text();
 			if(parseInt(x) > 200){
