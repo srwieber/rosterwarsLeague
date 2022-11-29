@@ -17,6 +17,9 @@
 #rfaLayout .col1 h3, #rfaLayout .col2 h3{
     color:#a49c6c;
 }
+#rfaLayout .col1{
+  max-width:210px;
+}
 #rfaLayout .col2 {
   width:200px;
   margin-right:10px;
@@ -178,6 +181,7 @@
 <script>
 let contractYear = 1;
 let allTeams = 'https://i39.servimg.com/u/f39/15/70/85/29/1rwdoc10.png';
+
 let clickedPos = 'position_all';
 let clickedTeam = 'franchiseicon_0000';
 let teamCaption;
@@ -212,7 +216,7 @@ function createMyRosters() {
 		let teamselect = $(this).clone();
 		$(teamselect).appendTo('#team_select');
 	});
-	teamCaption = $('<img title="All Teams" id="franchiseicon_0000" src="' + allTeams + '">');
+	teamCaption = $('<img title="All Teams" id="franchiseicon_0000" class="franchiseicon" src="' + allTeams + '">');
 	$('#rosterRFA .report tr').each(function( i ) {
 		let contyear = $(this).find('td.contractyear').html();
 		let conyear = parseInt(contyear);
