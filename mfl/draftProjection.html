@@ -28,18 +28,18 @@
 
 <div id="standingsmodule">
 
-<div id="conference1"><table align="center" cellspacing="1" class="report"></table></div>
-<div id="conference2"></div>
+  <div id="conference1"><table align="center" cellspacing="1" class="report"></table></div>
+  <div id="conference2"></div>
 
-<div class="note">1. All teams are ranked from 1-12 in overall record from past season. (Tiebreakers are total points, alternative power ranking, <b>**H2H record, All-Play Record, and Power Rank</b> in that order). The team with the best record is Ranked 1, the team with the worst is Ranked 12.<br>
-2. All teams are ranked from 1-12 in total points. (Tiebreakers are alternative power ranking, Win/Loss Record, and Power Rank in that order.) The team with the most points is Ranked 1, the team with the lowest is Ranked 12.<br>
-3. These two numbers are added together to get a "Draft Rating".<br>
-4. This system will be used for these teams with the higher draft ranking drafting first and so forth, with tiebreakers being lowest alternative power ranking and PowerRank in that order.<br>
-<br>
-<b>**These tie breakers are not calculated here.</b><br>
-***Note:  All Points/PowerRank/Record are calculated as of the conclusion of Week 12.<br>
-***Note2: Conference Champ and runner-up are the 11th and 12th picks respectively.
-</div>
+  <div class="note">1. All teams are ranked from 1-12 in overall record from past season. (Tiebreakers are total points, alternative power ranking, <b>**H2H record, All-Play Record, and Power Rank</b> in that order). The team with the best record is Ranked 1, the team with the worst is Ranked 12.<br>
+  2. All teams are ranked from 1-12 in total points. (Tiebreakers are alternative power ranking, Win/Loss Record, and Power Rank in that order.) The team with the most points is Ranked 1, the team with the lowest is Ranked 12.<br>
+  3. These two numbers are added together to get a "Draft Rating".<br>
+  4. This system will be used for these teams with the higher draft ranking drafting first and so forth, with tiebreakers being lowest alternative power ranking and PowerRank in that order.<br>
+  <br>
+  <b>**These tie breakers are not calculated here.</b><br>
+  ***Note:  All Points/PowerRank/Record are calculated as of the conclusion of Week 12.<br>
+  ***Note2: Conference Champ and runner-up are the 11th and 12th picks respectively.
+  </div>
 
 </div>
 
@@ -84,6 +84,10 @@ function getPicks() {
 }
 
 function createStandings(){
+	$('#getstandings a').attr('href', function (i, href) {
+		return href.replace('&PRINTER=1', '');
+	});
+	$('#getstandings a').attr('target','_blank');
 	$('#division03').closest('tr').addClass('conference2');
 	$('#getstandings tr:first-of-type').nextUntil('.conference2').appendTo('#conference1 table');
 	$('#getstandings table').appendTo('#conference2');
@@ -104,6 +108,10 @@ function createStandings(){
 }
 
 function createPicks(){
+	$('#getpicks a').attr('href', function (i, href) {
+		return href.replace('&PRINTER=1', '');
+	});
+	$('#getpicks a').attr('target','_blank');
 	$('#getpicks tr:contains(2)').addClass('start');
 	$('#getpicks tr.start').nextUntil('#getpicks tr:last-of-type').remove();
 	$('#getpicks tr.start, #getpicks tr:last-of-type, #getpicks th:first-of-type, #getpicks td:first-of-type').remove();
