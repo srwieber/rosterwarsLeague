@@ -1,54 +1,56 @@
 <style>
 #standingsmodule {
+  margin-top:20px;
 }
 #standingsmodule .report {
-width:100%;
+  width:99%;
+}
+#standingsmodule .report td{
+  padding: 0 2px;
+  text-align:right;
+  white-space:nowrap;
+}
+#standingsmodule td .franchiseicon {
+  max-width:200px;
+  height:auto;
 }
 .note {
   margin:5px;
   padding:5px;
-  border:1px solid #aaa;
-  background:#888;
-  color:#000;
+  border:1px solid #3c312f;
+  background:#222;
+  color:#a49c6c;
 }
 </style>
 
-<table style="width:100%;">
-</table>
-
-<div id="getstandings"></div>
-
 <div id="standingsmodule">
 
-<div id="ddconference">
-<!--
-<module name="STANDINGS" UNIT="CONFERENCE00"/>
--->
-</div>
-<div id="ttconference">
-<!--
-<module name="STANDINGS" UNIT="CONFERENCE01"/>
--->
-</div>
+<div id="conference1"><table align="center" cellspacing="1" class="report"></table></div>
+<div id="conference2"></div>
 
-<div class="note">1. All teams are ranked from 1-12 in overall record from past season. (Tiebreakers are total points, alternative power ranking, H2H record, All-Play Record, and Power Rank in that order). The team with the best record is Ranked 1, the team with the worst is Ranked 12.<br>
+<div class="note">1. All teams are ranked from 1-12 in overall record from past season. (Tiebreakers are total points, alternative power ranking, <b>**H2H record, All-Play Record, and Power Rank</b> in that order). The team with the best record is Ranked 1, the team with the worst is Ranked 12.<br>
 2. All teams are ranked from 1-12 in total points. (Tiebreakers are alternative power ranking, Win/Loss Record, and Power Rank in that order.) The team with the most points is Ranked 1, the team with the lowest is Ranked 12.<br>
-3. These two numbers are added together to get a ""Draft rating"".<br>
+3. These two numbers are added together to get a "Draft Rating".<br>
 4. This system will be used for these teams with the higher draft ranking drafting first and so forth, with tiebreakers being lowest alternative power ranking and PowerRank in that order.<br>
 <br>
+<b>**These tie breakers are not calculated here.</b><br>
 ***Note:  All Points/PowerRank/Record are calculated as of the conclusion of Week 12.<br>
 ***Note2: Conference Champ and runner-up are the 11th and 12th picks respectively.
 </div>
 
 </div>
 
+<div id="getstandings"></div>
+<div id="getpicks"></div>
+
 <script>
+let sortRan = 0;
+
 function getStandings() {
-//	url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=07&PRINTER=1";
-//	url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=07&PRINTER=1";
-//	url = baseURLDynamic + "/" + year + "/standings?L=" + league_id + "&W=12&PRINTER=1";
-	url = "https://www65.myfantasyleague.com/2022/standings?L=38933&W=12&PRINTER=1";
-console.log(url);
+	let url = baseURLDynamic + "/" + year + "/standings?L=" + league_id + "&W=12&PRINTER=1";
+	if ( completedWeek < 12){
+		url = baseURLDynamic + "/" + year + "/standings?L=" + league_id + "&W=" + completedWeek + "&PRINTER=1";
+	}
 	$.ajax({
 		url: url,
 		type: "GET",
@@ -57,35 +59,173 @@ console.log(url);
 		success: function (data) {
 			roster = $(data).find('.report');
 			$(roster).prependTo('#getstandings');
-			createRosters();
+			getPicks();
 		}
 	});
 }
 getStandings();
 
-function createRosters(){
-console.log('done');
+function getPicks() {
+	let url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=100&PRINTER=1";
+	$.ajax({
+		url: url,
+		type: "GET",
+		dataType: "html",
+		async: false,
+		success: function (data) {
+			roster = $(data).find('.report:first-of-type');
+			$(roster).prependTo('#getpicks');
+			createStandings();
+		}
+	});
 }
 
-/*
-$('#ddconference .report caption span').html('DD Draft Projections');
-$('#ttconference .report caption span').html('TT Draft Projections');
-$('#standingsmodule .report th').closest('tr').remove();
-$('#standingsmodule .report .standingslogo').closest('tr').remove();
-$('#standingsmodule .report td:nth-of-type(4), #standingsmodule .report td:nth-of-type(5), #standingsmodule .report td:nth-of-type(6), #standingsmodule .report td:nth-of-type(7), #standingsmodule .report td:nth-of-type(9), #standingsmodule .report td:nth-of-type(10), #standingsmodule .report td:nth-of-type(11), #standingsmodule .report td:nth-of-type(14)').remove();
+function createStandings(){
+	$('#division03').closest('tr').addClass('conference2');
+	$('#getstandings tr:first-of-type').nextUntil('.conference2').appendTo('#conference1 table');
+	$('#getstandings table').appendTo('#conference2');
+	$('#getstandings, #standingsmodule caption').remove();
+	$('#standingsmodule .standingslogo').closest('tr').remove();
+	$('#standingsmodule th').closest('tr').not(':nth-of-type(1)').remove();
+	$('#standingsmodule .strk, #standingsmodule .pp, #standingsmodule .eff, #standingsmodule .divwlt, #standingsmodule .op, #standingsmodule .dp, #standingsmodule .pa, #standingsmodule .bbidbalance').remove();
+	$('#standingsmodule tr:nth-of-type(1)').append('<th class="record_rating">Record Rating</th><th class="points_rating">Points Rating</th><th class="draft_rating">Draft Rating</th>');
+	$('#standingsmodule tr').not(':nth-of-type(1)').append('<td class="record_rating">?</td><td class="points_rating">?</td><td class="draft_rating">?</td>');
+	$('#standingsmodule tr:nth-of-type(1) th.fname').html('Original Pick Owner');
+	$('#standingsmodule tr:nth-of-type(1)').prepend('<th class="current_owner">Current Pick Owner</th>');
+	$('#standingsmodule tr:nth-of-type(1)').prepend('<th class="draft_pick">Draft Pick</th>');
+	$('#standingsmodule tr').not(':nth-of-type(1)').prepend('<td class="current_owner">?</td>');
+	$('#standingsmodule tr').not(':nth-of-type(1)').prepend('<td class="draft_pick">?</td>');
+	$('#conference1 table').first().prepend('<caption><span>' + leagueConferences['00'].name + ' Draft Seeding</span></caption>');
+	$('#conference2 table').first().prepend('<caption><span>' + leagueConferences['01'].name + ' Draft Seeding</span></caption>');
+	createPicks();
+}
 
-$('#ddconference .report tr').each(function( i ) {
-  pick = i + 1;
-  prepick = '';
-  if (pick < 10){prepick = 0;};
-  $(this).find('td:first-of-type').before('<td>1.' + prepick + pick + '</td>');
-});
-$('#ttconference .report tr').each(function( i ) {
-  pick = i + 1;
-  prepick = '';
-  if (pick < 9){prepick = 0;};
-  $(this).find('td:first-of-type').before('<td>1.' + prepick + pick + '</td>');
-});
-$('#standingsmodule .report tr:first-of-type').before('<tr><th>Pick</th><th>Franchise</th><th title="Overall Wins, Losses and Ties">W‑L‑T</th><th class="pf" title="Points For (Total Year-to-Date Point Scored)">PF</th><th class="altpwr" title="Alternative Power Rank">Alt PWR</th><th class="pwr" title="Power Rank">PWR</th><th class="all_play_wlt" title="All-Play Wins, Losses and Ties">All-Play W‑L‑T</th></tr>');
-*/
+function createPicks(){
+	$('#getpicks tr:contains(2)').addClass('start');
+	$('#getpicks tr.start').nextUntil('#getpicks tr:last-of-type').remove();
+	$('#getpicks tr.start, #getpicks tr:last-of-type, #getpicks th:first-of-type, #getpicks td:first-of-type').remove();
+	$('#getpicks tr').each(function(){
+		let team = $(this).find('td:last-of-type').text();
+		let newteam = $(this).find('td:first-of-type').text();
+		let teamMatch;
+		$('#standingsmodule tr').each(function(){
+			teamMatch = $(this).find('td.fname img').attr('alt');
+			if( team === teamMatch){
+				$(this).find('.current_owner').html(newteam);
+			}
+		});
+	});
+	$('#getpicks').remove();
+	$('#standingsmodule tr').each(function(){
+		let teamIconName = $(this).find('td.fname img').attr('alt');
+		let teamIcon = $(this).find('td.fname b').html();
+		let teamName;
+		$('#standingsmodule tr').each(function(){
+			teamName = $(this).find('td.current_owner').text();
+			if( teamName === teamIconName){
+				$(this).find('.current_owner').html(teamIcon);
+			}
+		});
+	});
+	sortStandings();
+}
+
+function sortStandings(){
+	let sort1 = $('#standingsmodule tr').find('th.h2hpct').index() + 1;
+	let sort1t1 = $('#standingsmodule tr').find('th.pf').index() + 1;
+	let sort1t2 = $('#standingsmodule tr').find('th.altpwr').index() + 1;
+	let sort1t4 = $('#standingsmodule tr').find('th.all_play_wlt').index() + 1;
+	let sort1t5 = $('#standingsmodule tr').find('th.pwr').index() + 1;  // you need to create a formula to calculate the record
+	let sort2 = $('#standingsmodule tr').find('th.pf').index() + 1;
+	let sort2t1 = $('#standingsmodule tr').find('th.altpwr').index() + 1;
+	let sort2t2 = $('#standingsmodule tr').find('th.h2hpct').index() + 1;
+	let sort2t3 = $('#standingsmodule tr').find('th.pwr').index() + 1;
+	let sort3 = $('#standingsmodule tr').find('th.draft_rating').index() + 1;
+
+	let sortCol = 'td:nth-child(' + sort1 + ')';
+	let sortCol2 = 'td:nth-child(' + sort1t1 + ')';
+	let sortCol3 = 'td:nth-child(' + sort1t2 + ')';
+	let rating = 'record_rating';
+	if (sortRan === 1){
+		sortCol = 'td:nth-child(' + sort2 + ')';
+		sortCol2 = 'td:nth-child(' + sort2t1 + ')';
+		sortCol3 = 'td:nth-child(' + sort2t2 + ')';
+		rating = 'points_rating';
+	}else if (sortRan === 2){
+		sortCol = 'td:nth-child(' + sort3 + ')';
+		sortCol2 = 'td:nth-child(' + sort2t1 + ')';
+		sortCol3 = 'td:nth-child(' + sort2t3 + ')';
+		rating = 'draft_pick';
+	}
+
+	var table, rows, switching, i, x, y, shouldSwitch;
+	$("#standingsmodule .report").each( function(){
+		switching = true;
+		while (switching) {
+			switching = false;
+			rows = $(this).find('tr');
+			for (i = 1; i < (rows.length - 1); i++) {
+				shouldSwitch = false;
+				recordX = $(rows[i]).find(sortCol).text();
+				recordY = $(rows[i + 1]).find(sortCol).text();
+				pointsX = $(rows[i]).find(sortCol2).text();
+				pointsY = $(rows[i + 1]).find(sortCol2).text();
+				altpwrX = $(rows[i]).find(sortCol3).text();
+				altpwrY = $(rows[i + 1]).find(sortCol3).text();
+				if (sortRan != 2) {
+					if ( Math.round(recordX * 1000) < Math.round(recordY * 1000) ) {
+						shouldSwitch = true;
+						break;
+					}else if ( Math.round(recordX * 1000) === Math.round(recordY * 1000) && Math.round(pointsX * 1000) < Math.round(pointsY * 1000) ) {
+						shouldSwitch = true;
+						break;
+					}else if ( Math.round(recordX * 1000) === Math.round(recordY * 1000) && Math.round(pointsX * 1000) === Math.round(pointsY * 1000) && Math.round(altpwrX * 1000) < Math.round(altpwrY * 1000) ) {
+						shouldSwitch = true;
+						break;
+					}
+				}else{
+					if ( Math.round(recordX * 1000) < Math.round(recordY * 1000) ) {
+						shouldSwitch = true;
+						break;
+					}else if ( Math.round(recordX * 1000) === Math.round(recordY * 1000) && Math.round(pointsX * 1000) > Math.round(pointsY * 1000) ) {
+						shouldSwitch = true;
+						break;
+					}else if ( Math.round(recordX * 1000) === Math.round(recordY * 1000) && Math.round(pointsX * 1000) === Math.round(pointsY * 1000) && Math.round(altpwrX * 1000) > Math.round(altpwrY * 1000) ) {
+						shouldSwitch = true;
+						break;
+					}
+				}
+			}
+			if (shouldSwitch) {
+				rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+				switching = true;
+			}
+		}
+
+		$(this).find('tr').each( function( i ){
+			$(this).find('td.' + rating).html(i);
+			if (sortRan === 2){
+				if (i < 10){
+					$(this).find('td.' + rating).prepend('1.0');
+				}else {
+					$(this).find('td.' + rating).prepend('1.');
+				}
+			}
+		});
+		if (sortRan === 1){
+			$(this).find('tr').each( function( i ){
+				let recordRank = $(this).find('td.record_rating').text();
+				let pointsRank = $(this).find('td.points_rating').text();
+				$(this).find('td.draft_rating').html( parseInt(recordRank) + parseInt(pointsRank) );
+			});
+		}
+		$(this).find('tr:nth-child(even).oddtablerow').addClass('eventablerow').removeClass('oddtablerow');
+		$(this).find('tr:nth-child(odd).eventablerow').addClass('oddtablerow').removeClass('eventablerow');
+	});
+	sortRan++;
+	if (sortRan < 3){
+		sortStandings();
+	}
+}
+
 </script>
