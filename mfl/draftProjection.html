@@ -98,8 +98,8 @@ function createStandings(){
 	$('#standingsmodule tr:nth-of-type(1)').prepend('<th class="draft_pick">Draft Pick</th>');
 	$('#standingsmodule tr').not(':nth-of-type(1)').prepend('<td class="current_owner">?</td>');
 	$('#standingsmodule tr').not(':nth-of-type(1)').prepend('<td class="draft_pick">?</td>');
-	$('#conference1 table').first().prepend('<caption><span>' + leagueConferences['00'].name + ' Draft Seeding</span></caption>');
-	$('#conference2 table').first().prepend('<caption><span>' + leagueConferences['01'].name + ' Draft Seeding</span></caption>');
+	$('#conference1 table').first().prepend('<caption><span>' + leagueConferences['00'].name + ' Draft Order</span></caption>');
+	$('#conference2 table').first().prepend('<caption><span>' + leagueConferences['01'].name + ' Draft Order</span></caption>');
 	createPicks();
 }
 
