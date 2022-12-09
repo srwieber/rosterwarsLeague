@@ -1,0 +1,52 @@
+<table id="pick_em" class="homepagemodule report"></table>
+
+<script>
+(function fetchData() {
+  var url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=122";
+  fetch(url)
+    .then(function(response) {
+      if (response.ok) {
+        return response.text();
+      } else {
+        var pick_em = document.getElementById("pick_em");
+        pick_em.innerHTML = "No data retrieved";
+      }
+    })
+    .then(function(text) {
+      var parser = new DOMParser();
+      var html = parser.parseFromString(text, "text/html");
+      var report = html.querySelector(".report:nth-of-type(2)");
+      if (report) {
+        var pick_em = document.getElementById("pick_em");
+        pick_em.innerHTML = report.innerHTML;
+      } else {
+        var pick_em = document.getElementById("pick_em");
+        pick_em.innerHTML = "Data is empty";
+      }
+    })
+    .then(function() {
+      pick_em_function();
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+})();
+
+function pick_em_function() {
+  var pick_em = $('#pick_em');
+  pick_em.find('caption span').html('Missing Pick\'em');
+  pick_em.find('td:empty').addClass('nopick');
+  pick_em.find('td.nopick:nth-child(3)').closest('tr').addClass('missingpicks');
+  pick_em.find('tr').not('.missingpicks').remove();
+  pick_em.find('td').not(':first-child').remove();
+  var newRow = $('<tr>', { class: 'reportfooter' });
+  var newLink = $('<a>', {
+    href: baseURLDynamic + '/' + year + '/options?L=' + league_id + '&O=121',
+    text: 'Submit Picks'
+  });
+  var newCell = $('<td>').append(newLink);
+  newRow.append(newCell);
+  pick_em.append(newRow);
+  pick_em.css('text-align', 'center');
+}
+</script>
