@@ -1,0 +1,94 @@
+<table id="lineup_alert" class="homepagemodule report"></table>
+
+<script>
+(function lineup_alertData() {
+  var url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=06";
+  fetch(url)
+    .then(function(response) {
+      if (response.ok) {
+        return response.text();
+      } else {
+        var lineup_alert = document.getElementById("lineup_alert");
+        lineup_alert.innerHTML = "No data retrieved";
+      }
+    })
+    .then(function(text) {
+      var parser = new DOMParser();
+      var html = parser.parseFromString(text, "text/html");
+      var report = html.querySelector(".report:nth-of-type(2)");
+      if (report) {
+        var lineup_alert = document.getElementById("lineup_alert");
+        lineup_alert.innerHTML = report.innerHTML;
+      } else {
+        var lineup_alert = document.getElementById("lineup_alert");
+        lineup_alert.innerHTML = "Data is empty";
+      }
+    })
+    .then(function() {
+      lineup_alert_function();
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+})();
+
+function lineup_alert_function() {
+  var lineup_alert = $('#lineup_alert');
+  lineup_alert.find('.report tr:contains(Non-Starters)').addClass('non_starters');
+  lineup_alert.find('.report').each(function(){
+    $(this).find('.non_starters').nextAll($(this).find('tr:last-of-type')).addBack().remove();
+  });
+  // check for bye rosters
+  lineup_alert.find('.report caption .franchiseicon').closest('.report').addClass('invalid');
+  lineup_alert.find('.report').not('.invalid').addClass('valid bye');
+  // check for 22 players
+  lineup_alert.find('.invalid tr:contains(22)').closest('.report').addClass('valid').removeClass('invalid');
+  lineup_alert.find('.invalid tr:not(:contains("22"))').closest('.report').addClass('not22');
+  // check for injured player
+  lineup_alert.find('.report').not('.bye').find('.injurystatus:not(:contains(Q))').closest('tr').addClass('injuredplayer');
+  lineup_alert.find('.report').not('.bye').find('.injuredplayer').closest('.report').addClass('invalid').removeClass('valid');
+  // remove everything except injured players
+  lineup_alert.find('.valid').remove();
+  lineup_alert.find('.report tr').not('.injuredplayer').remove();
+  lineup_alert.find('.report .injuredplayer td').not(':first-child').remove();
+  // remove the text from the captions
+  lineup_alert.find('.report caption span').contents().filter(function() {
+    // Find the text nodes within the element
+    return this.nodeType === Node.TEXT_NODE;
+  }).remove();
+  // change the player link to go to their news
+  lineup_alert.find('a').each(function() {
+    var oldLink = $(this).attr('href');
+    if (oldLink.indexOf('&P=') !== -1) {
+      var oldLinkParts = oldLink.split("&P=");
+      var new_player_id = oldLinkParts.pop();
+      var newLink = baseURLDynamic + "/" + year + "/news_articles?L=" + league_id + "&PLAYERS=" + new_player_id;
+      $(this).attr('href', newLink);
+      $(this).attr('target', '_blank');
+    }
+  });
+  // create a row if not 22 starters
+  var new22Row = $('<tr>', { class: 'oddtablerow' });
+  var new22Cell = $('<td>').append('Must start 22 players');
+  new22Row.append(new22Cell);
+  lineup_alert.find('.not22').append(new22Row);
+
+  // move the tables to the top
+  lineup_alert.find('.report').each(function(){
+    let teamImg = $(this).find('caption span').html();
+    let newTeamRow = $('<tr><td>' + teamImg + '</td></td>');
+    lineup_alert.append(newTeamRow);
+    $(this).find('tr').appendTo(lineup_alert);
+  });
+  lineup_alert.find('.two_column_layout').closest('tr').remove();
+  // create a footer link
+  var newRow = $('<tr>', { class: 'reportfooter' });
+  var newLink = $('<a>', {
+    href: baseURLDynamic + '/' + year + '/options?L=' + league_id + '&O=06',
+    text: 'Submit Lineup'
+  });
+  var newCell = $('<td>').append(newLink);
+  newRow.append(newCell);
+  lineup_alert.append(newRow);
+  lineup_alert.find('caption span').text('Invalid Lineups');
+}
