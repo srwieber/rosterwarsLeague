@@ -4,7 +4,7 @@
 
   let allowedPickemMisses = 4;         // Enter the number of game picks a team is allowed to miss
 
-(function fetchData() {
+(function pickemData() {
   var url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=122";
   fetch(url)
     .then(function(response) {
