@@ -1,6 +1,9 @@
 <table id="pick_em" class="homepagemodule report"></table>
 
 <script>
+
+  let allowedPickemMisses = 4;         // Enter the number of game picks a team is allowed to miss
+
 (function fetchData() {
   var url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=122";
   fetch(url)
@@ -16,6 +19,7 @@
       var parser = new DOMParser();
       var html = parser.parseFromString(text, "text/html");
       var report = html.querySelector(".report:nth-of-type(2)");
+      if (completedWeek == liveScoringWeek) {report = html.querySelector(".report:nth-of-type(3)");}
       if (report) {
         var pick_em = document.getElementById("pick_em");
         pick_em.innerHTML = report.innerHTML;
@@ -32,13 +36,23 @@
     });
 })();
 
+
 function pick_em_function() {
   var pick_em = $('#pick_em');
   pick_em.find('caption span').html('Missing Pick\'em');
   pick_em.find('td:empty').addClass('nopick');
-  pick_em.find('td.nopick:nth-child(3)').closest('tr').addClass('missingpicks');
+  if (allowedPickemMisses === 1){
+    pick_em.find('td.nopick').closest('tr').addClass('missingpicks');
+  }else{
+    pick_em.find('td.nopick:nth-child(' + allowedPickemMisses + ')').closest('tr').addClass('missingpicks');
+  }
   pick_em.find('tr').not('.missingpicks').remove();
   pick_em.find('td').not(':first-child').remove();
+  var thRow = '<tr><th>These teams have missing picks</th></tr>';
+  pick_em.prepend(thRow);
+  let rowCount = pick_em.find('tr').length;
+  var allValid = '<tr class="oddtablerow"><td>Nothing missing for Week ' + completedWeek + '</td></tr>';
+  if (rowCount < 2) {pick_em.append(allValid);}
   var newRow = $('<tr>', { class: 'reportfooter' });
   var newLink = $('<a>', {
     href: baseURLDynamic + '/' + year + '/options?L=' + league_id + '&O=121',
@@ -47,6 +61,7 @@ function pick_em_function() {
   var newCell = $('<td>').append(newLink);
   newRow.append(newCell);
   pick_em.append(newRow);
+  pick_em.find('.eventablerow').addClass('oddtablerow').removeClass('eventablerow');
   pick_em.css('text-align', 'center');
 }
 </script>
