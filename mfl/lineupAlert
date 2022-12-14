@@ -1,4 +1,4 @@
-<table id="lineup_alert" class="homepagemodule report"></table>
+<table id="lineup_alert" class="homepagemodule report"><caption><span>Invalid Lineups</span></caption><tr><td>Loading...<td></tr></table>
 
 <script>
 (function lineup_alertData() {
@@ -33,6 +33,7 @@
 })();
 
 function lineup_alert_function() {
+  var url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=06";
   var lineup_alert = $('#lineup_alert');
   lineup_alert.find('.report tr:contains(Non-Starters)').addClass('non_starters');
   lineup_alert.find('.report').each(function(){
@@ -69,7 +70,7 @@ function lineup_alert_function() {
   });
   // create a row if not 22 starters
   var new22Row = $('<tr>', { class: 'oddtablerow' });
-  var new22Cell = $('<td>').append('Must start 22 players');
+  var new22Cell = $('<td>').append('<a href="' + url + '" class="warning" target="_blank">Must start 22 players</a>');
   new22Row.append(new22Cell);
   lineup_alert.find('.not22').append(new22Row);
 
@@ -81,6 +82,7 @@ function lineup_alert_function() {
     $(this).find('tr').appendTo(lineup_alert);
   });
   lineup_alert.find('.two_column_layout').closest('tr').remove();
+
   // create a footer link
   var newRow = $('<tr>', { class: 'reportfooter' });
   var newLink = $('<a>', {
@@ -91,4 +93,6 @@ function lineup_alert_function() {
   newRow.append(newCell);
   lineup_alert.append(newRow);
   lineup_alert.find('caption span').text('Invalid Lineups');
+  lineup_alert.find('.eventablerow').addClass('oddtablerow').removeClass('eventablerow');
 }
+</script>
