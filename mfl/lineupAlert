@@ -2,7 +2,7 @@
 
 <script>
 (function lineup_alertData() {
-  var url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=06";
+  var url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=06&WEEK=" + liveScoringWeek + "&F=0000";
   fetch(url)
     .then(function(response) {
       if (response.ok) {
