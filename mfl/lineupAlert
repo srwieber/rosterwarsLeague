@@ -73,7 +73,6 @@ function lineup_alert_function() {
   var new22Cell = $('<td>').append('<a href="' + url + '" class="warning" target="_blank">Must start 22 players</a>');
   new22Row.append(new22Cell);
   lineup_alert.find('.not22').append(new22Row);
-
   // move the tables to the top
   lineup_alert.find('.report').each(function(){
     let teamImg = $(this).find('caption span').html();
@@ -82,7 +81,6 @@ function lineup_alert_function() {
     $(this).find('tr').appendTo(lineup_alert);
   });
   lineup_alert.find('.two_column_layout').closest('tr').remove();
-
   // create a footer link
   var newRow = $('<tr>', { class: 'reportfooter' });
   var newLink = $('<a>', {
@@ -94,5 +92,6 @@ function lineup_alert_function() {
   lineup_alert.append(newRow);
   lineup_alert.find('caption span').text('Invalid Lineups');
   lineup_alert.find('.eventablerow').addClass('oddtablerow').removeClass('eventablerow');
+  lineup_alert.find('tr').not('.oddtablerow').find('td').css('text-align', 'center');
 }
 </script>
