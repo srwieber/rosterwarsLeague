@@ -1,0 +1,11 @@
+<script>
+let conference1banner = 'https://i39.servimg.com/u/f39/15/70/85/29/confer10.jpg';
+let conference2banner = 'https://i39.servimg.com/u/f39/15/70/85/29/confer11.jpg';
+  
+(function upgradeStandings(){
+  $('#standings #division00').closest('table').addClass('conference1Standings standings');
+  $('#standings #division03').closest('table').addClass('conference2Standings standings');
+  $('.conference1Standings').before('<img src="' + conference1banner + '" width="100%" height="auto" border="0" title="' + leagueConferences['00'].name + '" alt="' + leagueConferences['00'].name + '">');
+  $('.conference2Standings').before('<img src="' + conference2banner + '" width="100%" height="auto" border="0" title="' + leagueConferences['01'].name + '" alt="' + leagueConferences['01'].name + '">');
+})();
+</script>
