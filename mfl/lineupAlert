@@ -83,6 +83,9 @@ function lineup_alert_function() {
   lineup_alert.find('.two_column_layout').closest('tr').remove();
   var thRow = '<tr><th>These teams have invalid lineups</th></tr>';
   lineup_alert.prepend(thRow);
+  let rowCount = lineup_alert.find('tr').length;
+  var allValid = '<tr class="oddtablerow"><td>All Lineups are Valid!</td></tr>';
+  if (rowCount < 2) {lineup_alert.append(allValid);}
   // create a footer link
   var newRow = $('<tr>', { class: 'reportfooter' });
   var newLink = $('<a>', {
