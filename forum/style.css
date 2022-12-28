@@ -514,6 +514,17 @@
     width:100%;
     text-align:center;
   }
+
+  .postcontainer span.postdetails.poster-profile br{
+    line-height:0;
+  }
+  .postcontainer .post > td:first-child {
+    text-align:center;
+  }
+  .postcontainer .post .row2 img.sprite-arrow_subsilver_up,
+  .postcontainer .post .row2 img.sprite-arrow_subsilver_down {
+    display:none;
+  }
   
   .topic_table .sigrow > td {
     padding:0;
@@ -1076,14 +1087,15 @@
   
     /* fix username overflow on posts */
     body:not(.desktop_view) .postcontainer > td > table {
-      padding-top:38px;
+      padding-top:32px;
     }
     body:not(.desktop_view) .postcontainer span.name {
+      display:block;
       position:absolute;
-      width:calc(100% - 32px);
-      margin-top:-33px;
+      width:calc(99% - 21.5px);
+      margin-top:-27px;
       margin-left:-3px;
-      padding: 5px;
+      padding: 2px;
       background:#d9d9d9;
       border-bottom:2px solid;
     }
