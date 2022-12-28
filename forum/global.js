@@ -78,7 +78,30 @@ $( document ).ready(function() {
   $('.topics_list tr').not(':first, :lt(2)').find('th:contains("Topics")').attr('colspan', 1).before('<th></th>');
   $('.topics_list tr').not(':first, :lt(2)').find('th:nth-of-type(4)').html('Views');
   $('.topics_list tr').not(':first, :lt(2)').find('th:nth-of-type(5)').html('Author');
-  
+	
+// Edit profile page: links & other stuff
+  if ( _userdata["user_id"] != 1 ) {
+    $('table:not(.forumline) .gen a.mainmenu:contains("Avatar")').closest('.gen').remove();
+    $('table:not(.forumline) .gen a.mainmenu:contains("Signature")').closest('.gen').remove();
+    let informationPage = $('table:not(.forumline) .gen strong:contains("Information")');
+    if(informationPage.length === 1){
+      $('#register .forumline .thSides:contains("Data export")').closest('tr').next().remove();
+      $('#register .forumline .thSides:contains("Data export")').closest('tr').remove();
+      $('#register .forumline tr:first-of-type th, #register .forumline tr:last-of-type td.catBottom').attr('colspan',2);
+    }
+    let preferencesPage = $('table:not(.forumline) .gen strong:contains("Preferences")');
+    if(preferencesPage.length === 1){
+      $('#register .forumline tr:first-of-type').addClass('keep');
+      $('#register .forumline tr:nth-of-type(15)').addClass('keep');
+      $('#register .forumline tr:nth-of-type(16)').addClass('keep');
+      $('#register .forumline tr:nth-of-type(17)').addClass('keep');
+      $('#register .forumline tr:last-of-type').addClass('keep');
+      $('#register .forumline tr:not(.keep)').remove();
+      $('#register .forumline tr:first-of-type th, #register .forumline tr:last-of-type td.catBottom').attr('colspan',2);
+    }
+  }
+  $('table:not(.forumline) .gen a.mainmenu').show();
+    
 });
 
 $(document).on('click','#desktop_view',function() {
