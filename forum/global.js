@@ -92,9 +92,9 @@ $( document ).ready(function() {
     let preferencesPage = $('table:not(.forumline) .gen strong:contains("Preferences")');
     if(preferencesPage.length === 1){
       $('#register .forumline tr:first-of-type').addClass('keep');
-      $('#register .forumline tr:nth-of-type(15)').addClass('keep');
-      $('#register .forumline tr:nth-of-type(16)').addClass('keep');
-      $('#register .forumline tr:nth-of-type(17)').addClass('keep');
+      $('#register .forumline tr:contains("Board Language")').addClass('keep');
+      $('#register .forumline tr:contains("Timezone")').addClass('keep');
+      $('#register .forumline tr:contains("Date format")').addClass('keep');
       $('#register .forumline tr:last-of-type').addClass('keep');
       $('#register .forumline tr:not(.keep)').remove();
       $('#register .forumline tr:first-of-type th, #register .forumline tr:last-of-type td.catBottom').attr('colspan',2);
