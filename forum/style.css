@@ -358,6 +358,10 @@
   }
 
 
+  /* ======================= Page: Edit Profile ============ */
+  table:not(.forumline) .gen a.mainmenu {
+    display:none;
+  }
   /* ======================= Page: Topics List ============ */
   #topic_nav td {
     padding:5px;
@@ -483,11 +487,13 @@
     width:210px;
   }
   .postcontainer > td > table {
+    width:99%;
+    margin:auto;
     margin-top:15px;
-    padding:7px;
-    background:#333;
-    border:1px solid #777;
-    border-radius:10px;
+    padding:5px;
+    background:#222;
+    border:1px solid #3c312f;
+    border-radius:5px;
   }
 /*
   .postcontainer .post .row1:first-of-type,
