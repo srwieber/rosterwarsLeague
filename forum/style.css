@@ -521,8 +521,8 @@
   .postcontainer .post > td:first-child {
     text-align:center;
   }
-  .postcontainer .post .row2 img.sprite-arrow_subsilver_up,
-  .postcontainer .post .row2 img.sprite-arrow_subsilver_down {
+  .postcontainer img.sprite-arrow_subsilver_up,
+  .postcontainer img.sprite-arrow_subsilver_down {
     display:none;
   }
   
