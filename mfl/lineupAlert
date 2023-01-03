@@ -1,36 +1,43 @@
-<table id="lineup_alert" class="homepagemodule report"><caption><span>Invalid Lineups</span></caption><tr><td>Loading...<td></tr></table>
+<table id="lineup_alert" class="homepagemodule report"><caption><span>Invalid Lineups</span></caption><tr><td>Loading...</td></tr></table>
 
 <script>
-(function lineup_alertData() {
-  var url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=06&WEEK=" + liveScoringWeek + "&F=0000";
-  fetch(url)
-    .then(function(response) {
-      if (response.ok) {
-        return response.text();
-      } else {
-        var lineup_alert = document.getElementById("lineup_alert");
-        lineup_alert.innerHTML = "No data retrieved";
-      }
-    })
-    .then(function(text) {
-      var parser = new DOMParser();
-      var html = parser.parseFromString(text, "text/html");
-      var report = html.querySelector(".report:nth-of-type(2)");
-      if (report) {
-        var lineup_alert = document.getElementById("lineup_alert");
-        lineup_alert.innerHTML = report.innerHTML;
-      } else {
-        var lineup_alert = document.getElementById("lineup_alert");
-        lineup_alert.innerHTML = "Data is empty";
-      }
-    })
-    .then(function() {
-      lineup_alert_function();
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-})();
+if (completedWeek != liveScoringWeek && liveScoringWeek <= endWeek){
+  (function lineup_alertData() {
+    var url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=06&WEEK=" + liveScoringWeek + "&F=0000";
+    fetch(url)
+      .then(function(response) {
+        if (response.ok) {
+          return response.text();
+        } else {
+          var lineup_alert = document.getElementById("lineup_alert");
+          lineup_alert.innerHTML = "No data retrieved";
+        }
+      })
+      .then(function(text) {
+        var parser = new DOMParser();
+        var html = parser.parseFromString(text, "text/html");
+        var report = html.querySelector(".report:nth-of-type(2)");
+        if (report) {
+          var lineup_alert = document.getElementById("lineup_alert");
+          lineup_alert.innerHTML = report.innerHTML;
+        } else {
+          var lineup_alert = document.getElementById("lineup_alert");
+          lineup_alert.innerHTML = "Data is empty";
+        }
+      })
+      .then(function() {
+        lineup_alert_function();
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  })();
+}else if (completedWeek === liveScoringWeek && liveScoringWeek <= endWeek){
+  $('#lineup_alert td').html('Available Thursday');
+}else if (liveScoringWeek > endWeek){
+  $('#lineup_alert td').html('Season Is Over');
+}
+
 
 function lineup_alert_function() {
   var url = baseURLDynamic + "/" + year + "/options?L=" + league_id + "&O=06";
