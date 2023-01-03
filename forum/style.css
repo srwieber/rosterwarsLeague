@@ -41,7 +41,9 @@
     max-width: 100%;
     overflow:hidden;
   }
-  
+  #criteo_sticky {
+    bottom:-200px!important;
+  }  
   /* ======================= Global: for smoother loading ============ */
   #left, #right,
   .mainlist,
