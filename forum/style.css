@@ -405,13 +405,22 @@
   }
   #quick_reply .row2 textarea{
     min-height:200px;
+    width:98%!important;
   }
-  #smileyContainer iframe{
-/*    padding:0;
-    width:100%;
-    height:200px;
-    border:1px solid #000;
-*/  }
+  #quick_reply div .sceditor-color-picker, 
+  #quick_reply div .sceditor-font-picker {
+    height:210px;
+    overflow-y:scroll;
+  }
+  #quick_reply div .sceditor-emoticon {
+    height:210px;
+    padding:0;
+  }
+  #quick_reply div .sceditor-emoticon iframe{
+    height:210px;
+    padding:0;
+    margin:0;
+  }
   #smileyContainer {
     background:#fff;
     border:1px solid #aaa;
