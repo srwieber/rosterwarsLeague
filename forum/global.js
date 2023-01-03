@@ -39,7 +39,13 @@ $( document ).ready(function() {
     $('.topad').closest('.forumline').addClass('topadtable');
     adloop++;
     topadlength = $('.topadtable .topad').length;
-    if (adloop < 3 && topadlength < 1) {setTimeout(topad, 1000);}
+    if (adloop < 3 && topadlength < 1) {
+      setTimeout(topad, 1000);
+    }else if (adloop === 3 && topadlength < 1) {
+      $('.forumline tr:first-of-type td:first-of-type table div div').closest('div').wrap('<span class="topad"></span>');
+      $('.topad').closest('td div').prepend('<div><img class="responsive" src="' + rwAdBanner + '" /></div>');
+      $('.topad').closest('.forumline').addClass('topadtable');
+    }
   }
   
 // for smoother loading
