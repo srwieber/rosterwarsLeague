@@ -1,4 +1,5 @@
-let rwAdBanner = 'https://i.servimg.com/u/f39/15/70/85/29/top_ba10.jpg';
+let rwAdBanner = 'https://i39.servimg.com/u/f39/15/70/85/29/top_ba11.jpg';
+//let rwAdBanner = 'https://i.servimg.com/u/f39/15/70/85/29/top_ba10.jpg';
 
 let rwMobileVar;
 // mobile layout
@@ -37,7 +38,7 @@ $( document ).ready(function() {
     $('.topad').closest('td div').prepend('<div><img class="responsive" src="' + rwAdBanner + '" /></div>');
     $('.topad').closest('.forumline').addClass('topadtable');
     adloop++;
-    topadlength = $('.topadtable').length;
+    topadlength = $('.topadtable .topad').length;
     if (adloop < 3 && topadlength < 1) {setTimeout(topad, 1000);}
   }
   
