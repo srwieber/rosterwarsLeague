@@ -440,9 +440,13 @@
     padding-bottom:25px;
     overflow-x:auto;
   }
-.postbody iframe {
-  max-width:100%;
-}
+  .postbody iframe {
+    max-width:100%;
+  }
+  .postbody .twitter-tweet {
+    margin:auto;
+    min-height:603px;
+  }
   
   .postbody dd.quote {
 /*
