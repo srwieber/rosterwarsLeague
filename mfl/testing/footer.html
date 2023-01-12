@@ -1,0 +1,225 @@
+<style>
+#division00 img:first-of-type,
+#division03 img:first-of-type {
+  padding-bottom:5px;
+}
+#division00 img:last-of-type,
+#division03 img:last-of-type {
+  padding-top:5px;
+  border-top:1px solid #555;
+}
+div#standings #division03 img:first-of-type {
+  padding-top:20px;
+  border-top:4px solid #a49c6c;
+}
+</style>
+
+<div id="close_popup">^</div>
+<div id="bottom_popup">
+ <div id="bottom_popup_container"></div>
+</div>
+
+<script>
+
+(function upgradeStandings(){
+  $('#standings #division00').prepend('<img src="' + conference1banner + '" width="100%" height="auto" border="0" title="' + leagueConferences['00'].name + '" alt="' + leagueConferences['00'].name + '"><br />');
+  $('#standings #division03').prepend('<img src="' + conference2banner + '" width="100%" height="auto" border="0" title="' + leagueConferences['01'].name + '" alt="' + leagueConferences['01'].name + '"><br />');
+  $('div#standings #division03').closest('tr').before('<tr><td style="padding:10px;"></td></tr>');
+})();
+
+/* Put tabs on every page */
+(function tabsOnEveryPage(){
+  if ( $('#body_home').length === 0 ) {
+      let banner = $('#banner');
+      let urlHome = baseURLDynamic + "/" + year + "/home/" + league_id;
+      fetch(urlHome)
+        .then(function(response) {
+          if (response.ok) {
+            return response.text();
+          }else {
+              console.log("No data retrieved for Homepage Tabs");
+          }
+        })
+        .then(function(text) {
+          let parser = new DOMParser();
+          let html = parser.parseFromString(text, "text/html");
+          let report = html.querySelector(".myfantasyleague_tabmenu");
+          if (report) {
+            banner.append(report.outerHTML);
+          } else {
+            console.log("Homepage Tab's Didn't Load");
+          }
+        })
+        .then(function() {
+          $('#homepagetabs #tab0 a').text('League');
+          $('#homepagetabs li').each(function(i){
+              newURL = urlHome + '#' + i;
+              $(this).attr("onclick","location.href='" + newURL + "'");
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+  }
+
+
+/* Change Text for main tab */
+  $('#homepagetabs #tab0 a').text('League');
+
+})();
+
+
+
+/* Icons for the tabs */
+(function tabIcons(){
+  let teamul = '<div class="my_team_tab">';
+  teamul = teamul + '<ul class="tabicons">';
+  teamul = teamul + '<li><a href="#" title="IR Moves"><i class="fa-solid fa-truck-medical"></i><br />IR</a></li>';
+  teamul = teamul + '<li><a href="#" title="Taxi Moves"><i class="fa-solid fa-people-arrows"></i><br />Taxi</a></li>';
+  teamul = teamul + '<li><a href="#" title="Draft Pick"><i class="fa-solid fa-user-tag"></i><br />Draft</a></li>';
+  teamul = teamul + '<li><a href="#" title="Schedule"><i class="fa-solid fa-timeline"></i><br />Schedule</a></li>';
+  teamul = teamul + '<li><a href="#" title="Edit Team Info"><i class="fa-solid fa-user-gear"></i><br />Edit</a></li>';
+  teamul = teamul + '</ul>';
+  teamul = teamul + '</div>';
+
+  let playerul = '<ul class="tabicons">';
+  playerul = playerul + '<li><a href="#" title="Rosters"><i class="fa-solid fa-table-cells"></i><br />Rosters</a></li>';
+  playerul = playerul + '<li><a href="#" title="Matchup Chart"><i class="fa-solid fa-table-list"></i><br />Matchup Chart</a></li>';
+  playerul = playerul + '<li><a href="#" title="Weekly Summary"><i class="fa-solid fa-table"></i><br />Summary</a></li>';
+  playerul = playerul + '<li><a href="#" title="Results"><i class="fa-solid fa-award"></i><br />Results</a></li>';
+  playerul = playerul + '<li><a href="#" title="Stat Corrections"><i class="fa-solid fa-code-compare"></i><br />Stat Corrections</a></li>';
+  playerul = playerul + '</ul>';
+
+  $('#tabcontent1').prepend(teamul);
+  $('#tabcontent2').prepend(playerul);
+})();
+
+
+/* My Team Tab info */
+(function myTeamTab(){
+  if ( $('#body_home').length === 1 ) {
+      let myTab = $('.my_team_tab');
+      let url = baseURLDynamic + "/" + year + "/standings?L=" + league_id;
+      fetch(url)
+        .then(function(response) {
+          if (response.ok) {
+            return response.text();
+          }else {
+              console.log("No data retrieved for Standings");
+          }
+        })
+        .then(function(text) {
+          let parser = new DOMParser();
+          let html = parser.parseFromString(text, "text/html");
+          let report = html.querySelector(".report");
+          if (report) {
+            let myIcon = html.querySelector(".myfranchise");
+            if ( myIcon === null ) {
+              myIcon = html.querySelector(".franchise_0001");
+            }
+            let myRecord = html.querySelector(".report tr:has(.myfranchise) td:nth-of-type(2)");
+            if ( myRecord === null ) {
+              myRecord = html.querySelector(".report tr:has(.franchise_0001) td:nth-of-type(2)");
+            }
+            myTab.prepend(myIcon.outerHTML + '<div class="my_record">' + myRecord.innerHTML + '</div>');
+          } else {
+            console.log("Standings Didn't Load");
+          }
+        })
+        .then(function() {
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+  }
+})();
+
+
+
+
+/* Footer Popup */
+let clickedLeagueLink;
+  function openRWPopup() {
+    popup = document.getElementById("bottom_popup");
+    popupContainer = document.getElementById("bottom_popup_container");
+    popupClose = document.getElementById("close_popup");
+    popup.style.bottom = "0px";
+    popupContainer.style.height = "80vh";
+
+// testing clicking outside the element to close the popup
+//   $(".popup").fadeIn(300,function(){$(this).focus();});
+
+    popupClose.style.bottom = "80vh";
+    popupClose.style.backgroundColor = "#a00";
+    popupClose.innerHTML = "X";
+
+    if (clickedLeagueLink != "^"){
+      popupContainer.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+      var url = baseURLDynamic + "/" + year + "/home/" + league_id + "?MODULE=" + clickedLeagueLink;
+      fetch(url)
+        .then(function(response) {
+          if (response.ok) {
+            return response.text();
+          } else {
+            popupContainer.innerHTML = "No data retrieved";
+          }
+        })
+        .then(function(text) {
+          var parser = new DOMParser();
+          var html = parser.parseFromString(text, "text/html");
+          var report = html.querySelector(".report");
+          if (report) {
+            popupContainer.innerHTML = report.outerHTML;
+          } else {
+            popupContainer.innerHTML = "Nothing To See Here";
+          }
+        })
+        .then(function() {
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }else{
+    }
+  }
+
+  function closeRWPopup() {
+    popup = document.getElementById("bottom_popup");
+    popupContainer = document.getElementById("bottom_popup_container");
+    popupClose = document.getElementById("close_popup");
+    popup.style.bottom = "-6px";
+    popupContainer.style.height = "0px";
+    popupClose.style.backgroundColor = "#a49c6c";
+    popupClose.innerHTML = "^";
+    if ( $('#bottom_popup_container .report').length > 0 ){
+      popupClose.style.bottom = "0px";
+    }else{
+      popupClose.style.bottom = "-50px";
+    }
+  }
+
+
+  $("a.module_text").click(function(e){
+    e.preventDefault();
+    clickedLeagueLink = $(this).text().toUpperCase().split(' ').join('_');
+    openRWPopup();
+  });
+  window.addEventListener('click', function(e){   
+    let closeBox = document.getElementById('close_popup');
+    let closeBoxText = closeBox.textContent;
+
+    if (document.getElementById('bottom_popup').contains(e.target) || $(e.target).is("a") || $(e.target).is("a i") ){
+      // Clicked in box
+    }else if ( closeBox.contains(e.target) && closeBoxText != "X" ){
+      clickedLeagueLink = closeBoxText;
+      openRWPopup();
+    }else{
+      // Clicked outside the box
+      closeRWPopup();
+    }
+  });
+  $("#mfl_menu_button").click(function(){
+    $('.myfantasyleague_menu').toggle();
+  });
+
+</script>
