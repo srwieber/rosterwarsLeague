@@ -14,20 +14,24 @@ div#standings #division03 img:first-of-type {
 }
 </style>
 
-<div id="close_popup">^</div>
+<div id="close_popup" class="closed"></div>
 <div id="bottom_popup">
  <div id="bottom_popup_container"></div>
 </div>
 
 <script>
+let clickedLeagueLink;
+let playerHref;
 
+
+/* === Standings Banners === */
 (function upgradeStandings(){
   $('#standings #division00').prepend('<img src="' + conference1banner + '" width="100%" height="auto" border="0" title="' + leagueConferences['00'].name + '" alt="' + leagueConferences['00'].name + '"><br />');
   $('#standings #division03').prepend('<img src="' + conference2banner + '" width="100%" height="auto" border="0" title="' + leagueConferences['01'].name + '" alt="' + leagueConferences['01'].name + '"><br />');
   $('div#standings #division03').closest('tr').before('<tr><td style="padding:10px;"></td></tr>');
 })();
 
-/* Put tabs on every page */
+/* === Put tabs on every page === */
 (function tabsOnEveryPage(){
   if ( $('#body_home').length === 0 ) {
       let banner = $('#banner');
@@ -62,15 +66,14 @@ div#standings #division03 img:first-of-type {
         });
   }
 
-
-/* Change Text for main tab */
+/* === Change Text for main tab === */
   $('#homepagetabs #tab0 a').text('League');
 
 })();
 
 
 
-/* Icons for the tabs */
+/* === Icons for the tabs === */
 (function tabIcons(){
   let teamul = '<div class="my_team_tab">';
   teamul = teamul + '<ul class="tabicons">';
@@ -95,7 +98,7 @@ div#standings #division03 img:first-of-type {
 })();
 
 
-/* My Team Tab info */
+/* === My Team Tab info === */
 (function myTeamTab(){
   if ( $('#body_home').length === 1 ) {
       let myTab = $('.my_team_tab');
@@ -136,26 +139,23 @@ div#standings #division03 img:first-of-type {
 
 
 
-
-/* Footer Popup */
-let clickedLeagueLink;
+/* === Footer Popup === */
+  let popup = document.getElementById("bottom_popup");
+  let popupContainer = document.getElementById("bottom_popup_container");
+  let popupClose = document.getElementById("close_popup");
   function openRWPopup() {
-    popup = document.getElementById("bottom_popup");
-    popupContainer = document.getElementById("bottom_popup_container");
-    popupClose = document.getElementById("close_popup");
     popup.style.bottom = "0px";
     popupContainer.style.height = "80vh";
 
 // testing clicking outside the element to close the popup
 //   $(".popup").fadeIn(300,function(){$(this).focus();});
 
-    popupClose.style.bottom = "80vh";
-    popupClose.style.backgroundColor = "#a00";
-    popupClose.innerHTML = "X";
-
-    if (clickedLeagueLink != "^"){
+    if (clickedLeagueLink != "close_popup.closed"){ // if #close_popup.closed button is clicked, you don't want this to run. 
       popupContainer.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
-      var url = baseURLDynamic + "/" + year + "/home/" + league_id + "?MODULE=" + clickedLeagueLink;
+      let url = baseURLDynamic + "/" + year + "/home/" + league_id + "?MODULE=" + clickedLeagueLink;
+      if (clickedLeagueLink === "player"){
+        url = playerHref;
+      }
       fetch(url)
         .then(function(response) {
           if (response.ok) {
@@ -167,10 +167,15 @@ let clickedLeagueLink;
         .then(function(text) {
           var parser = new DOMParser();
           var html = parser.parseFromString(text, "text/html");
-          var report = html.querySelector(".report");
+          var report = html.querySelectorAll(".report");
           if (report) {
-            popupContainer.innerHTML = report.outerHTML;
-          } else {
+              popupContainer.innerHTML = '';
+              for (let i = 0; i < report.length; i++) {
+                const newDiv = document.createElement("div");
+                newDiv.appendChild(report[i]);
+                popupContainer.appendChild(newDiv);
+              }
+          }else {
             popupContainer.innerHTML = "Nothing To See Here";
           }
         })
@@ -181,43 +186,64 @@ let clickedLeagueLink;
         });
     }else{
     }
+    popupClose.style.bottom = "80vh";
+    popupClose.innerHTML = 'X';
+//    popupClose.innerHTML = '<i class="fa-solid fa-circle-chevron-down"></i>';
+    popupClose.classList.add("open");
+    popupClose.classList.remove("closed");
   }
 
+
   function closeRWPopup() {
-    popup = document.getElementById("bottom_popup");
-    popupContainer = document.getElementById("bottom_popup_container");
-    popupClose = document.getElementById("close_popup");
     popup.style.bottom = "-6px";
     popupContainer.style.height = "0px";
-    popupClose.style.backgroundColor = "#a49c6c";
-    popupClose.innerHTML = "^";
+//    popupClose.style.backgroundColor = "#a49c6c";
+    popupClose.innerHTML = '^';
+//    popupClose.innerHTML = '<i class="fa-solid fa-circle-chevron-up"></i>';
     if ( $('#bottom_popup_container .report').length > 0 ){
       popupClose.style.bottom = "0px";
     }else{
       popupClose.style.bottom = "-50px";
     }
+    // need to add .open and .closed addclasses in the openpopup and closepopup functions
+    popupClose.classList.add("closed");
+    popupClose.classList.remove("open");
   }
 
 
+/* === Click Functions === */
   $("a.module_text").click(function(e){
     e.preventDefault();
     clickedLeagueLink = $(this).text().toUpperCase().split(' ').join('_');
     openRWPopup();
   });
-  window.addEventListener('click', function(e){   
-    let closeBox = document.getElementById('close_popup');
-    let closeBoxText = closeBox.textContent;
 
-    if (document.getElementById('bottom_popup').contains(e.target) || $(e.target).is("a") || $(e.target).is("a i") ){
-      // Clicked in box
-    }else if ( closeBox.contains(e.target) && closeBoxText != "X" ){
-      clickedLeagueLink = closeBoxText;
+  $(".player a").click(function(e){
+    e.preventDefault();
+    clickedLeagueLink = $(this).closest('td').attr('class'); // you could probably just simply write 'player'
+    playerHref = $(this).attr('href');
+    openRWPopup();
+  });
+
+  $("#close_popup").click(function(e){
+    if($(e.target).is(".closed")){
+      clickedLeagueLink = 'close_popup.closed';
       openRWPopup();
-    }else{
-      // Clicked outside the box
+    }else if($(e.target).is(".open")){
       closeRWPopup();
     }
   });
+
+  window.addEventListener('click', function(e){   
+    if (document.getElementById('bottom_popup').contains(e.target) || $(e.target).is("#close_popup") || $(e.target).is("a") || $(e.target).is("a i") ){ // this list needs to be updated with any element that will open the popup. You're adding these items so that the popup will not close when you click them. 
+      // Clicked in box, OR clicked a link outside the box, which will open the popup. 
+    }else{
+      // Clicked outside the box
+      // you probably want to write something to make sure that this function only runs if the popup is open. 
+      closeRWPopup();
+    }
+  });
+
   $("#mfl_menu_button").click(function(){
     $('.myfantasyleague_menu').toggle();
   });
