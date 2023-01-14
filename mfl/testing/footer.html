@@ -14,7 +14,7 @@ div#standings #division03 img:first-of-type {
 }
 </style>
 
-<div id="close_popup" class="closed"></div>
+<div id="close_popup" class="closed"><i class="fa-solid fa-circle-chevron-up"></i></div>
 <div id="bottom_popup">
  <div id="bottom_popup_container"></div>
 </div>
@@ -22,6 +22,7 @@ div#standings #division03 img:first-of-type {
 <script>
 let clickedLeagueLink;
 let playerHref;
+let rwPlayerName;
 
 
 /* === Standings Banners === */
@@ -77,20 +78,20 @@ let playerHref;
 (function tabIcons(){
   let teamul = '<div class="my_team_tab">';
   teamul = teamul + '<ul class="tabicons">';
-  teamul = teamul + '<li><a href="#" title="IR Moves"><i class="fa-solid fa-truck-medical"></i><br />IR</a></li>';
-  teamul = teamul + '<li><a href="#" title="Taxi Moves"><i class="fa-solid fa-people-arrows"></i><br />Taxi</a></li>';
-  teamul = teamul + '<li><a href="#" title="Draft Pick"><i class="fa-solid fa-user-tag"></i><br />Draft</a></li>';
-  teamul = teamul + '<li><a href="#" title="Schedule"><i class="fa-solid fa-timeline"></i><br />Schedule</a></li>';
-  teamul = teamul + '<li><a href="#" title="Edit Team Info"><i class="fa-solid fa-user-gear"></i><br />Edit</a></li>';
+  teamul = teamul + '<li><a class="rw_icon_popup" href="//%HOST%/%YEAR%/options?L=%LEAGUEID%&O=18" title="IR Moves"><i class="fa-solid fa-truck-medical"></i><br />IR</a></li>';
+  teamul = teamul + '<li><a class="rw_icon_popup" href="//%HOST%/%YEAR%/options?L=%LEAGUEID%&O=98" title="Taxi Moves"><i class="fa-solid fa-people-arrows"></i><br />Taxi</a></li>';
+  teamul = teamul + '<li><a class="rw_icon_popup" href="//%HOST%/%YEAR%/options?L=%LEAGUEID%&O=52" title="Draft Pick"><i class="fa-solid fa-user-tag"></i><br />Draft</a></li>';
+  teamul = teamul + '<li><a class="rw_icon_popup" href="//%HOST%/%YEAR%/options?L=%LEAGUEID%&O=16" title="Schedule"><i class="fa-solid fa-timeline"></i><br />Schedule</a></li>';
+  teamul = teamul + '<li><a class="rw_icon_popup" href="//%HOST%/%YEAR%/csetup?L=%LEAGUEID%&C=FCONTACT" title="Edit Team Info"><i class="fa-solid fa-user-gear"></i><br />Edit</a></li>';
   teamul = teamul + '</ul>';
   teamul = teamul + '</div>';
 
   let playerul = '<ul class="tabicons">';
-  playerul = playerul + '<li><a href="#" title="Rosters"><i class="fa-solid fa-table-cells"></i><br />Rosters</a></li>';
-  playerul = playerul + '<li><a href="#" title="Matchup Chart"><i class="fa-solid fa-table-list"></i><br />Matchup Chart</a></li>';
-  playerul = playerul + '<li><a href="#" title="Weekly Summary"><i class="fa-solid fa-table"></i><br />Summary</a></li>';
-  playerul = playerul + '<li><a href="#" title="Results"><i class="fa-solid fa-award"></i><br />Results</a></li>';
-  playerul = playerul + '<li><a href="#" title="Stat Corrections"><i class="fa-solid fa-code-compare"></i><br />Stat Corrections</a></li>';
+  playerul = playerul + '<li><a class="rw_icon_popup" href="//%HOST%/%YEAR%/options?L=%LEAGUEID%&O=07" title="Rosters"><i class="fa-solid fa-table-cells"></i><br />Rosters</a></li>';
+  playerul = playerul + '<li><a class="rw_icon_popup" href="MY_MATCHUP_CHART" title="Matchup Chart"><i class="fa-solid fa-table-list"></i><br />Matchup Chart</a></li>';
+  playerul = playerul + '<li><a class="rw_icon_popup" href="//%HOST%/%YEAR%/options?L=%LEAGUEID%&O=31" title="Weekly Summary"><i class="fa-solid fa-table"></i><br />Summary</a></li>';
+  playerul = playerul + '<li><a class="rw_icon_popup" href="//%HOST%/%YEAR%/options?L=%LEAGUEID%&O=22" title="Results"><i class="fa-solid fa-award"></i><br />Results</a></li>';
+  playerul = playerul + '<li><a class="rw_icon_popup" href="//%HOST%/%YEAR%/site_news?CATEGORY=Official+Statistics+Changes&L=%LEAGUEID%" title="Stat Corrections"><i class="fa-solid fa-code-compare"></i><br />Stat Corrections</a></li>';
   playerul = playerul + '</ul>';
 
   $('#tabcontent1').prepend(teamul);
@@ -144,16 +145,23 @@ let playerHref;
   let popupContainer = document.getElementById("bottom_popup_container");
   let popupClose = document.getElementById("close_popup");
   function openRWPopup() {
-    popup.style.bottom = "0px";
-    popupContainer.style.height = "80vh";
-
-// testing clicking outside the element to close the popup
-//   $(".popup").fadeIn(300,function(){$(this).focus();});
+    $(popupClose).find('.fa-solid').addClass('fa-circle-chevron-down').removeClass('fa-circle-chevron-up');
+    if($(popupClose).is(".closed")){
+      $(popupClose).hide();
+      $(popup).slideDown({
+        direction: "up"
+      }, 200);
+      $(popupClose).delay(150).slideDown({
+        direction: "up"
+      }, 200);
+    }
 
     if (clickedLeagueLink != "close_popup.closed"){ // if #close_popup.closed button is clicked, you don't want this to run. 
+      $(popupContainer).hide();
       popupContainer.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+      $(popupContainer).fadeIn();
       let url = baseURLDynamic + "/" + year + "/home/" + league_id + "?MODULE=" + clickedLeagueLink;
-      if (clickedLeagueLink === "player"){
+      if (clickedLeagueLink === "player" || clickedLeagueLink === "rw_icon_popup"){
         url = playerHref;
       }
       fetch(url)
@@ -173,7 +181,15 @@ let playerHref;
               for (let i = 0; i < report.length; i++) {
                 const newDiv = document.createElement("div");
                 newDiv.appendChild(report[i]);
+                $(newDiv).hide();
                 popupContainer.appendChild(newDiv);
+                if(rwPlayerName != undefined){
+                  $(newDiv).find('.biography:has(img) caption span').html(rwPlayerName);
+                }
+                $(newDiv).fadeIn();
+              }
+              if (report.length < 1) {
+                popupContainer.innerHTML = "Nothing Loaded. Sad Face Emoji.";
               }
           }else {
             popupContainer.innerHTML = "Nothing To See Here";
@@ -186,25 +202,23 @@ let playerHref;
         });
     }else{
     }
-    popupClose.style.bottom = "80vh";
-    popupClose.innerHTML = 'X';
-//    popupClose.innerHTML = '<i class="fa-solid fa-circle-chevron-down"></i>';
     popupClose.classList.add("open");
     popupClose.classList.remove("closed");
   }
 
 
   function closeRWPopup() {
-    popup.style.bottom = "-6px";
-    popupContainer.style.height = "0px";
-//    popupClose.style.backgroundColor = "#a49c6c";
-    popupClose.innerHTML = '^';
-//    popupClose.innerHTML = '<i class="fa-solid fa-circle-chevron-up"></i>';
-    if ( $('#bottom_popup_container .report').length > 0 ){
-      popupClose.style.bottom = "0px";
-    }else{
-      popupClose.style.bottom = "-50px";
-    }
+    $(popupClose).find('.fa-solid').toggleClass('fa-circle-chevron-up').toggleClass('fa-circle-chevron-down');
+      $(popupClose).slideUp({
+        direction: "down"
+      }, 200);
+      $(popup).delay(0).slideUp({
+        direction: "down"
+      }, 200);
+      $(popupClose).delay(0).slideDown({
+        direction: "up"
+      }, 50);
+
     // need to add .open and .closed addclasses in the openpopup and closepopup functions
     popupClose.classList.add("closed");
     popupClose.classList.remove("open");
@@ -218,14 +232,23 @@ let playerHref;
     openRWPopup();
   });
 
-  $(".player a").click(function(e){
+  $("a.rw_icon_popup").click(function(e){
     e.preventDefault();
-    clickedLeagueLink = $(this).closest('td').attr('class'); // you could probably just simply write 'player'
+    clickedLeagueLink = 'rw_icon_popup';
     playerHref = $(this).attr('href');
     openRWPopup();
   });
 
+  $(".player a").click(function(e){
+    e.preventDefault();
+    clickedLeagueLink = $(this).closest('td').attr('class'); // you could probably just simply write 'player'
+    playerHref = $(this).attr('href');
+    rwPlayerName = $(this).text();
+    openRWPopup();
+  });
+
   $("#close_popup").click(function(e){
+//clicking on the i element isn't currently working
     if($(e.target).is(".closed")){
       clickedLeagueLink = 'close_popup.closed';
       openRWPopup();
@@ -235,12 +258,14 @@ let playerHref;
   });
 
   window.addEventListener('click', function(e){   
-    if (document.getElementById('bottom_popup').contains(e.target) || $(e.target).is("#close_popup") || $(e.target).is("a") || $(e.target).is("a i") ){ // this list needs to be updated with any element that will open the popup. You're adding these items so that the popup will not close when you click them. 
+    // this list needs to be updated with any element that will open the popup. You're adding these items so that the popup will not close when you click them. 
+    if (document.getElementById('bottom_popup').contains(e.target) || $(e.target).is("#close_popup") || $(e.target).is("a") || $(e.target).is("a i") ){ 
       // Clicked in box, OR clicked a link outside the box, which will open the popup. 
     }else{
       // Clicked outside the box
-      // you probably want to write something to make sure that this function only runs if the popup is open. 
-      closeRWPopup();
+      if($(popupClose).is(".open")){
+        closeRWPopup();
+      }
     }
   });
 
