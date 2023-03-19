@@ -1,0 +1,1249 @@
+/*
+MFL base css: https://www65.myfantasyleague.com/skins17/MFLBaseCSS.css
+*/
+
+:root {
+    --first-color: #171717;
+    --second-color: #3c312f;
+    --third-color: #a49c6c;
+    --oddrow-bg: #222;
+    --evenrow-bg: #444;
+    --text-color: #bbb;
+    --scrollbar-width: 12px;
+    --scrollbar-height: 8px;
+}
+  
+/* === scrollbar === */
+*{scrollbar-color: var(--second-color) var(--second-color);scrollbar-width:auto;}
+td::-webkit-scrollbar{background: var(--second-color)}
+::-webkit-scrollbar{width:var(--scrollbar-width);height:var(--scrollbar-height);background:none;border:0;}
+::-webkit-scrollbar-track{background:var(--third-color);border:0;margin:2px;border-radius:5px;}
+::-webkit-scrollbar-thumb{background:var(--second-color);border-radius:5px;border:0}
+::-webkit-scrollbar-thumb:hover{background:var(--first-color)}
+::-webkit-scrollbar-thumb:active{background:var(--second-color)}
+::-webkit-scrollbar-thumb:vertical{border:0}
+::-webkit-scrollbar-thumb:horizontal{border:0}
+::-webkit-scrollbar-button{border-style:solid;height:var(--scrollbar-height);width:var(--scrollbar-width);background:none}
+::-webkit-scrollbar-button:vertical:decrement{border-width: 6px;border-color:transparent transparent var(--third-color)}
+::-webkit-scrollbar-button:vertical:decrement:hover{border-color:transparent transparent var(--second-color)}
+::-webkit-scrollbar-button:vertical:increment{border-width: 6px;border-color: var(--third-color) transparent transparent}
+::-webkit-scrollbar-button:vertical:increment:hover{border-color: var(--second-color) transparent transparent}
+::-webkit-scrollbar-button:horizontal:decrement{border-width: var6px 10px 6px 0;border-color:transparent var(--second-color) transparent transparent}
+::-webkit-scrollbar-button:horizontal:decrement:hover{border-color:transparent var(--second-color) transparent transparent}
+::-webkit-scrollbar-button:horizontal:increment{border-width:4px 0 4px var(--scrollbar-width);border-color:transparent transparent transparent var(--second-color)}
+::-webkit-scrollbar-button:horizontal:increment:hover{border-color:transparent transparent transparent var(--second-color)}
+    
+/* ========== remove MFL stuff ========== */
+.pageheader {display:none;}
+.pagefooter table {display:none;}
+.ownername {display:none;}
+
+/* ========== reset MFL skin css ========== */
+.myfantasyleague_tabmenu {
+    border:0;
+}
+div.mobile-wrap {
+    border:0;
+    background:transparent;
+    box-shadow:0 0;
+}
+.homepagecolumn .homepagemodule caption, .report caption {
+    border:0;
+    line-height:17px;
+}
+  
+  
+  
+/* ========== Layout ========== */
+body {
+    min-height:100%;
+    color: #fff;
+    background: #1c1c1c url(https://i39.servimg.com/u/f39/15/70/85/29/minorl10.jpg) center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+
+
+/* === header === */
+header {
+    display:flex;
+    width:100%;
+    height:65px;
+    text-align:left;
+    background:var(--first-color);
+}
+header #logo,
+header #nav_icons{
+    flex:1;
+}
+
+
+  
+/* === header Custom logo === */
+header .leaguelogo{
+    height:50px;
+    padding: 7px;
+    display: inline-block;
+    vertical-align: middle;
+}
+header #logo span {
+    color:#bbb;
+    font-family: 'Rye', cursive;
+    font-size:22px;
+    font-weight:normal;
+    -webkit-text-stroke: .1px #888;
+}
+#logo .leaguelogo {
+    transition: transform 0.2s;
+}
+#logo:hover {
+    cursor:pointer;
+}
+#logo:hover span {
+    color:#fff;
+}
+#logo:hover .leaguelogo {
+    opacity:0.5;
+    transform:scale(1.1);
+}
+
+
+
+/* === header search ===*/
+header form {
+    width:500px;
+    height:0;
+    margin-top: 14px;
+    white-space:nowrap;
+}
+header input[type=text]  {
+    width:74%;
+    background:#555;
+    border: 1px solid #777;
+    border-right:none;
+    border-radius: 10px;
+}
+header input[type=submit] {
+    width:20%;
+    padding-top:9.5px;
+    margin-left:-100px;
+    background:#333;
+    color:#aaa;
+    border: 1px solid #777;
+    border-radius: 0 10px 10px 0;
+}
+header input[type=submit]:hover {
+    color: var(--first-color);
+    background:var(--third-color);
+    cursor:pointer;
+}
+header ::placeholder {
+    color:#aaa;
+}
+
+
+
+
+/* ========== header nav ========== */
+#nav_icons {
+    display:flex;
+    flex-wrap: nowrap;
+    justify-content:flex-end;
+    margin-right:30px;
+}
+#nav_icons a {
+    min-width:65px;
+    padding: 12px 0;
+    font-size:10px;
+    text-align:center;
+    text-decoration:none;
+    color: var(--third-color)!important;
+}
+#nav_icons a:hover {
+    background: var(--second-color);
+}
+#nav_icons a i {
+    padding: 5px 0;
+    font-size:18px;
+}
+#nav_icons a.active {
+}
+#nav_icons a:nth-child(4) {
+    border-left: 1px solid var(--second-color);
+}
+
+
+  
+  
+/* ========== footer Custom Bottom Popup ========== */
+.fa-solid {
+  pointer-events: none;
+}
+#close_popup {
+    display:none;
+    position:fixed;
+    z-index:9;
+    left: 50%;
+    transform: translate( calc(-1194px + 50%) , -28%);
+    width:1194px;
+    max-width: calc(100% - 6px);
+    height:20px;
+    padding: 5px 0 3px 0;
+    text-align:center;
+    color: #fff;
+    background: var(--second-color);
+    box-shadow: 0 -18px 18px #000;
+    cursor:pointer;
+}
+#close_popup.open {
+    bottom:80vh;
+}
+#close_popup.closed {
+    bottom:-10px;
+}
+#close_popup:hover {
+    color:#800;
+}
+#bottom_popup {
+    display:none;
+    position:fixed;
+    z-index:99;
+    width: 1178px;
+    max-width: calc(100% - 22px);
+    bottom:0px;
+    left:50%;
+    right:50%;
+    transform: translate(-50%, 0);
+    background: var(--first-color);
+    border: 8px solid var(--second-color);
+    border-bottom:0;
+}
+#bottom_popup_container {
+    margin: auto;
+    overflow:auto;
+    width: 1164px;
+    max-width:100%;
+    max-height:80vh;
+    height:80vh;
+}
+#bottom_popup i.fa-spin{
+    position:relative;
+    top:25%;
+    left: calc(50% - 36px);
+    font-size:72px;
+    color: var(--third-color);
+}
+
+
+
+/* === mfl menu === */
+nav {
+    display: none;
+}
+.mfl-icon img {
+    opacity:.2;
+}
+.mfl-icon img:hover {
+    opacity:1;
+}
+.myfantasyleague_menu {
+    z-index: 9;
+    background: var(--first-color);
+    border-color: var(--second-color);
+}
+.myfantasyleague_menu li {
+    background: var(--first-color);
+}
+.myfantasyleague_menu li a:hover {
+    background: var(--second-color);
+}
+.myfantasyleague_menu ul li ul li > a {
+    background: var(--second-color);
+}
+.myfantasyleague_menu ul li ul li:hover > a {
+    background: var(--first-color);
+}
+.myfantasyleague_menu ul li a,.myfantasyleague_menu ul li:hover ul li a,.myfantasyleague_menu ul li ul li:hover ul li a{color:#fff;}
+.myfantasyleague_menu > ul > li.has-sub > a:after{border-top-color: var(--second-color);}
+.myfantasyleague_menu li:hover > a{background-color: var(--second-color);}
+.myfantasyleague_menu ul li ul{border-color: var(--first-color);}
+.myfantasyleague_menu ul ul li a,.myfantasyleague_menu ul ul li.has-sub a{border-color: var(--first-color);}
+
+
+
+
+
+
+
+/* === main section === */
+section {
+    display:flex;
+}
+
+/* === left section === */
+section nav {
+    display: initial;
+    min-width: 250px;
+    background: var(--first-color);
+    border-right: 1px solid var(--second-color);    
+}
+#left_navigation {
+    position:sticky;
+    z-index: 1;
+    top:0;
+    height: calc(100vh - 65px);
+    display:flex;
+    flex-direction:column;
+}
+.left_nav_div div{
+    position:relative;
+    z-index:2;
+    margin:5px;
+    padding: 5px 15px;
+    border: 1px solid transparent;
+    color:#aaa;
+    cursor:pointer;
+}
+.left_nav_div.active div, 
+.left_nav_div div:hover{
+    background: linear-gradient(to bottom right, var(--second-color), #111) padding-box,
+                linear-gradient(to bottom right, #555, transparent) border-box;
+    border-radius: 50em;
+    border: 1px solid transparent;
+    box-shadow: 3px 3px 3px #000;
+}
+.left_nav_div i {
+    width:15px;
+    text-align:center;
+    color: var(--third-color);
+}
+.left_nav_div div span {
+    padding-left:3px;
+}
+.left_nav_div div span:after {
+    content: '';
+    float:right;
+    margin: 5px;
+    padding: 3px;
+    border: solid #777;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+.left_nav_div.active div span:after {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+#left_navigation > div:nth-of-type(4),
+#left_navigation > div:nth-of-type(18){
+    border-top: 1px solid var(--second-color)
+}
+
+.left_nav_div ul {
+    display:none;
+    list-style-type:none;
+    user-select:none;
+    position:relative;
+    z-index:1;
+    width:73%;
+    margin:auto;
+    margin-top:-5px;
+    background:#222;
+    border: 1px solid #333;
+    border-top:none;
+    box-shadow: inset 0 0 5px #000;
+}
+.left_nav_div.active ul {
+    display:block;
+}
+.left_nav_div li {
+    margin-left:-40px;
+}
+.left_nav_div li a {
+    display:block;
+    padding:4px;
+    padding-left:10px;
+    text-decoration:none;
+    color:#aaa;
+}
+.left_nav_div li a.active {
+    background: var(--second-color);
+}
+.left_nav_div li a:hover {
+    color:#000;
+    background: var(--third-color);
+}
+
+#menu_home {
+    margin-top:23px;
+}
+#menu_logo {
+    margin: auto auto 35px auto;
+    cursor:pointer;
+}
+#menu_logo img {
+    opacity: 0.4;
+}
+#menu_logo:hover img {
+    opacity: 1;
+}
+
+#menu_collapse {
+    position:absolute;
+    z-index: 1;
+    top:calc(50% - 65px);left:231px;
+    width:13px;
+    padding:13px;
+    background: var(--first-color);
+    transform: rotate(45deg);
+    cursor:pointer;
+    border-top: 1px solid var(--second-color);
+    border-right: 1px solid var(--second-color);
+}
+#menu_collapse i {
+    position:relative;
+    top:0;
+    left:0;
+    margin-left:-1px;
+    transform: rotate(-45deg);
+}
+#menu_collapse:hover {
+    color: var(--second-color);
+}
+section nav.collapsed #menu_collapse {
+    left:21px;
+    padding-left: 13px;
+}
+section nav.collapsed {
+    min-width: 40px;
+    max-width: 40px;
+}
+section nav.collapsed #left_navigation {
+    z-index: 3;
+}
+section nav.collapsed #left_navigation ul{
+    z-index: 4;
+}
+section nav.collapsed .left_nav_div div {
+    padding:7px;
+}
+section nav.collapsed .left_nav_div ul {
+    position:absolute;
+    margin-top:-10px;
+    margin-left:30px;
+    width: 175px;
+}
+
+section nav.collapsed .left_nav_div div span {
+    display:none;
+}
+section nav.collapsed #menu_logo {
+    display:none;
+}
+
+
+
+/* === pagebody === */
+.pagebody {
+    min-height: calc(100vh - 125px);
+    padding: 30px;
+    margin:auto;
+    margin-bottom:0;
+}
+
+
+
+/* === mfl containers === */
+.homepagecolumn,
+.homepagecolumn:last-child {
+    padding:3px;
+}
+#homepagecolumn1,
+#homepagecolumn2,
+#homepagecolumn3,
+#homepagecolumn4,
+homepagecolumn5,
+homepagecolumn6,
+.two_column_layout,
+table.h2hmatchups,
+table.scoresummary,
+.mobile-view {
+    width:99%!important;
+    float:left
+}
+.homepagecolumn{padding-right:0}
+table.two_column_layout .two_column_layout,table.report td.two_column_layout{padding-right:0}
+#body_player td[width="33%"],#body_player td[width="67%"],div#options_82.pagebody td.two_column_layout{float:left;width:100%}
+.homepagetabcontent > table[align="center"] > tbody:nth-child(1) > tr:nth-child(1) > td[valign="top"]{width:100%;float:left;padding-right:0}
+
+/* === tabcontent === */
+#tabcontent0 > div {
+    display:grid;
+    gap:25px;
+}
+#tabcontent0 #hero_container {
+    padding:0;
+    border:none;
+    background:transparent;
+    border-radius:0;
+}
+@media only screen and (min-width: 80.000em){
+  #tabcontent0 > div {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  #tabcontent0 #hero_container {
+    grid-column: span 3;
+  }
+  #tabcontent0 .mobile-wrap:has(#lineup_alert) {
+    grid-row: span 2;
+  }
+  #tabcontent0 .mobile-wrap:has(#transactions) {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 2;
+  }
+  #tabcontent0 .mobile-wrap:has(#my_team) {
+    grid-column-end: 5;
+  }
+}
+
+
+
+
+
+
+
+/* === mfl tabs === */
+/*
+.myfantasyleague_tabmenu ul#homepagetabs{padding:0;list-style:none;white-space:nowrap;text-align:left;border:0;box-shadow:none}
+.myfantasyleague_tabmenu #homepagetabs li{margin:0;padding:0}
+.myfantasyleague_tabmenu ul#homepagetabs li b{display:none}
+.myfantasyleague_tabmenu label{display:block;width:100%;height:45px;height:2.813rem;position:absolute;right:0;top:0;cursor:pointer}
+.myfantasyleague_tabmenu{height:0;padding-top:45px;padding-top:2.813rem;background:var(--first-color);position:relative}
+.myfantasyleague_tabmenu > label span{background:#fff;width:35px;width:2.188rem;height:35px;height:2.188rem;position:absolute;right:5px;right:.3125rem;top:6px;top:.375rem;border-radius:5px;border-radius:.3125rem}
+.myfantasyleague_tabmenu > label span:before{display:block;content:"";width:18px;width:1.125rem;height:2px;height:.125rem;background:var(--first-color);position:absolute;left:50%;top:50%;margin-left:-9px;margin-left:-.5625rem;margin-top:-1px;margin-top:-.0625rem;-webkit-transition:.25s;transition:.25s}
+.myfantasyleague_tabmenu > label span:after{display:block;content:"";width:2px;width:.125rem;height:18px;height:1.125rem;background:var(--first-color);position:absolute;left:50%;top:50%;margin-left:-1px;margin-left:-.0625rem;margin-top:-9px;margin-top:-.5625rem;-webkit-transition:.25s;transition:.25s}
+.myfantasyleague_tabmenu > span{display:block;font-size:16px;font-size:1rem;line-height:16px;line-height:1rem;color:#FFF;position:absolute;left:10px;left:.625rem;top:15px;top:.9375rem}
+.myfantasyleague_tabmenu #homepagetabs li{display:block}
+.myfantasyleague_tabmenu ul,.myfantasyleague_tabmenu ul ul{margin:0;display:block;position:static;max-height:0;overflow:hidden}
+.myfantasyleague_tabmenu > ul > li.has-sub > a,.myfantasyleague_tabmenu #homepagetabs ul > li.has-sub > a{background-image:none}
+.myfantasyleague_tabmenu ul#homepagetabs li{float:none;display:block;position:relative;border:0}
+.myfantasyleague_tabmenu ul#homepagetabs li label{display:block;width:100%;height:100%;background:none;position:absolute;left:0;top:0;cursor:pointer}
+.myfantasyleague_tabmenu ul#homepagetabs{background:var(--first-color);border:0;border-bottom:4px solid var(--second-color);border-bottom:.25rem solid var(--second-color)}
+.myfantasyleague_tabmenu ul#homepagetabs li a{display:block;font-size:14px;font-size:.875rem;color:#FFF;text-decoration:none;padding:0 20px 0 10px;padding:0 1.25rem 0 .625rem;float:none;border-top:1px solid var(--second-color);border-top:.0625rem solid var(--second-color);text-indent:10px;text-indent:.625rem;text-align:left;border-right:0}
+.myfantasyleague_tabmenu #homepagetabs li.currenttab,.myfantasyleague_tabmenu #homepagetabs li.currenttab:hover{background:var(--second-color);background-image:none;box-shadow:none}
+.myfantasyleague_tabmenu input:checked ~ label span:before{-webkit-transform:rotate(360deg);transform:rotate(360deg)}
+.myfantasyleague_tabmenu input:checked ~ label span:after{-webkit-transform:rotate(270deg);transform:rotate(270deg)}
+.myfantasyleague_tabmenu input:checked ~ ul{max-height:3000px;max-height:187.5rem}
+.myfantasyleague_tabmenu #homepagetabs li:hover{background-color:transparent}
+*/
+/* ========== MFL Tabs ========== */
+.myfantasyleague_tabmenu {
+    display:none;
+    position:sticky;
+    top:0;
+    z-index:9;
+    margin:0;
+    background: var(--first-color);
+    border-top:4px solid var(--second-color);
+    border-bottom:4px solid var(--second-color);
+    box-shadow: 0 10px 10px #000;
+}
+.myfantasyleague_tabmenu ul#homepagetabs {
+    display:flex;
+    width:1200px;
+    max-width:100%;
+    margin:auto!important;
+    border-bottom:0!important;
+    background: var(--first-color);
+    border-color: var(--second-color);
+}
+.myfantasyleague_tabmenu ul#homepagetabs li{
+    flex:1;
+    text-align:center;
+    border-left-color: #333;
+}
+.myfantasyleague_tabmenu #homepagetabs li.currenttab {
+    background: var(--second-color);    
+}
+.myfantasyleague_tabmenu ul#homepagetabs li:hover,
+.myfantasyleague_tabmenu #homepagetabs li.currenttab:hover {
+    background: var(--second-color);    
+}
+.myfantasyleague_tabmenu ul#homepagetabs li a{
+    color: var(--third-color);    
+}
+
+
+
+
+
+
+/* ========== html tags ========== */
+textarea {
+    width:99.5%;
+}
+input {
+    padding:10px;
+}
+button {
+    cursor:pointer;
+}
+
+th {
+    font-size:10px;
+    color: var(--third-color);
+    background: var(--second-color);
+}
+h3, 
+a, a:link, a:active, a:visited, a:focus {
+    color:  var(--text-color);
+}
+
+
+
+
+/* === mfl tables === */
+.pagebody 
+.mobile-wrap {
+    overflow:auto; 
+    padding-bottom:4px;
+    padding:15px;
+    color: var(--text-color);
+    background: linear-gradient(to bottom right, #454545, #333, #151515, #111) padding-box,
+                linear-gradient(to bottom right, #666, transparent) border-box;
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+.reportnavigation {
+    margin:5px;
+    padding:5px;
+    background: var(--evenrow-bg);
+    border:1px solid var(--secondary-bg);
+    border-radius:5px;
+    color: var(--text-color);
+}
+.reportfooter a {
+    margin:auto;
+    margin-top:10px;
+    width:100px;
+    display:block;
+    background:#333;
+    border:1px solid #aaa;
+    padding:10px;
+    text-decoration:none;
+}
+.reportfooter a:hover {
+    background: var(--second-color)
+}
+.report td:has(.franchiseicon) {
+    width:350px;
+}
+.newposition td {
+    border-top:2px solid var(--third-color);
+}
+tr.oddtablerow:has(.myfranchise) td, 
+tr.eventablerow:has(.myfranchise) td{
+    color: #000;
+    background: var(--third-color);
+}
+/* === mfl tables === */
+#mfl_message {
+    z-index: 998;
+    position: fixed;
+    max-width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background: #000000cc!important;
+    border:none!important;
+    border-radius:0!important;
+}
+.homepagemessage {
+    position: relative;
+    height:80%;
+    width:80%;
+    max-width:80%;
+    top:10%;
+    left:10%;
+    margin:0;
+    color: var(--text-color);
+    background:black;
+    border: 2px dashed red;
+}
+.homepagemessage th {
+    background: black;
+    color:red;
+    font-weight:bold;
+    font-style:normal;
+    font-size: 150%;
+}
+.homepagemessage td {
+    padding:20px;
+    vertical-align:top;
+}
+.remind_later {
+    display:inline;
+}
+.remind_later .fa-square-xmark{
+    position:relative;
+    top:5px;
+    left:7px;
+    padding: 0px 1.5px;
+    color: red;
+    background:white;
+    font-size: 200%;
+    border-radius:5px;
+    opacity: 0.7;
+}
+.remind_later:hover .fa-square-xmark{
+    opacity: 1;
+}
+/* === mfl tables === */
+.homepagecolumn #standings h3, 
+.homepagecolumn #brief_standings h3, 
+.homepagecolumn .homepagemodule caption {
+    background: var(--first-color);
+}
+.homepagecolumn .homepagemodule caption, 
+div.mobile-wrap .report caption, 
+.report caption {
+    padding: 0;
+    background: url(https://i39.servimg.com/u/f39/15/70/85/29/captio10.png) no-repeat left center;
+    box-sizing: border-box;
+    border-right:2px inset #444;
+    border-radius: 0 12px;
+}
+caption span {
+    float:right;
+    padding:14px;    
+    color:#bbb;
+    font-family: 'Rye', cursive;
+    font-size:12px;
+    font-weight:normal;
+    -webkit-text-stroke: .1px #888;
+}
+.withfranchiseicon span {
+    padding:0;
+}
+.withfranchiseicon .franchiseicon {
+    max-height:50px;
+    width:auto;
+}
+.report {
+    width:99%;
+    margin:8px auto;
+    padding:2px;
+    background:var(--first-color);
+    border:2px solid #444;
+    border-radius: 4px 0 4px 4px;
+    background: var(--evenrow-bg);
+}
+.report th {
+    padding:3px 0;
+}
+.report tr td {
+    padding:2px;
+    color:#000;
+}
+tr.oddtablerow td {
+    background: var(--oddrow-bg);
+    color: var(--text-color);
+}
+tr.eventablerow td {
+    background: var(--evenrow-bg);
+    color: var(--text-color);
+}
+tr.reportfooter td {
+    background: #999;
+    color:#000;
+}
+.report tr.oddtablerow td a, 
+.report tr.eventablerow td a {
+    color: var(--text-color);
+}
+table.two_column_layout, 
+table.two_column_layout table {
+    width:100%;
+}
+td.two_column_layout {
+    width:50%;
+}
+/* === mfl tables === */
+.report {
+    background:transparent!important;
+    border:none!important;
+}
+.report caption{
+    text-align:left!important;
+    background:transparent!important;
+    border:none!important;
+}
+.report caption span{
+    float:left;
+}
+.report th{
+    padding: 6px 0;
+    border-top:1px dashed #333;
+    border-bottom:1px dashed #333;
+}
+.report th,
+.report td,
+.report .oddtablerow,
+.report .oddtablerow td,
+.report .eventablerow,
+.report .eventablerow td,
+.report .reportfooter td{
+    background:transparent!important;
+    color:#aaa;
+}
+.report a {
+    color:#aaa!important;
+}
+
+
+
+/* === custom tables === */
+.mobile-wrap h3 {
+    padding: 20px;
+    font-family: 'Rye', cursive;
+    font-size:12px;
+    font-weight:normal;
+    text-align:left;
+}
+.mobile-wrap h6 {
+    text-align:center;
+    font-size:16px;
+    margin:0;
+    padding:4px;
+    border: 1px dashed #444;
+    border-width: 1px 0;
+}
+.mobile-wrap h6 a {
+    text-decoration:none;
+}
+
+
+/* === custom tables - checklist === */
+#checklist {
+/*
+    background:#111166;
+    border:1px solid #555;
+*/
+}
+#checklist a {
+    display:inline-block;
+    margin-bottom:1px;    
+    padding: 7px;
+    width: 95%;
+    white-space:no-wrap;
+    text-decoration:none;
+    background: #333;
+    border:1px solid #aaa;
+}
+#checklist a:has(.fa-circle-xmark) {
+    color:#000;
+    background:#a46c74;
+    border-color:#a55;
+}
+#checklist a:has(.fa-circle-check) {
+    color:#000;
+    background:#6ca49c;
+    border-color:#5a5;
+}
+#checklist a:after {
+    content: '>';
+    float:right;
+    margin-top:4px;
+}
+#checklist a:hover {
+    background: #aaa;
+    color:#000;
+}
+#checklist .fa-circle-check, 
+#checklist .fa-circle-xmark {
+    padding:2px;
+    padding-right:1.5px;
+    font-size:150%;
+    border-radius: 50%;
+}
+#checklist a i {
+    margin-right:5px;
+}
+#checklist .fa-circle-check {
+    color: #0a0;
+    background: #000;
+}
+#checklist .fa-circle-xmark {
+    color: #a00;
+    background: #000;
+}
+
+
+
+
+
+/* === franchiseicons === */
+.fname {
+    width:0;
+}
+.franchiseicon {
+    max-width:100%;
+    min-width:150px;
+    height:100%;
+}
+
+
+
+/* ========== mfl Modules ========== */
+/* standings module */
+.standingslogo {
+    max-width:100%;
+}
+/* waiver request module */
+#waiver_request_list caption {
+    text-align:right;
+    padding:5px;
+    color:#888;
+}
+#waiver_request_list caption .franchiseicon {
+    max-height:21px;
+    width:auto;    
+}
+#waiver_request_list caption a::before {
+    content: "\A";
+    display:block;
+}
+
+
+
+/* ========== mfl Pages ========== */
+
+/* Standings */
+#division00 img:first-of-type,
+#division03 img:first-of-type {
+    padding-bottom:5px;
+}
+#division00 img:last-of-type,
+#division03 img:last-of-type {
+    padding-top:5px;
+    border-top:1px solid #555;
+}
+div#standings #division03 img:first-of-type {
+    padding-top:20px;
+    border-top:4px solid #a49c6c;
+}
+
+#division00 img:first-of-type,
+#division03 img:first-of-type {
+    padding-bottom:5px;
+}
+#division00 img:last-of-type,
+#division03 img:last-of-type {
+    padding-top:5px;
+    border-top:1px solid #555;
+}
+div#standings #division03 img:first-of-type {
+    padding-top:20px;
+    border-top:4px solid #a49c6c;
+}
+#body_live_scoring_summary div[align="center"],
+#body_live_scoring div[align="center"]{
+    width:100%!important;
+    overflow:hidden
+}
+
+/* ========== Custom Tab Icons ========== */
+.tabicons {
+    display:flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 10px 0;
+}
+.tabicons li {
+    flex:1;
+    margin: 0;
+    text-align: center;
+}
+.tabicons li a {
+    display: inline-block;
+    padding: 10px;
+    font-size:12px;
+    text-decoration:none;
+    color: var(--third-color);
+}
+.tabicons li a i {
+    padding-bottom:5px;
+    font-size:32px;
+}
+.tabicons li a:hover {
+    color: #fff;
+}
+
+/* ========== Custom My team tab ========== */
+.my_team_tab {
+    width:500px;
+    max-width:100%;
+    margin:auto;
+    margin-top:50px;
+    color: var(--third-color);
+    background: var(--first-color);
+    border:1px solid var(--second-color);
+    border-radius:8px;
+}
+.my_team_tab a:has(.franchiseicon){
+    position:relative;
+    top:-35px;
+    left:-6px;
+}
+.my_team_tab .my_record {
+    margin-top:-30px;
+    padding-left:82px;
+}
+
+
+/* === Custom Image Carousel === */
+#hero {
+    display:flex;
+    width: auto;
+    height:99%;
+    min-height:447px;
+    margin:auto;
+    text-align:center;
+    font-size:42px;
+    color:#aaa;
+    background:#333;
+    border:2px solid var(--second-color);
+    border-radius:20px;
+    overflow:hidden;
+}
+#hero > div {
+    flex-grow:1;
+    display:flex;
+    flex-direction:column;
+}
+#hero div div{
+    flex:1;
+}
+#hero img{
+    width:100%;
+}
+#hero div:has(button){
+    padding:25px;
+    background-color: var(--second-color);
+}
+#hero div button{
+    position:relative;
+    top:-70px;
+    left:-65px;
+    max-width:200px;
+    margin:auto;
+    padding:10px 30px;
+    font-weight: bold;
+    background-color: var(--third-color);
+    border: 3px solid transparent;
+    outline: 2px solid transparent;
+    border-radius: 20px;
+}
+#hero div button:hover{
+    border-color: var(--second-color);
+    outline-color: var(--third-color);
+}
+
+#hero div{
+    padding-left:20px;
+    text-align:left;
+    font-size: 22px;
+}
+#hero .small{
+    font-size: 12px;
+}
+#hero .large{
+    margin-top:-120px;
+    font-size: 42px;
+    line-height:40px;
+}
+#hero div:nth-of-type(3){
+    margin-top:-50px;
+}
+#hero > div:last-child{
+    background: linear-gradient(to right, var(--second-color), var(--third-color) );
+    width:40%;
+    text-align:center;
+}
+#hero iframe {
+    width:100%;
+    height:100%;
+}
+
+
+
+/* MFL media that I dont think we need */
+@media only screen and (max-width: 64.000em){
+    html{background-image:none;padding:0;margin:0}
+    body{padding:0;border:0;border-radius:0;margin:0}
+}
+@media only screen and (max-width:54.250em){
+    .pagebody{margin-bottom:0;padding-bottom:0}
+}
+@media only screen and (max-width: 41.688em){
+    .pagebody input,select,textarea{font-size:16px;font-size:1rem}
+    .pagebody{min-height:500px;min-height:31.25rem}
+}
+@media only screen and (max-width:48.000em){
+    input[type=checkbox]{-ms-transform:scale(1.5);-moz-transform:scale(1.5);-webkit-transform:scale(1.5);-o-transform:scale(1.5);margin:5px 11px;margin:.313rem .688rem}
+}
+
+/* === mfl menu mobile === */
+@media only screen and (max-width:955px){
+    .myfantasyleague_menu ul li b{display:none}
+    .myfantasyleague_menu{height:0;padding-top:45px;padding-top:2.813rem;background:var(--first-color);position:relative}
+    .myfantasyleague_menu > label,.myfantasyleague_menu ul li label{display:block;width:100%;height:47px;height:2.938rem;border-radius:5px;border-radius:.313rem;position:absolute;right:0;top:0;cursor:pointer}
+    .myfantasyleague_menu > label span,.myfantasyleague_menu ul li label span{background:#fff;width:35px;width:2.188rem;height:35px;height:2.188rem;position:absolute;right:5px;right:.313rem;top:6px;top:.375rem;border-radius:5px;border-radius:.313rem}
+    .myfantasyleague_menu ul li ul li.has-sub label span{right:24px;right:1.5rem}
+    .myfantasyleague_menu > label span:before,.myfantasyleague_menu ul li label span:before{display:block;content:"";width:18px;width:1.125rem;height:2px;height:.125rem;background:var(--first-color);position:absolute;left:50%;top:50%;margin-left:-9px;margin-left:-.5625rem;margin-top:-1px;margin-top:-.0625rem;-webkit-transition:.25s;transition:.25s}
+    .myfantasyleague_menu > label span:after,.myfantasyleague_menu ul li label span:after{display:block;content:"";width:2px;width:.125rem;height:18px;height:1.125rem;background:var(--first-color);position:absolute;left:50%;top:50%;margin-left:-1px;margin-left:-.0625rem;margin-top:-9px;margin-top:-.5625rem;-webkit-transition:.25s;transition:.25s}
+    .myfantasyleague_menu > span{display:block;font-size:16px;font-size:1rem;line-height:16px;line-height:1rem;color:#fff;position:absolute;left:10px;left:.625rem;top:15px;top:.9375rem}
+    .myfantasyleague_menu li{display:block}
+    .myfantasyleague_menu ul,.myfantasyleague_menu ul ul{margin:0;display:block;position:static;max-height:0;overflow:hidden;-webkit-transition:.25s;transition:.25s;box-shadow:none}
+    .myfantasyleague_menu > ul > li.has-sub > a{background-image:none}
+    .myfantasyleague_menu ul ul > li.has-sub > a{background-image:none}
+    .myfantasyleague_menu ul li{float:none;display:block;position:relative}
+    .myfantasyleague_menu ul ul li label,.myfantasyleague_menu ul ul li > ul,.myfantasyleague_menu ul ul li:hover > ul{margin-top:0}
+    .myfantasyleague_menu ul{background:var(--third-color);border:0}
+    .myfantasyleague_menu ul ul li{background-color:var(--third-color)}
+    .myfantasyleague_menu ul li a{float:none;border-top:1px solid var(--second-color);border-top:.0625rem solid var(--second-color);text-indent:10px;text-indent:.625rem;font-size:14px;font-size:.875rem}
+    .myfantasyleague_menu ul ul li a{border:0;border-top:1px solid var(--second-color);border-top:.0625rem solid var(--second-color)}
+    .myfantasyleague_menu li ul li a,.myfantasyleague_menu li a{line-height:45px;line-height:2.813rem}
+    .myfantasyleague_menu ul ul li a:before{top:50%;margin-top:-6px;margin-top:-.375rem;position:absolute;display:inline-block;content:'';width:0;height:0;border:6px solid transparent;border:.375rem solid transparent;border-left:6px solid #fff;border-left:.375rem solid #fff}
+    .myfantasyleague_menu ul li ul li a{text-indent:25px;text-indent:1.563rem}
+    .myfantasyleague_menu ul li ul li a:before{left:20px;left:1.25rem}
+    .myfantasyleague_menu ul li ul li.has-sub ul li a{text-indent:40px;text-indent:2.5rem}
+    .myfantasyleague_menu ul li ul li.has-sub ul li a:before{left:35px;left:2.188rem}
+    .myfantasyleague_menu li:hover > a{background-color:var(--second-color);text-decoration:none;box-shadow:none;background-image:none}
+    .myfantasyleague_menu ul li ul li:hover > a{background-color:var(--third-color)}
+    .myfantasyleague_menu li ul li ul li:hover > a{text-decoration:none}
+    .myfantasyleague_menu input:checked ~ label span:before{-webkit-transform:rotate(360deg);transform:rotate(360deg)}
+    .myfantasyleague_menu input:checked ~ label span:after{-webkit-transform:rotate(270deg);transform:rotate(270deg)}
+    .myfantasyleague_menu input:checked ~ ul{max-height:8000px;max-height:500rem}
+    .myfantasyleague_menu ul ul{border:0}
+    .myfantasyleague_menu ul li ul{border-top:0;background:none}
+    .myfantasyleague_menu > ul > li.has-sub > a:after,.myfantasyleague_menu ul ul > li.has-sub > a:after{display:none}
+    .myfantasyleague_menu ul{border-bottom:4px solid var(--second-color);border-bottom:.25rem solid var(--second-color)}
+    .myfantasyleague_menu ul ul{border-bottom:0}
+    .myfantasyleague_menu ul ul li.has-sub:first-of-type li:first-of-type,.myfantasyleague_menu ul ul li.has-sub li:first-of-type,.myfantasyleague_menu ul ul li.has-sub li,.myfantasyleague_menu ul ul li a,.myfantasyleague_menu ul ul li.has-sub a{border:0}
+    .myfantasyleague_menu ul ul li a{border-top:1px solid var(--first-color)}
+    .myfantasyleague_menu ul ul li.has-sub li{margin-left:0}
+    .myfantasyleague_menu ul ul li.has-sub a{border-top:1px solid var(--first-color)}
+    .myfantasyleague_menu ul ul li:hover > ul,.myfantasyleague_menu ul ul li:first-of-type:hover > ul{margin-top:0}
+    li.mfl-icon img{display:none}
+    li.mfl-icon a span{display:inline-block}
+}
+
+/* === mfl secondary menus === */
+@media only screen and (max-width:89.625em){
+    #vsubmenu{display:none}
+    #withmenus.withleft{margin-left:0!important}
+}
+@media only screen and (max-width: 70.000em){
+    #hsubmenu ul li a{padding:3px 8px;padding:.1875rem .5rem}
+}
+@media only screen and (max-width:54.250em){
+    #hsubmenu{display:none}
+}
+/* === mfl pages === */
+@media only screen and (max-width:48.000em){
+    #body_options_01 #weeklyResultsDiv{display:none}
+    #body_options_128 .report td img{max-width:80px;max-width:5rem;height:100%}
+}
+@media only screen and (max-width:35.500em){
+    #body_options_128 .report td img{max-width:140px;max-width:8.75rem;height:100%}
+    #body_options_128 .report th{display:none}
+    #body_options_128 .report td{display:block;text-align:left;margin:0 auto}
+    img.articlepicture{max-width:120px;max-width:7.5rem}
+    #body_live_scoring_summary h2,#body_live_scoring h2{font-size:16px;font-size:1rem}
+    #body_live_scoring_summary #restart_refresh h2,#body_live_scoring #restart_refresh h2{font-size:17px;font-size:1.063rem}
+}
+@media only screen and (max-width: 55em) {
+    .mobile-view-draft {width: 100%!important;float: left;}
+}
+
+
+
+/* === unknown === */
+@media only screen and (max-width:48.000em){
+    #icon-wrapper{position:absolute;top:0;left:110px;left:6.875rem;top:5px;top:0.313rem}
+}
+@media only screen and (max-width:35.500em){
+    .screen-hide{display:none!important}
+}
+
+
+/* === mfl player popup === */
+@media only screen and (max-width:47.000em){
+    #MFLPlayerPopupHeader{display:none}
+    #MFLPlayerPopupBioTab{display:table-cell}
+    .MFLPopTabWrap{margin-top:8px;margin-top:.5rem}
+    #MFLPlayerPopupContainer .isMedia{display:none}
+    #MFLPlayerPopupContainer{max-height:385px;max-height:24.063rem}
+    #MFLPlayerPopupContainer.MFLPlayerPopupNotificationContainer{max-height:300px;max-height:18.75rem}
+}
+@media only screen and (max-width:35.500em){
+    #MFLPlayerPopupHeader{display:none}
+    #MFLPlayerPopupBioTab{display:table-cell!important}
+    #MFLPlayerPopupContainer{max-height:298px;max-height:18.625rem}
+    #MFLPlayerPopupNews,#MFLPlayerPopupBio,#MFLPlayerPopupStatsHistory,#MFLPlayerPopupStats{max-height:192px;max-height:12rem}
+    #MFLPlayerPopupContainer .isMedia{display:none}
+}
+@media only screen and (max-height:35.500em) and (orientation:landscape){
+    #MFLPlayerPopupHeader{display:none}
+    #MFLPlayerPopupBioTab{display:table-cell!important}
+    .MFLPopTabWrap{margin-top:8px;margin-top:.5rem}
+    #MFLPlayerPopupContainer .isMedia{display:none}
+    #MFLPlayerPopupContainer{max-height:235px;max-height:14.688rem}
+    #MFLPlayerPopupNews,#MFLPlayerPopupBio,#MFLPlayerPopupStatsHistory,#MFLPlayerPopupStats{max-height:128px;max-height:8rem}
+    #MFLPlayerPopupContainer.MFLPlayerPopupNotificationContainer{max-height:250px;max-height:15.625rem}
+    #MFLPlayerPopupContainer.MFLPlayerPopupNotificationContainer .MFLPlayerPopupTabContent{max-height:158px;max-height:9.875rem}
+}
+
+
+
+
+
+
+@media only screen and (max-width:675px){
+    #logo span {
+        margin-left:-35px;
+        font-size:16px!important;
+    }  
+}
+@media only screen and (max-width:500px){
+    header #logo{
+        flex:1.9;
+    }
+}
+@media only screen and (max-width:900px){
+    #nav_icons li a {
+        padding:10px;
+    }  
+}
+@media only screen and (max-width:600px){
+    #nav_icons li a {
+        padding:5px;
+    }  
+}
+@media only screen and (max-width:500px){
+    header #nav_icons{
+        flex:.1;
+    }
+    #nav_icons li {
+        display:none;
+    }  
+    #nav_icons li:last-child {
+        display:block;
+    }  
+}
+
+
