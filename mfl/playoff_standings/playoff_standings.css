@@ -1,0 +1,29 @@
+.fname {
+    width:0;
+}
+#standings .division_title,
+#standings .wildcard_title,
+#standings .all-play_title{
+    color:#3c312f;
+    background:#a49c6c;
+}
+#standings .division_winner td:first-of-type,
+#standings .wildcard td:first-of-type,
+#standings .all-play td:first-of-type{
+    border-left:2px solid #a49c6c;
+}
+#standings .division_winner td:last-of-type,
+#standings .wildcard td:last-of-type,
+#standings .all-play td:last-of-type{
+    border-right:2px solid #a49c6c;
+}
+#standings .division_winner td,
+#standings .wildcard td,
+#standings .all-play td{
+    background: #3c312f;
+    color:#a49c6c;
+    border-bottom:1px solid #a49c6c;
+}
+#standings .all-play td.all_play_wlt{
+    color:#ff0;
+}
