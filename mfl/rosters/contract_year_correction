@@ -1,0 +1,13 @@
+$('#roster, #roster_column_right .mobile-wrap table:first-of-type').each(function() {
+  let salarycapcell = $(this).find('.salary_cap_row th').eq(1);
+  let salarycapvalue = salarycapcell.html();
+  let salarycapvaluenew = parseInt(salarycapvalue) - 30;
+  salarycapcell.html(salarycapvaluenew);
+
+  let irtext = $(this).find('.total_salary_row').prev().find('th').eq(0).html().replace(' Total Players on IR','');
+
+  let capspacecell = $(this).find('.cap_room_available_row th').eq(1);
+  let capspacevalue = capspacecell.html();
+  let capspacevaluenew = parseInt(capspacevalue) + parseInt(irtext) - 30;
+  capspacecell.html(capspacevaluenew);
+});
