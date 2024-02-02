@@ -1,0 +1,85 @@
+.profile_table .catRight,
+.profile_table .thHead {
+    background:#777;
+    color:#000;
+    border:2px solid #aaa!important;
+}
+
+.profile_email .catLeft,
+.profile_table .catLeft,
+.profile_table .catRight,
+.profile_table tr:nth-of-type(4) table tr:nth-of-type(1) td,
+.profile_table tr:nth-of-type(4) table tr:nth-of-type(3) td,
+.profile_table tr:nth-of-type(4) table tr:nth-of-type(5) td {
+    display:none;
+}
+.profile_table tr:nth-of-type(4) table td{
+    text-align:center;
+}
+
+.profile_table tr:nth-of-type(4) table tr:nth-of-type(4) td .gen br{
+    display:none;
+}
+.profile_table tr:nth-of-type(4) table tr:nth-of-type(6) td span.gen{
+    font-size:200%;    
+}
+.user_online {
+    color: green;
+    animation: blinker 1s linear infinite;
+}
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+.profile_table tr:nth-of-type(5) table tr:nth-of-type(3) td span.genmed:nth-of-type(2){
+    color:#ddd;
+}
+.profile_table tr:nth-of-type(5) table tr:nth-of-type(3) a:nth-of-type(2),
+.profile_table tr:nth-of-type(5) table tr:nth-of-type(3) a:nth-of-type(3){
+    display:inline-block;
+    margin:15px;
+    font-size:20px;
+    font-weight:bold;
+}
+.profile_email{
+    width:99.7%!important;
+    margin-top:-2px;
+    margin-left:2px;
+}
+.profile_email .row1{
+    height:auto;
+}
+
+#profile_images td{
+    background: #ddd;
+    text-align:center;
+}
+#profile_images img{
+    padding:5px 0;
+    max-width:100%
+}
+
+
+/* desktop view */
+@media only screen and (min-width: 1200px) {
+    .profile_table tr:nth-of-type(4) td{
+        background: #000 url(https://lh7-us.googleusercontent.com/fqHWr9OBvTLfdRhEvIussf8khPF2qJ5tB6Cfvpv4ORlZtqa8D98UVn3G1eEiIyO15fQ66ZHevQqsXJfWJ3HuErcZX5XjTQv3mDqqJZdVw-1OBkkE8nos6Umg02xP7G4jgg-scd7lOWqAhjxXu1KNdI-cNg=s2048) no-repeat;
+        background-position: top center;
+        background-size:100%;
+    }
+    .profile_table tr:nth-of-type(4) table tr:nth-of-type(2) td img{
+        padding-top:40px;
+    }
+    .profile_table tr:nth-of-type(4) table tr:nth-of-type(4) td img{
+        margin-top:-2px;
+        margin-left:-4px;
+    }
+    .profile_table tr:nth-of-type(4) table tr:nth-of-type(4) td{
+        padding-bottom:222px;
+    }
+    
+    .profile_table tr:nth-of-type(4) table td{
+        background:transparent;
+    }
+}
