@@ -817,7 +817,60 @@
   .signature_div > br:nth-child(2) {
     display:none;
   }
-  
+
+
+  /* ======================= Add on: Sig Buttons ============ */
+/*
+.forumline {
+    max-width:1176px;
+}
+.signature_div {
+    width:1174px;
+}
+*/
+
+.sig_buttons {
+    display:flex;
+    width:1165px;
+    overflow:hidden;
+    margin-top:-30px;
+    margin-bottom:4px;
+    margin-left:4px;
+    position:relative;
+    z-index:9;
+}
+.sig_buttons div{
+    flex:1;
+    margin-right:5px;
+    padding: 13px 0;
+    opacity:0.3;
+    transition: all .2s ease-in;
+    transform: skew(-35deg);
+    cursor:pointer;
+}
+.sig_buttons div:first-child{
+    margin-left:-9px;
+    padding-left:9px;
+}
+.sig_buttons div:last-child{
+    margin-right:-10px;
+    padding-left:10px;
+}
+.sig_buttons div:hover{
+    background: #932422;
+    box-shadow: 0 0 0 3px #48abe0,
+              0 0 10px 3px #ebecca,
+              0 0 15px 10px #2be231,
+              0 0 20px 15px #fff814;
+}
+
+/* sig content*/
+.sig_content div {
+    display: none;
+    border: 5px solid #222;
+}
+
+/* Unused old sig buttons
   .sig {
     position:absolute;
     margin-top:-200px;
@@ -909,8 +962,9 @@
   .sig .sig_report::-webkit-scrollbar-thumb:hover {
     background: #0f0;
   }
-  
-  /* user specific sigs */
+*/  
+
+/* unused user specific sigs 
   .u1 .sig .sig_report, 
   .u1 .sig .btn-primary {
     color: var(--team-one-secondary-color);
@@ -932,6 +986,7 @@
   .u1 .sig .sig_report::-webkit-scrollbar-thumb:hover {
     background: var(--team-one-secondary-color);
   }
+*/
 
 /* ======================= desktop design ============ */
   @media only screen and (min-width:1200px){
