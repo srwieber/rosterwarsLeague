@@ -933,7 +933,7 @@
     background: var(--team-one-secondary-color);
   }
 
-  /* ======================= desktop design ============ */
+/* ======================= desktop design ============ */
   @media only screen and (min-width:1200px){
     .desktop {
       display:block;
@@ -1291,4 +1291,9 @@
     body:not(.desktop_view).homepage #left, body:not(.desktop_view).homepage #right {display:none;}
     body:not(.desktop_view).homepage #wide_column_toggle {display:none;}
     body:not(.desktop_view).homepage #column_toggle {display:flex;}
+  }
+
+  #left table a,
+  #right table a{
+    word-break:normal;
   }
