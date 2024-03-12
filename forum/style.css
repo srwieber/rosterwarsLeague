@@ -164,18 +164,35 @@
     padding:5px;
     border-radius:5px;
   }
-  form input.liteoption,
-  form input.mainoption {
-    padding:10px;
-    cursor:pointer;
-    border-radius:3px;
+
+  form .row2:has(input.mainoption){
+    display:flex;
+    flex-direction: column; 
+    align-items: center;
+    padding:5px 0;
   }
-  form input.liteoption:hover,
-  form input.mainoption:hover {
-    background:#777;
-    border-color:#000;
-  } 
-  
+  input.mainoption,
+  input.liteoption {
+    width:200px;
+    padding: 8px 20px;
+    font-size:125%;
+    text-transform:uppercase;
+    color:#000;
+    border: 3px solid #ddd;
+    border-radius: 12px;
+    transition: outline .1s;
+  }
+  input.mainoption {
+   background-color: #aa0;
+   outline: 0px solid #aa0;
+  }
+  input.mainoption:hover,
+  input.liteoption:hover {
+    background: #aa0;
+    border: 3px solid #ddd;
+    outline: 4px solid #aa0;
+  }
+
   .forumline {
     background:transparent;
   }
