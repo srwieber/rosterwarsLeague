@@ -457,14 +457,9 @@
   }
   .postbody .twitter-tweet {
     margin:auto;
-    min-height:603px;
   }
   
   .postbody dd.quote {
-/*
-    max-height:500px;
-    overflow-x:auto;
-*/
     padding:5px;
     border:0;
     border-left: 4px solid #444;
@@ -511,12 +506,6 @@
     border:1px solid #3c312f;
     border-radius:5px;
   }
-/*
-  .postcontainer .post .row1:first-of-type,
-  .postcontainer .post .row2:first-of-type {
-    width:0;
-  }
-*/
   .postcontainer .post .row1:first-of-type,
   .postcontainer .post .row2:first-of-type {
     width:17%;
@@ -571,6 +560,9 @@
     background:#eee;
     border: 1px solid #aaa;
     border-radius:3px;
+  }
+  .topic_pagination td.row1 a:has(img) {
+    display:none;
   }
   .topic_pagination td.row1 b {
     background:#aaa;
