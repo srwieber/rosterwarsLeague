@@ -1,12 +1,11 @@
-(function divisionWinners() {
+function divisionWinners() {
   $('table#standings').has('td#division00').addClass('dd');
   $('table#standings').has('td#division03').addClass('tt');
   $('.dd#standings tr:eq(2), .dd#standings tr:eq(8), .dd#standings tr:eq(14)').addClass('division_winner');
   $('.tt#standings tr:eq(2), .tt#standings tr:eq(8), .tt#standings tr:eq(14)').addClass('division_winner');
-})();
+}
 
-
-(function wildcardTeams() {
+function wildcardTeams() {
   // Function to find the two highest rows based on 'h2hpct' and 'pf'
   function findTwoHighestRows(selector) {
     var rows = [];
@@ -40,10 +39,9 @@
 
   // Find the two highest rows in '.tt#standings'
   findTwoHighestRows('.tt#standings');
-})();
+}
 
-
-(function allPlay() {
+function allPlay() {
   function allPlayForTable(tableSelector) {
     // Find the row in the specified table with the highest number in 'all_play_wlt'
     var highestValue = 0;
@@ -71,11 +69,21 @@
 
   // Call the function for '.tt#standings'
   allPlayForTable('.tt#standings');
-})();
+}
 
+function playoffTitles() {
+  let ifEnded = ' if the Season ended today';
+  if(completedWeek > 11){
+    ifEnded = '';
+  }
+  $('.division_winner').before('<tr class="division_title"><td colspan="15">Division Winner' + ifEnded + '</td></tr>')
+  $('.wildcard').before('<tr class="wildcard_title"><td colspan="15">Wildcard Team' + ifEnded + '</td></tr>')
+  $('.all-play').before('<tr class="all-play_title"><td colspan="15">All-Play Team' + ifEnded + '</td></tr>')
+}
 
-(function playoffTitles() {
-  $('.division_winner').before('<tr class="division_title"><td colspan="15">Division Winner</td></tr>')
-  $('.wildcard').before('<tr class="wildcard_title"><td colspan="15">Wildcard Team</td></tr>')
-  $('.all-play').before('<tr class="all-play_title"><td colspan="15">All-Play Team</td></tr>')
-})();
+if(completedWeek > 0){
+  divisionWinners()
+  wildcardTeams()
+  allPlay()
+  playoffTitles()
+}
