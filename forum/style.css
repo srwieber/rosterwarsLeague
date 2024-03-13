@@ -171,26 +171,30 @@
     align-items: center;
     padding:5px 0;
   }
-  input.mainoption,
-  input.liteoption {
-    width:200px;
+  .row2 input.mainoption,
+  .row2 input.liteoption {
+    width: 200px;
     padding: 8px 20px;
-    font-size:125%;
-    text-transform:uppercase;
-    color:#000;
-    border: 3px solid #ddd;
-    border-radius: 12px;
+    font-size: 125%;
+    text-transform: uppercase;
+    color: #000;
+    border: 3px solid #111;
+    border-radius: 2.5rem;
+    cursor:pointer;
     transition: outline .1s;
   }
-  input.mainoption {
-   background-color: #aa0;
-   outline: 0px solid #aa0;
+  .row2 input.mainoption {
+    background-color: #0a0;
   }
-  input.mainoption:hover,
-  input.liteoption:hover {
-    background: #aa0;
-    border: 3px solid #ddd;
-    outline: 4px solid #aa0;
+  .row2 input.mainoption:hover,
+  .row2 input.liteoption:hover {
+    background: #0a0;
+    border: 3px solid #111;
+    outline: 4px solid #0a0;
+  }
+  #info_open .row1 .gensmall,
+  #info_open .row2 .gensmall{
+    color:#db0;
   }
 
   .forumline {
@@ -555,8 +559,7 @@
   .topic_table tr td.catBottom {
     display:none;
   }
-  .topic_pagination, 
-  .topic_reply {
+  .topic_pagination {
     margin: 15px auto!important;
     padding:7px;
     background:rgba(0, 0, 0, 0.5);
@@ -585,6 +588,13 @@
   .topic_pagination td.row1 b {
     background:#aaa;
     color:#000;
+  }
+  .topic_reply td {
+    background: transparent;
+  }
+  .topic_reply form table {
+    width:100%;
+    padding:5px;
   }
   .topic_reply tr:first-of-type td td {
     background:transparent;
