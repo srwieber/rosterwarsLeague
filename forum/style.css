@@ -582,7 +582,7 @@
     border: 1px solid #aaa;
     border-radius:3px;
   }
-  .topic_pagination td.row1 a:has(img) {
+  .topic_pagination td.row1 a:not(:first-of-type):has(img) {
     display:none;
   }
   .topic_pagination td.row1 b {
