@@ -166,9 +166,6 @@
   }
 
   form .row2:has(input.mainoption){
-    display:flex;
-    flex-direction: column; 
-    align-items: center;
     padding:5px 0;
   }
   .row2 input.mainoption,
@@ -192,8 +189,8 @@
     border: 3px solid #111;
     outline: 4px solid #0a0;
   }
-  #info_open .row1 .gensmall,
-  #info_open .row2 .gensmall{
+  .noprint #info_open .row1 .gensmall,
+  .noprint #info_open .row2 .gensmall{
     color:#db0;
   }
 
@@ -1311,6 +1308,11 @@
     }
   }
   @media only screen and (max-width:450px){
+    body:not(.desktop_view) form .row2:has(input.mainoption) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     /* table layout */
     body:not(.desktop_view) .mainlist th:nth-of-type(2){
       width:auto;
