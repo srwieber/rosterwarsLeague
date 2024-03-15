@@ -168,6 +168,10 @@
   form .row2:has(input.mainoption){
     padding:5px 0;
   }
+  input.mainoption,
+  input.liteoption {
+    cursor:pointer;
+  }
   .row2 input.mainoption,
   .row2 input.liteoption {
     width: 200px;
@@ -177,7 +181,6 @@
     color: #000;
     border: 3px solid #111;
     border-radius: 2.5rem;
-    cursor:pointer;
     transition: outline .1s;
   }
   .row2 input.mainoption {
