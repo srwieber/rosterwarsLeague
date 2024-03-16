@@ -598,7 +598,12 @@
   }
   
   /* ======================= Page: Post Preview ============ */
-  .postpreview .signature_div {
+  .postpreview{
+    float:right;
+    max-width:965px;
+  }
+  .postpreview .signature_div,
+  .postpreview tr:has(.spaceRow) {
     display:none;
   }
   /* ======================= Page: Members ============ */
