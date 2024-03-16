@@ -904,6 +904,7 @@
 }
 .sig_content .videos_content {
     grid-template-columns: auto auto;
+    justify-content:center;
 }
 .sig_content .fa-solid {
     margin:auto;
