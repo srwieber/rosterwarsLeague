@@ -42,12 +42,49 @@ $( document ).ready(function() {
     if (adloop < 3 && topadlength < 1) {
       setTimeout(topad, 1000);
     }else if (adloop === 3 && topadlength < 1) {
-//      $('.forumline tr:first-of-type td:first-of-type table div div').closest('div').wrap('<span class="topad"></span>');
-//      $('.topad').closest('td div').prepend('<div><img class="responsive" src="' + rwAdBanner + '" /></div>');
-//      $('.topad').closest('.forumline').addClass('topadtable');
     }
   }
-  
+
+// edit search pages
+function editSearch(){
+	if( $('.search_table') ){
+		$('.search_table tr:first-of-type, .search_table tr:nth-of-type(2), .search_table tr:last-of-type').addClass('desktop');
+		$('.search_table tr:has(.row1)').each(function(){
+		    let rowCopy = $(this).clone();
+		    rowCopy.addClass('mobile');
+		    let newMobileRow = '<tr></tr>';
+		    $(this).before(newMobileRow, newMobileRow, newMobileRow, rowCopy)
+		    $(this).addClass('desktop')
+		});
+		$('.search_table .mobile').each(function(){
+		    $(this).prev('tr').prev('tr').prev('tr').addClass('spacer_row');
+		    let firstRow = $(this).prev('tr').prev('tr');
+		    $(firstRow).addClass('mobile');
+		    let secondRow = $(this).prev('tr');
+		    $(secondRow).addClass('mobile');
+		    let newPostCell = $(this).find('td:nth-of-type(1)');
+		    $(newPostCell).appendTo(firstRow);
+		    $(newPostCell).attr('rowspan', '3');
+		    let titleCell = $(this).find('td:nth-of-type(1)');
+		    $(titleCell).appendTo(firstRow);
+		    $(titleCell).attr('colspan', '1');
+		    let authorCell = $(this).find('td:nth-of-type(3)');
+		    $(authorCell).appendTo(firstRow);
+		    let sectionCell = $(this).find('td:nth-of-type(1)');
+		    $(sectionCell).appendTo(secondRow);
+		    let repliesCell = $(this).find('td:nth-of-type(1)');
+		    $(repliesCell).appendTo(secondRow);
+		    let viewsCell = $(this).find('td:nth-of-type(1)');
+		    let lastPostCell = $(this).find('td:nth-of-type(2)');
+		    $(lastPostCell).insertBefore(viewsCell);
+		    $(lastPostCell).attr('colspan', '1');
+		});
+		$('.search_table').prepend('<tr class="mobile"><th class="thCornerL" nowrap="nowrap">&nbsp;</th><th class="thTop" nowrap="nowrap">Topics<br>Search in<br>Last Post</th><th class="thTop" nowrap="nowrap">Author<br>Replies<br>Views</th></tr>');
+		$('.search_table').append('<tr class="mobile"><td class="catBottom" colspan="3" valign="middle" align="right"><a href="#top"><img class="sprite-arrow_subsilver_up" src="https://2img.net/i/empty.gif" alt="Back to top"></a></td></tr>');
+	}
+}
+editSearch();
+	
 // for smoother loading
   $('.mainlist, .topics_list').show();
 
@@ -57,11 +94,6 @@ $( document ).ready(function() {
   }
 	$('.mark_read_table td:first-of-type span').after('<br /><span id="desktop_view"><span></span> view</span>');
 	mobileView();
-  
-// MFL league info. not in use. 
-  var league_id = '38933';
-  var year = 2022;
-  var baseURLDynamic = 'https://www65.myfantasyleague.com';
 
 // memberlist
   $('.forumline').find('th:contains(Website)').closest('table').addClass('memberlist');
