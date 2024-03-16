@@ -597,6 +597,10 @@
     display:none;
   }
   
+  /* ======================= Page: Post Preview ============ */
+  .postpreview .signature_div {
+    display:none;
+  }
   /* ======================= Page: Members ============ */
   .memberlist th:nth-of-type(2), .memberlist td:nth-of-type(2) {
     width: 52px;
