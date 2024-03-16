@@ -555,6 +555,12 @@
   .topic_table tr td.catBottom {
     display:none;
   }
+/* remove poster list */
+  .forumline tr:has(.poster-list),
+  .forumline tr:has(.poster-list) + tr {
+    display:none;
+  }
+/* topic pagination */
   .topic_pagination {
     margin: 15px auto!important;
     padding:7px;
