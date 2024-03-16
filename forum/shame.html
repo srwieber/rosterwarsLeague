@@ -1,0 +1,53 @@
+<script>
+  const shame = [ 
+  "https://i.servimg.com/u/f39/15/70/85/29/pink2024.jpg",
+  "https://i.servimg.com/u/f39/15/70/85/29/pink2023.jpg",
+  "https://i.servimg.com/u/f39/15/70/85/29/pink2022.jpg",
+  "https://i.servimg.com/u/f39/15/70/85/29/pink2021.jpg",
+  "https://i.servimg.com/u/f39/15/70/85/29/pink2020.jpg",
+  "https://i.servimg.com/u/f39/15/70/85/29/pink2019.jpg",
+  "https://i.servimg.com/u/f39/15/70/85/29/pink2018.jpg",
+  "https://i.servimg.com/u/f39/15/70/85/29/pink2017.jpg" ];
+
+document.addEventListener('DOMContentLoaded', function() {
+  const shameDiv = document.getElementById("shame_images");
+  shame.forEach(image => {
+        const img = document.createElement('img');
+        img.src = image;
+        shameDiv.appendChild(img);
+  })
+});
+</script>
+<style>
+h1 {
+    font-size:300%;
+    text-align:center;
+    color:pink;
+    border: 3px dashed;
+    background:purple;
+    padding:1rem;
+}
+p {
+    margin:1rem;
+    margin-bottom:2.5rem;
+    padding:1rem;
+    color:white;
+    font-size: 150%;
+    text-align:justify;
+    background:rgb(255, 192, 203, 0.3);
+    border-radius: 10px;
+}
+#shame_images {
+    text-align:center;
+}
+#shame_images img{
+    max-width:100%;
+    padding:.5rem;
+}
+</style>
+
+<h1>Shame</h1>
+<p>From Day 1, a key aspect of Roster Wars has been enjoyment of putting SHAME on those deserving of it’s dishonor.  This is seen in various ways around the DOC from monetary fines for owner infractions which nobody enjoys all the way to this page, where everyone but the highlighted owner of the year can have a laugh at their expense.  The team that does the worst statistically in a given regular season based on record (lowest points if there is a tie) is turned PINK for the next calendar year throughout the RWDOC universe.  Besides the color change, the team name and logo is changed as well as any accenting work to round out the look.  
+</p><p>
+Why are the names so strange and how is the theme determined?  Well, the goal is to play off of the actual franchise name and/or the owner and to make it as funny as possible.  The RWDOC is not worried about being PC in this endeavor so if you’re viewing this page or any other page and your feelings are hurt, please let your mother know. ;)</p>
+<br /><div id="shame_images"></div>
