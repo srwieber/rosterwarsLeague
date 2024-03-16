@@ -906,6 +906,10 @@
     grid-template-columns: auto auto;
     justify-content:center;
 }
+.sig_content .shame_content {
+    background:#f9b29e;
+    border-color:#8548e3;
+}
 .sig_content .fa-solid {
     margin:auto;
     padding:10%;
