@@ -382,7 +382,42 @@
   table:not(.forumline) .gen a.mainmenu {
     display:none;
   }
-  /* ======================= Page: Topics List ============ */
+  /* ======================= Page: Search ============ */
+    .search_table .mobile td.row1:first-of-type {
+        border-radius:8px 0 0 8px;
+    }
+    .search_table .mobile td.row3:last-of-type {
+        border-radius: 0 8px 0 0;
+    }
+    .search_table .mobile:has(td.row3:last-of-type) + tr + tr td.row2:last-of-type{
+        border-radius: 0 0 8px 0;
+    }
+    .search_table .spacer_row {
+        height:1rem;
+    }
+    @media only screen and (min-width: 1200px) {
+      .search_table .spacer_row {
+          display:none;
+      }
+    }
+    .search_table .mobile th:first-of-type {
+        width:40px;
+    }
+    .search_table .mobile .row3 {
+        padding:0;
+        overflow:hidden;
+    }
+    @media only screen and (max-width: 1200px) {
+      .search_table .mobile th:nth-of-type(2) {
+        width:365px;
+      }
+    }
+    @media only screen and (max-width: 690px) {
+      .search_table .mobile th:nth-of-type(2) {
+        width:auto;
+      }
+    }
+/* ======================= Page: Topics List ============ */
   #topic_nav td {
     padding:5px;
   }
