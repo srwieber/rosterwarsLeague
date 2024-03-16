@@ -885,6 +885,12 @@
 .sig_content .videos_content {
     grid-template-columns: auto auto;
 }
+.sig_content .fa-solid {
+    margin:auto;
+    padding:10%;
+    font-size:500%;    
+    color:#a00;
+}
 
 /* Unused old sig buttons
   .sig {
