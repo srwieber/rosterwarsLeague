@@ -882,6 +882,9 @@
     display: none;
     border: 5px solid #222;
 }
+.sig_content .videos_content {
+    grid-template-columns: auto auto;
+}
 
 /* Unused old sig buttons
   .sig {
