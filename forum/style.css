@@ -5,10 +5,6 @@
     --third-color: #aaa;
     --main-bgcolor: #f00;
     --secondary-bgcolor: rgba(120, 120, 120, 0.5);
-    --team-one-primary-color: #dac684;
-    --team-one-secondary-color: #00000d;
-    --team-two-primary-color: #005200;
-    --team-two-secondary-color: #080;
 /*    overflow-y: scroll !important;*/
   }
   
@@ -589,21 +585,16 @@
     background:#aaa;
     color:#000;
   }
-  .topic_reply td {
+
+  .forumline.noprint:has(#quick_reply) tr:first-child td {
     background: transparent;
   }
-  .topic_reply form table {
-    width:100%;
-    padding:5px;
+  .forumline.noprint:has(#quick_reply) tr:first-child form table {
+    width: 100%;
+    padding: 5px;
   }
-  .topic_reply tr:first-of-type td td {
-    background:transparent;
-  }
-  .topic_reply td {
-    border:0;
-  }
-  .topic_reply form {
-    padding-top:10px!important;
+  #quick_reply table td.row2 br{
+    display:none;
   }
   
   /* ======================= Page: Members ============ */
