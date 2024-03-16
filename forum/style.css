@@ -1112,7 +1112,7 @@
     }
     body:not(.desktop_view) .topictitle img, 
     body:not(.desktop_view) .postdetails a img {
-      width:30px;
+/*      width:30px;*/
       padding-right:5px;
     }
     body:not(.desktop_view) .topic_table .postdetails {
