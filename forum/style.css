@@ -562,6 +562,10 @@
     border:1px solid #333!important;
     border-radius:10px!important;
   }
+  .topic_pagination tr:first-of-type td {
+    padding:1.1rem;
+    border-bottom:1px solid #000;
+  }
   .topic_pagination td.row2 {
     width:0!important;
   }
