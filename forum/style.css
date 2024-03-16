@@ -833,15 +833,6 @@
 
 
   /* ======================= Add on: Sig Buttons ============ */
-/*
-.forumline {
-    max-width:1176px;
-}
-.signature_div {
-    width:1174px;
-}
-*/
-
 .sig_buttons {
     display:flex;
     width:1165px;
@@ -861,6 +852,17 @@
     transform: skew(-35deg);
     cursor:pointer;
 }
+/* responsive test */
+.sig_buttons {
+    width: calc(100% - 8px);
+    margin-top: -2.5%;
+    margin-bottom: .2rem;
+}
+.sig_buttons div {
+    padding: 1.12% 0;
+}
+
+
 .sig_buttons div:first-child{
     margin-left:-9px;
     padding-left:9px;
@@ -891,124 +893,6 @@
     font-size:500%;    
     color:#a00;
 }
-
-/* Unused old sig buttons
-  .sig {
-    position:absolute;
-    margin-top:-200px;
-    width:1174px;
-    height:203px;
-    font-size:12px;
-    color:#fff;
-    cursor:default;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  .sig a {
-    color:#fff;
-  }
-  .sig td {
-    vertical-align:bottom;
-  }
-  .sig ul {
-    margin:0;
-  }
-  .sig li {
-    margin-left:-25px;
-  }
-  
-  .sig .report_container {
-    width:300px;
-    font-size:10px;
-    line-height:12px;
-  }
-  .sig .sig_report {
-    overflow-y:auto;
-    max-height:192px;
-    margin-top:-3px;
-    padding:2px;
-    background:#444;
-    border:2px solid #aaa;
-  }
-  .sig td:nth-of-type(3) {
-    width:0;
-    padding-right:3px;
-  }
-  .sig .record_icon span {
-    cursor:pointer;
-    margin-bottom:2px;
-  }
-  .sig .score_icon span {
-    cursor:pointer;
-    margin-bottom:2px;
-  }
-  .sig .tradebait_icon span {
-    cursor:pointer;
-    margin-bottom:5px;
-  }
-  
-  .sig span.btn {
-    display:block;
-    text-align:center;
-    width:30px;
-  }
-  .sig .btn-primary {
-    padding: 6px 0px;
-    background-color: #444;
-    text-shadow: 0 1px 0 rgb(0, 0, 0, 0.2);
-    border:1px solid #222;
-    border-radius:4px;
-  }
-  .sig .btn-primary:hover {
-    background-color: #222;
-    border-color:#444;
-  }
-  
-  .sig .sig_report {
-    display:none;
-  }
-  .sig .sig_report::-webkit-scrollbar {
-    width: 8px;
-  }
-  .sig .sig_report::-webkit-scrollbar-track {
-    background: #aaa;
-    border-radius: 12px;
-    box-shadow: inset 0 0 5px grey;
-  }
-  .sig .sig_report::-webkit-scrollbar-thumb {
-    background: #0a0;
-    border-radius: 12px;
-  }
-  .sig .sig_report::-webkit-scrollbar-thumb:hover {
-    background: #0f0;
-  }
-*/  
-
-/* unused user specific sigs 
-  .u1 .sig .sig_report, 
-  .u1 .sig .btn-primary {
-    color: var(--team-one-secondary-color);
-    background: var(--team-one-primary-color);
-    border-color: var(--team-one-secondary-color);
-  }
-  .u1 .sig .sig_report a {
-    color: var(--team-one-secondary-color);
-  }
-  .u1 .sig .sig_report hr {
-    border-color: var(--team-one-secondary-color);
-  }
-  .u1 .sig .sig_report::-webkit-scrollbar-thumb, 
-  .u1 .sig .btn-primary:hover  {
-    color: var(--team-one-primary-color);
-    background: var(--team-one-secondary-color);
-    border-color: var(--team-one-primary-color);
-  }
-  .u1 .sig .sig_report::-webkit-scrollbar-thumb:hover {
-    background: var(--team-one-secondary-color);
-  }
-*/
 
 /* ======================= desktop design ============ */
   @media only screen and (min-width:1200px){
