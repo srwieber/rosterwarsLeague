@@ -900,6 +900,7 @@
 /* sig content*/
 .sig_content div {
     display: none;
+    gap:1rem;
     border: 5px solid #222;
 }
 
