@@ -343,6 +343,10 @@
   #right td td.row1 {
     padding: 2px 3px;
   }
+  #left table a,
+  #right table a{
+    word-break:normal;
+  }
 
 
   /* column toggles */
@@ -1211,7 +1215,6 @@
     }
     body:not(.desktop_view) .topictitle img, 
     body:not(.desktop_view) .postdetails a img {
-/*      width:30px;*/
       padding-right:5px;
     }
     body:not(.desktop_view) .topic_table .postdetails {
@@ -1280,6 +1283,7 @@
   
   }
 
+/* mobile view below 800px */
   @media only screen and (max-width:800px){
     body:not(.desktop_view) .nav img{
       max-width:200px;
@@ -1295,7 +1299,6 @@
       max-width:75px;
       max-height:75px;
     }
-/*    .nav a::after, */
     body:not(.desktop_view) .post-options a::after {
       content: "\A";
       white-space: pre;
@@ -1303,7 +1306,43 @@
     body:not(.desktop_view) input.post {
       max-width:96%!important;
     }
+
+    /* break down top nav table */
+    body:not(.desktop_view) table table table:has(.nav) td{
+        display:block;
+        text-align:center;
+    }
+    body:not(.desktop_view) table table table:has(.nav) td:first-of-type img{
+        max-width:100%;
+        padding: 0 0.5rem;
+    }
+    body:not(.desktop_view) table table table td:has(.nav) span.nav{
+        font-size:0;
+    }
+    body:not(.desktop_view) table table table:has(.nav) td:last-of-type,
+    body:not(.desktop_view) table table table td:has(.nav) span.nav a.nav:first-of-type span,
+    body:not(.desktop_view) table table table td:has(.nav) span.nav a.nav:nth-of-type(2) span,
+    body:not(.desktop_view) table table table td:has(.nav) span.nav a.nav:last-of-type span {
+        display:block;
+        padding:0.5rem 0;
+        font-size:12pt;
+        border:1px solid #333;
+        border-radius:5px;
+        background:#222;
+    }
+    body:not(.desktop_view) table table table:has(.nav) td:last-of-type,
+    body:not(.desktop_view) table table table td:has(.nav) span.nav a.nav:first-of-type span{
+        margin-top:0.5rem;
+    }
+    body:not(.desktop_view) table table table td:has(.nav) span.nav a.nav:nth-of-type(2) span{
+        margin:0.5rem 0;
+    }
+    body:not(.desktop_view) table table table td:has(.nav) span.nav a.nav:last-of-type span img{
+        max-width:100%;
+    }
   }
+
+/* mobile view below 450px */
   @media only screen and (max-width:450px){
     body:not(.desktop_view) form .row2:has(input.mainoption) {
         display: flex;
@@ -1339,6 +1378,8 @@
       height:auto!important;
     }
   }
+
+/* mobile view below 325px */
   @media only screen and (max-width:325px){
     /* hiding mobile stuff. fix this later */
     /* table layout */
@@ -1348,7 +1389,7 @@
     }
   }
 
-
+/* custom column toggle*/
   #column_toggle {display:none;}
   @media only screen and (min-width:990.01px){
     body:not(.desktop_view).homepage #left, body:not(.desktop_view).homepage #right {display:block;}
@@ -1365,9 +1406,4 @@
     body:not(.desktop_view).homepage #left, body:not(.desktop_view).homepage #right {display:none;}
     body:not(.desktop_view).homepage #wide_column_toggle {display:none;}
     body:not(.desktop_view).homepage #column_toggle {display:flex;}
-  }
-
-  #left table a,
-  #right table a{
-    word-break:normal;
   }
