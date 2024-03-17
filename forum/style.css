@@ -1362,6 +1362,19 @@
     }
   }
 
+/* mobile view below 652px */
+    @media only screen and (max-width:652px){
+        body:not(.desktop_view) .topic_pagination .pagination .gensmall {
+            margin-top:1.5rem;
+            display:flex;
+            flex-wrap: wrap;
+        }
+        body:not(.desktop_view) .topic_pagination .pagination a:first-of-type {
+            position:absolute;
+            margin-top:-2rem;
+        }
+    }
+
 /* mobile view below 450px */
   @media only screen and (max-width:450px){
     body:not(.desktop_view) form .row2:has(input.mainoption) {
