@@ -510,7 +510,10 @@
   .postbody .twitter-tweet {
     margin:auto;
   }
-  
+  .postbody .twitter-tweet {
+    border: 0.3rem solid #1d9bf0;
+    border-radius:1rem;
+  }  
   .postbody dd.quote {
     padding:5px;
     border:0;
