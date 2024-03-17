@@ -1407,3 +1407,29 @@
     body:not(.desktop_view).homepage #wide_column_toggle {display:none;}
     body:not(.desktop_view).homepage #column_toggle {display:flex;}
   }
+
+/* Dark Mode */
+.dark .postcontainer > td > table {
+    background:#000;
+}
+.dark .postcontainer table table,
+.dark .forumline .row1,
+.dark .forumline .row2,
+.dark .post td {
+    background: #222;
+}
+.dark .forumline .quote{
+    background: #444;    
+}
+.dark .forumline dd.quote dd.quote{
+    background: #5f5f5f;    
+}
+.dark .postcontainer .postdetails,
+.dark .forumline td span,
+.dark .forumline .quote, 
+.dark .post td .postbody{
+    color:#eee;
+}
+.dark .postcontainer .postdetails .label span{
+    color:#eee!important;
+}
