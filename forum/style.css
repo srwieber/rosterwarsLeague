@@ -614,8 +614,10 @@
     padding:1.1rem;
     border-bottom:1px solid #000;
   }
-  .topic_pagination td.row2 {
-    width:0!important;
+  .topic_pagination tr:has(.row1) td.row2 {
+    font-size:8pt;
+    width:5rem;
+    padding: 1.5rem 0 0 0.5rem!important;
   }
   .topic_pagination td.row2 span{
     white-space:nowrap;
@@ -922,16 +924,6 @@
 
     padding: 1.12% 0;
 }
-/* responsive test. testing above. 
-.sig_buttons {
-    width: calc(100% - 8px);
-    margin-top: -2.5%;
-    margin-bottom: .2rem;
-}
-.sig_buttons div {
-    padding: 1.12% 0;
-}
- */
 
 .sig_buttons div:first-child{
     margin-left:-9px;
@@ -1315,9 +1307,6 @@
     body:not(.desktop_view) table table table:has(.nav) td:first-of-type img{
         max-width:100%;
         padding: 0 0.5rem;
-    }
-    body:not(.desktop_view) table table table td:has(.nav) span.nav{
-        font-size:0;
     }
     body:not(.desktop_view) table table table:has(.nav) td:last-of-type,
     body:not(.desktop_view) table table table td:has(.nav) span.nav a.nav:first-of-type span,
