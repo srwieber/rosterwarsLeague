@@ -140,7 +140,9 @@ editSearch();
     }
   }
   $('table:not(.forumline) .gen a.mainmenu').show();
-    
+
+  // twitter 
+  $('.twitter-tweet iframe').attr('loading', 'lazy');
 });
 
 $(document).on('click','#desktop_view',function() {
