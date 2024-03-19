@@ -598,8 +598,7 @@
     display:none;
   }
 /* remove poster list */
-  .forumline tr:has(.poster-list),
-  .forumline tr:has(.poster-list) + tr {
+  .forumline tr:has(.poster-list) {
     display:none;
   }
 /* topic pagination */
@@ -1300,25 +1299,31 @@
     }
 
     /* break down top nav table */
+    body:not(.desktop_view) #topic_nav td,
     body:not(.desktop_view) .three-col table:has(td.nav span.nav a.nav span) td {
         display: block;
+        padding:0;
         text-align: center;
     }
 
+    body:not(.desktop_view) #topic_nav tr:last-of-type td:first-of-type img,
     body:not(.desktop_view) .three-col table:has(td.nav span.nav a.nav span) td:first-of-type img {
         max-width: 100%;
-        padding: 0 0.5rem;
     }
 
+    body:not(.desktop_view) #topic_nav div.nav,
     body:not(.desktop_view) .three-col table:has(td.nav span.nav a.nav span) span.nav {
         font-size: 0;
     }
 
+    body:not(.desktop_view) #topic_nav td a.nav,
+    body:not(.desktop_view) #topic_nav tr:last-of-type td:last-of-type,
     body:not(.desktop_view) .three-col table:has(td.nav span.nav a.nav span) td:last-of-type, 
     body:not(.desktop_view) .three-col table:has(td.nav span.nav a.nav span) span.nav a.nav:first-of-type span, 
     body:not(.desktop_view) .three-col table:has(td.nav span.nav a.nav span) span.nav a.nav:nth-of-type(2) span, 
     body:not(.desktop_view) .three-col table:has(td.nav span.nav a.nav span) span.nav a.nav:last-of-type span {
         display: block;
+        margin-right:0.25rem;
         padding: 0.5rem 0;
         font-size: 12pt;
         border: 1px solid #333;
@@ -1360,6 +1365,9 @@
         border-radius: 5px;
         background: #222;
     }
+    body:not(.desktop_view) .three-col table #info_open table a.nav img {
+        max-width: 100%;
+    }
   }
 
 /* mobile view below 652px */
@@ -1368,6 +1376,7 @@
             margin-top:1.5rem;
             display:flex;
             flex-wrap: wrap;
+            justify-content: right;
         }
         body:not(.desktop_view) .topic_pagination .pagination a:first-of-type {
             position:absolute;
