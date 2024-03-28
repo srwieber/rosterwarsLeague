@@ -504,6 +504,7 @@
   }
   
   .postbody {
+    max-width:960px;
     min-height:288px;
     padding-bottom:25px;
     overflow-x:auto;
@@ -519,6 +520,8 @@
     border-radius:1rem;
   }  
   .postbody dd.quote {
+    max-width:848px;
+    overflow-x:auto;
     padding:5px;
     border:0;
     border-left: 4px solid #444;
@@ -1323,9 +1326,11 @@
     body:not(.desktop_view) .three-col table:has(td.nav span.nav a.nav span) span.nav a.nav:nth-of-type(2) span, 
     body:not(.desktop_view) .three-col table:has(td.nav span.nav a.nav span) span.nav a.nav:last-of-type span {
         display: block;
+        margin-top:0.5rem;
         margin-right:0.25rem;
-        padding: 0.5rem 0;
+        padding: 0.5rem;
         font-size: 12pt;
+        text-align:left;
         border: 1px solid #333;
         border-radius: 5px;
         background: #222;
@@ -1358,9 +1363,8 @@
     body:not(.desktop_view) .three-col table #info_open table a.nav, 
     body:not(.desktop_view) .three-col table #info_close table a.nav {
         display: block;
-        padding: 0.5rem 0;
+        padding: 0.5rem;
         font-size: 12pt;
-        text-align:center;
         border: 1px solid #333;
         border-radius: 5px;
         background: #222;
