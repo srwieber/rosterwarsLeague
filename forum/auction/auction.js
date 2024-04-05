@@ -2,8 +2,8 @@ function auctionBoard(){
   const isAuction = $('#topic_nav img[alt~="RFA"]');
   if(isAuction.length === 1){
     $('body').addClass('auction');
-    let numberOfAuctions = $('.forumline a.topictitle').length / 2 -1;
-    let numberOfClosedAuctions = $('.forumline a.topictitle:has(span)').length / 2;
+    let numberOfAuctions = $('.forumline .desktop a.topictitle').length -1;
+    let numberOfClosedAuctions = $('.forumline .desktop a.topictitle:has(span)').length;
     let numberOfOpenAuctions = numberOfAuctions - numberOfClosedAuctions;
     $('table#topic_nav').before('<div id="auction_title">Welcome to the Auction!</div>');
     $('#auction_title').after('<div id="auction_info">There are ' + numberOfOpenAuctions + ' auctions open</div>');
@@ -14,7 +14,7 @@ function auctionBoard(){
 auctionBoard();
 
 function elapsedAuction(){
-$('.forumline tr.desktop').each(function(index) {
+  $('.forumline tr.desktop').each(function(index) {
     let postDetails = $(this).find('.postdetails').text();
     let lockedTopic = $(this).find('img[title*="This topic is locked"]').length > 0; // Check if the row contains a locked topic image
     
@@ -58,22 +58,22 @@ $('.forumline tr.desktop').each(function(index) {
             // Round the elapsed time to two decimal places
             timeDifferenceInHours = parseFloat(timeDifferenceInHours.toFixed(2));
 
-            // Log the elapsed time
-            console.log('Elapsed time:', timeDifferenceInHours, 'hours');
-
             // Add class based on elapsed time
             if (timeDifferenceInHours >= 23 && timeDifferenceInHours < 24) {
                 $(this).addClass('warning');
+                $(this).next('.mobile.toprow').addClass('warning');
+                $(this).next('.mobile.bottomrow').addClass('warning');
             } else if (timeDifferenceInHours >= 24) {
                 $(this).addClass('auction_over');
+                $(this).next('.mobile.toprow').addClass('auction_over').next('.mobile.bottomrow').addClass('auction_over');
             }
         } else {
             // If no time match is found, mark the row as "auction_over"
             $(this).addClass('auction_over');
+            $(this).next('.mobile.toprow').addClass('auction_over').next('.mobile.bottomrow').addClass('auction_over');
         }
     }
-});
-
+  });
 }
 
 function findMyNominations(){
