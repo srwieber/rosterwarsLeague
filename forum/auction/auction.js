@@ -1,3 +1,18 @@
+function auctionBoard(){
+  const isAuction = $('#topic_nav img[alt~="RFA"]');
+  if(isAuction.length === 1){
+    $('body').addClass('auction');
+    let numberOfAuctions = $('.forumline a.topictitle').length / 2 -1;
+    let numberOfClosedAuctions = $('.forumline a.topictitle:has(span)').length / 2;
+    let numberOfOpenAuctions = numberOfAuctions - numberOfClosedAuctions;
+    $('table#topic_nav').before('<div id="auction_title">Welcome to the Auction!</div>');
+    $('#auction_title').after('<div id="auction_info">There are ' + numberOfOpenAuctions + ' auctions open</div>');
+    elapsedAuction();
+    findMyNominations();
+  }
+}
+auctionBoard();
+
 function elapsedAuction(){
 $('.forumline tr.desktop, .forumline tr.mobile.bottomrow').each(function(index) {
     let postDetails = $(this).find('.postdetails').text();
