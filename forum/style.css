@@ -1000,6 +1000,49 @@
     color:#a00;
 }
 
+/* highlight tab with no content */
+.sig_buttons div[data-sig="inactive"] {
+    opacity:0.7;
+    background-image: linear-gradient(to right, #000, #777 15%, #777 85%, #000);
+}
+
+/* ======================= Add on: Auction Board ============ */
+#auction_info {
+    width: 90%;
+    margin: 1rem auto;
+    padding: 1rem;
+    text-align: center;
+    color: #fff;
+    background: transparent;
+    background-image: linear-gradient(to right, transparent, #000, transparent);
+    border: 3px solid #444;
+    border-image: linear-gradient(to right, transparent, #c00, transparent) 100% 1;
+}
+.auction .my_nominations_0 {
+    color:#a00;
+    font-size:200%;
+}
+.auction .high_bidder td{
+    background:#aa9;
+}
+.auction .warning td{
+    background:#a00;
+}
+.auction .warning td a.topictitle,
+.auction .warning td span.postdetails {
+    color: #eee;
+}
+.auction .auction_over td{
+    background:#222!important;
+}
+.auction .auction_over td span.postdetails{
+    color:#aaa;
+}
+.auction .my_nomination td {
+    background:#cc3;
+}
+
+
 /* ======================= desktop design ============ */
   @media only screen and (min-width:1200px){
     .desktop {
