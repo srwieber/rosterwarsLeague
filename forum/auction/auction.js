@@ -1,17 +1,14 @@
 function auctionBoard(){
-  const isAuction = $('#topic_nav img[alt~="RFA"]');
+  const isAuction = $('#topic_nav img[alt~="RFA_Auction"]');
   if(isAuction.length === 1){
     $('body').addClass('auction');
-    let numberOfAuctions = $('.forumline .desktop a.topictitle').length -1;
-    let numberOfClosedAuctions = $('.forumline .desktop a.topictitle:has(span)').length;
-    let numberOfOpenAuctions = numberOfAuctions - numberOfClosedAuctions;
-    $('table#topic_nav').before('<div id="auction_title">Welcome to the Auction!</div>');
-    $('#auction_title').after('<div id="auction_info">There are ' + numberOfOpenAuctions + ' auctions open</div>');
     elapsedAuction();
     findMyNominations();
   }
 }
-auctionBoard();
+$( document ).ready(function() {
+    auctionBoard();
+});
 
 function elapsedAuction(){
   $('.forumline tr.desktop').each(function(index) {
@@ -60,24 +57,27 @@ function elapsedAuction(){
 
             // Add class based on elapsed time
             if (timeDifferenceInHours >= 23 && timeDifferenceInHours < 24) {
-                $(this).addClass('warning');
-                $(this).next('.mobile.toprow').addClass('warning');
-                $(this).next('.mobile.bottomrow').addClass('warning');
+                $(this).addClass('warning').next('.mobile.toprow').addClass('warning').next('.mobile.bottomrow').addClass('warning');
             } else if (timeDifferenceInHours >= 24) {
-                $(this).addClass('auction_over');
-                $(this).next('.mobile.toprow').addClass('auction_over').next('.mobile.bottomrow').addClass('auction_over');
+                $(this).addClass('auction_over').next('.mobile.toprow').addClass('auction_over').next('.mobile.bottomrow').addClass('auction_over');
             }
         } else {
             // If no time match is found, mark the row as "auction_over"
-            $(this).addClass('auction_over');
-            $(this).next('.mobile.toprow').addClass('auction_over').next('.mobile.bottomrow').addClass('auction_over');
+            $(this).addClass('auction_over').next('.mobile.toprow').addClass('auction_over').next('.mobile.bottomrow').addClass('auction_over');
         }
     }
   });
 }
 
 function findMyNominations(){
-    $('.forumline .desktop:not(.warning, .auction_over) td:nth-child(5):contains("' + _userdata["username"] + '")').closest('tr').addClass('my_nomination');
-    let myNumOfNominations = $('.my_nomination').length;
-    $('#auction_info').append('<br />You have ' + myNumOfNominations + ' nominations on the board');
+    $('.forumline .desktop:not(.auction_over) td:nth-child(5):contains("' + _userdata["username"] + '")').closest('tr').addClass('my_nomination').next('.mobile.toprow').addClass('my_nomination').next('.mobile.bottomrow').addClass('my_nomination');
+    $('.forumline .desktop:not(.auction_over) td:nth-child(6):contains("' + _userdata["username"] + '")').closest('tr').addClass('high_bidder').next('.mobile.toprow').addClass('high_bidder').next('.mobile.bottomrow').addClass('high_bidder');    const myNumOfNominations = $('.desktop.my_nomination').length;
+    const numberOfAuctions = $('.forumline .desktop a.topictitle').length - 1;
+    const numberOfClosedAuctions = $('.forumline .desktop.auction_over').length;
+    const numberOfOpenAuctions = numberOfAuctions - numberOfClosedAuctions;
+    $('table#topic_nav').before('<div id="auction_info">There are ' + numberOfOpenAuctions + ' auctions open</div>');
+    const myAuctionBoard = $('.auction #info_open:contains("You can post new topics")').length;
+    if(myAuctionBoard > 0){
+        $('#auction_info').append('<br />You have <span class="my_nominations_' + myNumOfNominations +'">' + myNumOfNominations + '</span> nominations on the board');
+    }
 }
