@@ -682,6 +682,9 @@ $(document).ready(function () {
   let nextPageLink = $('.topic_pagination td.row1 b').next().attr('href');
   let morepages = '<tr><td class="row2 nextpage_url" colspan="2" style="text-align:center;"><a href="' + nextPageLink + '" style="padding:5px;font-size:150%;text-decoration:none;">Next Page <i class="fa-solid fa-angles-right fa-beat-fade" style="--fa-beat-fade-opacity: 0.67; --fa-beat-fade-scale: 1.075;"></i></a></td></tr>';
   if (thispagenum < lastpagenum) {$('.topic_pagination tr:first-of-type').before(morepages);}  
+
+  // search for missing images and highlight the tab
+    emptySigSearch();
 });
 
 
@@ -761,4 +764,20 @@ function getSigImageUrls(poster, clickedSigElement){
   }else{
     return [];
   }
+}
+
+function emptySigSearch(){
+    $('.postcontainer').each(function(){
+        let whosPost = $(this).find('.post .name strong a').attr('href');
+        if(whosPost != undefined){
+            whosPost = whosPost.replace("/", "");
+        } 
+        $(this).find('.sig_buttons div').each(function(){
+            let whichSigDiv = $(this).attr('class');
+            let noImage = sigContentImages[whosPost][whichSigDiv].indexOf('x');
+            if(noImage === 0){
+                $(this).attr('data-sig', 'inactive');
+            }
+        });
+    });
 }
