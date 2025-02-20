@@ -1,0 +1,152 @@
+  <h1>Retirees</h1>
+  <p>These notable players have retired from the Roster Wars Main fantasy football league and have earned a player card.  Their play has undoubtedly brought joy and misery to our owners over the years and we want to acknowledge them forever.</p>
+  <div id="yearly_cards"></div>
+
+  <script>
+  // Define class data
+  const classData = {
+    "2025": {
+      message: "2025 Class Message",
+      cardFront: [  
+        "https://i.servimg.com/u/f39/15/70/85/29/1_hyde10.jpg",
+        "https://i.servimg.com/u/f39/15/70/85/29/2_cros10.jpg",
+        "https://i.servimg.com/u/f39/15/70/85/29/pink2033.jpg"
+      ],
+      cardBack: [  
+        "https://i.servimg.com/u/f39/15/70/85/29/1_hyde11.jpg",
+        "https://i.servimg.com/u/f39/15/70/85/29/2_cros11.jpg",
+        "https://i.servimg.com/u/f39/15/70/85/29/pink2032.jpg"
+      ]
+    },
+    "2024": {
+      message: "2024 Class Message",
+      cardFront: [  
+        "https://i.servimg.com/u/f39/15/70/85/29/pink2025.jpg",
+        "https://i.servimg.com/u/f39/15/70/85/29/pink2026.jpg",
+        "https://i.servimg.com/u/f39/15/70/85/29/pink2027.jpg"
+      ],
+      cardBack: [  
+        "https://i.servimg.com/u/f39/15/70/85/29/pink2028.jpg",
+        "https://i.servimg.com/u/f39/15/70/85/29/pink2030.jpg",
+        "https://i.servimg.com/u/f39/15/70/85/29/pink2027.jpg"
+      ]
+    }
+  };
+
+  $(document).ready(function() {
+    const container = $("#yearly_cards");
+    
+    // Sort the years in descending order (most recent first)
+    const years = Object.keys(classData).sort((a, b) => b - a);
+    
+    years.forEach(year => {
+      const data = classData[year];
+      const section = $("<div>").addClass("year-section");
+      
+      // Add the year message
+      const messagePara = $("<p>").addClass("year-message").text(data.message);
+      section.append(messagePara);
+
+      // Create a responsive container for cards
+      const cardsContainer = $("<div>").addClass("cards-container");
+
+      data.cardFront.forEach((frontSrc, index) => {
+        const cardContainer = $("<div>").addClass("card-container");
+        const card = $("<div>").addClass("card").data("card-index", index);
+
+        // Build front face
+        const frontFace = $("<div>").addClass("card-face front");
+        const frontImg = $("<img>")
+          .attr("src", frontSrc)
+          .attr("alt", `${year} Card Front ${index + 1}`);
+        frontFace.append(frontImg);
+
+        // Build back face
+        const backFace = $("<div>").addClass("card-face back");
+        const backImg = $("<img>")
+          .attr("src", data.cardBack[index])
+          .attr("alt", `${year} Card Back ${index + 1}`);
+        backFace.append(backImg);
+
+        card.append(frontFace, backFace);
+        cardContainer.append(card);
+        cardsContainer.append(cardContainer);
+
+        // Set card dimensions using natural dimensions
+        function setCardDimensions() {
+          const img = frontImg[0];
+          const width = img.naturalWidth;
+          const height = img.naturalHeight;
+          if(width && height) {
+            card.css({ width, height });
+          }
+        }
+
+        if (frontImg[0].complete) {
+          setCardDimensions();
+        } else {
+          frontImg.on("load", setCardDimensions);
+        }
+      });
+      
+      section.append(cardsContainer);
+      container.append(section);
+    });
+
+    // Toggle flip on card click
+    $("#yearly_cards").on("click", ".card", function() {
+      $(this).toggleClass("flipped");
+    });
+  });
+  </script>
+
+  <style>
+    .year-section {
+      margin-bottom: 40px;
+    }
+    .year-message {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .card-container {
+      perspective: 1000px;
+      display: inline-block;
+    }
+    /* Card is relative so that faces overlap */
+    .card {
+      position: relative;
+      display: inline-block;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+      cursor: pointer;
+    }
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+    /* Both faces cover the entire card */
+    .card-face {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+    }
+    .card-face img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .card-face.front {
+      z-index: 2;
+    }
+    .card-face.back {
+      transform: rotateY(180deg);
+    }
+  </style>
